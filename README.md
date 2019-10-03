@@ -1,5 +1,4 @@
 # Seven Wonders
--
 Group Members (Group 1E)
 -
 * Tuana Türkmen - 21703851
