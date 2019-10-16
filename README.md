@@ -9,5 +9,7 @@ Group Members (Group 1E)
 * Ayşegül Gökçe - 21602330
 * Fırat Yönak - 21601931
 
-[Meeting Log](https://docs.google.com/document/d/1ziObZdRn1ar_K1O9Tc9hYPRXSpzuR-ItwNa2hwK8HiQ/edit?usp=sharing)<br />
-[Project Analysis Report](https://docs.google.com/document/d/1G4g6n7Kj6Hyl6NWZf4iboLlS-c203YiFOZcjrabc9J8/edit?usp=sharing)
+Project Documents
+-
+* [Meeting Log](https://docs.google.com/document/d/1ziObZdRn1ar_K1O9Tc9hYPRXSpzuR-ItwNa2hwK8HiQ/edit?usp=sharing)<br />
+* [Project Analysis Report](https://docs.google.com/document/d/1G4g6n7Kj6Hyl6NWZf4iboLlS-c203YiFOZcjrabc9J8/edit?usp=sharing)
