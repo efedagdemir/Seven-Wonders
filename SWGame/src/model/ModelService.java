@@ -5,7 +5,7 @@ public class ModelService {
     Card xyz;
 
     private ModelService(){}
-
+    Card sezo;
     public static ModelService getInstance() {
         if(modelService == null){
             modelService = new ModelService();
