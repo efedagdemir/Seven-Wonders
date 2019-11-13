@@ -1,12 +1,12 @@
 package model;
 
 public class ModelService {
-    ModelService modelService;
+    private static ModelService modelService;
     Card xyz;
 
     private ModelService(){}
 
-    public ModelService getInstance(){
+    public static ModelService getInstance() {
         if(modelService == null){
             modelService = new ModelService();
         }

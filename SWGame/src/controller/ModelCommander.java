@@ -2,11 +2,11 @@ package controller;
 
 /* A singleton controller class which is responsible for the initiation */
 class ModelCommander {
-    ModelCommander modelCommander;
+    private static ModelCommander modelCommander;
 
     private ModelCommander(){}
 
-    ModelCommander getInstance(){
+    static ModelCommander getInstance() {
         if(modelCommander == null){
             modelCommander = new ModelCommander();
         }

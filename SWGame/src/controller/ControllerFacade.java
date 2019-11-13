@@ -1,11 +1,11 @@
 package controller;
 
 public class ControllerFacade {
-    ControllerFacade controllerFacade;
+    private static ControllerFacade controllerFacade;
 
     private ControllerFacade(){}
 
-    public ControllerFacade getInstance(){
+    public static ControllerFacade getInstance() {
         if(controllerFacade == null){
             controllerFacade = new ControllerFacade();
         }

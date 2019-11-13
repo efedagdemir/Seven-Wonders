@@ -1,5 +1,8 @@
+import controller.ControllerFacade;
+
 public class SevenWonders {
     public static void main(String[] args){
-        System.out.println("");
+        ControllerFacade controller = ControllerFacade.getInstance();
+        System.out.println();
     }
 }

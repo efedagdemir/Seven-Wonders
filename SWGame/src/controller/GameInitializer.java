@@ -4,11 +4,11 @@ import java.util.List;
 
 /* A singleton controller class which is responsible for the initialization of the game */
 class GameInitializer {
-    GameInitializer gameInitializer;
+    private static GameInitializer gameInitializer;
 
     private GameInitializer(){}
 
-    GameInitializer getInstance(){
+    static GameInitializer getInstance() {
         if(gameInitializer == null){
             gameInitializer = new GameInitializer();
         }

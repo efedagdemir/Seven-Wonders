@@ -2,11 +2,11 @@ package controller;
 
 /* A singleton controller class which is responsible for the progression of the game */
 class ProgressManager {
-    ProgressManager progressManager;
+    private static ProgressManager progressManager;
 
     private ProgressManager(){}
 
-    ProgressManager getInstance(){
+    static ProgressManager getInstance() {
         if(progressManager == null){
             progressManager = new ProgressManager();
         }
