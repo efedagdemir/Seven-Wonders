@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 class AgeI extends Age {
 }
