@@ -1,5 +1,4 @@
 package model;
-import java.util.ArrayList;
 
 class AgeI extends Age {
 
