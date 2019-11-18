@@ -24,7 +24,6 @@ class Player {
 
     public Player(String name, int coinAmount, WonderBoard wonder) {
         this.name = name;
-        this.militaryPower = 0;
         this.wonder = wonder;
         currentCoin = new Coin(coinAmount);
         victoryPoints = new VictoryPoint(0);
@@ -210,6 +209,13 @@ class Player {
         itemList.add(s);
     }
 
+    void updateFreeStructures(Structure[] s){
+        for (int i = 0; i < s.length; i++){
+            freeStructures.add(s[i]);
+            itemList.add(s[i]);
+        }
+    }
+
     //Looks if the given card is free for the player.
     boolean isFree(Card card){
         Structure s;
@@ -256,10 +262,7 @@ class Player {
         }
 
         if(requiredCoin != null){
-            affordC = false;
-            if(requiredCoin.getNoOfItems() <= currentCoin.getNoOfItems()){
-                affordC = true;
-            }
+            affordC = requiredCoin.getNoOfItems() <= currentCoin.getNoOfItems();
         }
 
         if(affordC && affordR && affordS){
@@ -279,10 +282,10 @@ class Player {
     // Then according to the comparisons made, updates the conflict points of the player.
     void updateConflictPoints(Age age){
         Player player1 = this.getLeftNeighbor();
-        int player1W = player1.getMilitaryPower();
+        int player1W = player1.getMilitaryPower().getNoOfItems();
 
         Player player2 = this.getRightNeighbor();
-        int player2W = player2.getMilitaryPower();
+        int player2W = player2.getMilitaryPower().getNoOfItems();
 
         int agePoint = 1;
         int lost = -1;
@@ -294,19 +297,19 @@ class Player {
         }
 
         //compare with left neighbor
-        if(player1W > this.getMilitaryPower()){
+        if(player1W > this.getMilitaryPower().getNoOfItems()){
             this.conflictPoints.setNoOfItems(lost);
         }
 
-        if(player1W < this.getMilitaryPower()){
+        if(player1W < this.getMilitaryPower().getNoOfItems()){
             this.conflictPoints.setNoOfItems(agePoint);
         }
 
-        if(player2W > this.getMilitaryPower()){
+        if(player2W > this.getMilitaryPower().getNoOfItems()){
             this.conflictPoints.setNoOfItems(lost);
         }
 
-        if(player2W < this.getMilitaryPower()){
+        if(player2W < this.getMilitaryPower().getNoOfItems()){
             this.conflictPoints.setNoOfItems(agePoint);
         }
         ConflictPoint cp = conflictPoints;
@@ -374,8 +377,8 @@ class Player {
     }
 
 
-    public int getMilitaryPower() {
-        return militaryPower;
+    public MilitaryPower getMilitaryPower() {
+        return militaryP;
     }
 
 

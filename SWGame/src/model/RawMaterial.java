@@ -34,7 +34,7 @@ public class RawMaterial extends Card {
             currentPlayer.updateResources(products);
         }
         else {
-            if (currentPlayer.checkRequirements(null, price, null) == true){
+            if (currentPlayer.checkRequirements(null, null, price) == true){
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(products);
             }

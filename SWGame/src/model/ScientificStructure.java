@@ -12,6 +12,7 @@ public class ScientificStructure extends Card {
     Image image;
     ImageView iv;
     ScientificType scType;
+    String type;
 
 
         public ScientificStructure(String t, String rS, String[] rName, int[] rNo, String[] pS, String img, String nameC){
@@ -23,7 +24,7 @@ public class ScientificStructure extends Card {
         iv.setFitWidth(65);
         requiredS = new Structure(rS);
         scType = new ScientificType(t);
-
+        type = t;
         requiredP = new Resource[rName.length];
         for (int i = 0; i < rName.length; i++ ){
             Resource a = new Resource(rName[i], rNo[i]);
@@ -49,13 +50,13 @@ public class ScientificStructure extends Card {
         if (currentPlayer.isFree(this) == true){
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedS);
-            currentPlayer.updateScientificType(scType);
+            currentPlayer.updateScientifictType(scType);
         }
         else {
             if (currentPlayer.checkRequirements(requiredS, requiredP, null) == true){
                 currentPlayer.updateHand(this);
                 currentPlayer.updateFreeStructures(providedS);
-                currentPlayer.updateScientificType(scType);
+                currentPlayer.updateScientifictType(scType);
             }
             else {System.out.println("Can't afford!");}
         }

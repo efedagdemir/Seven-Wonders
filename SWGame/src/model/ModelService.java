@@ -185,14 +185,14 @@ public class ModelService {
                 }
             }
         }
-
+        return rotatingCardList;
     }
 
     /*
     Will assign the given names to the names of the player objetcs.
      */
     void assignName(String[] names, Player[] playerList){
-
+        return;
     }
 
 
@@ -205,7 +205,7 @@ public class ModelService {
     /*
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.
      */
-    WonderBoard[] createWonderBoards(){
+    public WonderBoard[] createWonderBoards(){
 
     }
 

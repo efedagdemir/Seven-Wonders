@@ -34,8 +34,8 @@ public class CivilianStructure extends Card {
     }
 
     /*Constructor for Civilian Cards which require only one resource */
-    public CivilianStructure( int vPoints, String rStructure, String pStructure, String resName,  int resNo, String img){
-
+    public CivilianStructure( int vPoints, String rStructure, String pStructure, String resName,  int resNo, String img, String nameC){
+        name = nameC;
         image = new Image(img);
         iv = new ImageView();
         iv.setImage(image);

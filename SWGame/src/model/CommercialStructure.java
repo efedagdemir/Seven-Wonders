@@ -11,7 +11,7 @@ public class CommercialStructure extends Card {
     private Structure providedStructure;
     private boolean leftDiscount;
     private boolean rightDiscount;
-    private Resource[] discountedResources;
+    private Resource[] discountedR;
     Image image;
     ImageView iv;
 
@@ -28,11 +28,11 @@ public class CommercialStructure extends Card {
 
         this.leftDiscount = leftDiscount;
         this.rightDiscount = rightDiscount;
-        this.discountedResources = new Resource[discountedResources.length];
+        this.discountedR = new Resource[discountedResources.length];
 
         for (int i = 0; i < discountedResources.length; i++) {
             Resource r = new Resource(discountedResources[i],1, leftDiscount, rightDiscount);
-            discountedResources[i] = r;
+            discountedR[i] = r;
         }
     }
 
@@ -40,19 +40,19 @@ public class CommercialStructure extends Card {
     void constructCard() {
         ModelService modelService = ModelService.getInstance();
         Player currentPlayer = modelService.getCurrentPlayer();
-        if ( currentPlayer.isFree(this) == true){
+        if ( currentPlayer.isFree(this) ){
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedStructure);
-            currentPlayer.updateDiscountedStructure(discountedResources);
-            currentPlayer.updateCoin(givenCoins);
+            currentPlayer.updateDiscountedResources(discountedR);
+            currentPlayer.updateCoin(givenCoins.getNoOfItems());
             currentPlayer.updateVictoryPoints(victoryPoints);
         }
         else{
-            if (currentPlayer.checkRequirements(requiredStructure, null, givenCoins) == true){
+            if (currentPlayer.checkRequirements(requiredStructure, null, givenCoins)){
                 currentPlayer.updateHand(this);
                 currentPlayer.updateFreeStructures(providedStructure);
-                currentPlayer.updateDiscountedStructure(discountedResources);
-                currentPlayer.updateCoin(givenCoins);
+                currentPlayer.updateDiscountedResources(discountedR);
+                currentPlayer.updateCoin(givenCoins.getNoOfItems());
                 currentPlayer.updateVictoryPoints(victoryPoints);
             }
             else {
