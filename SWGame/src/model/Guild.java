@@ -1,13 +1,24 @@
 package model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Guild extends Card {
 
     VictoryPoints victoryPoints;
     Structure requiredStructure;
     Resource[] requiredProduct;
+    Image image;
+    ImageView iv;
 
     /*Constructor for Guilds which require more than one resources*/
-    public Guild(int vp, String rStructure, String[] rProductType,  int[] rProductNo){
+    public Guild(int vp, String rStructure, String[] rProductType,  int[] rProductNo, String img){
+        image = new Image(img);
+        iv = new ImageView();
+        iv.setImage(image);
+        iv.setFitHeight(100);
+        iv.setFitWidth(65);
+
         victoryPoints = new VictoryPoints(vp);
         requiredStructure = new Structure(rStructure);
         requiredProduct = new Resource[rProductType.length];
@@ -18,7 +29,14 @@ public class Guild extends Card {
         }
     }
     /*Constructor for Guilds which require only one resource */
-    public Guild(int vp, String rStructure, String resName, int resNo){
+    public Guild(int vp, String rStructure, String resName, int resNo, String img){
+
+        image = new Image(img);
+        iv = new ImageView();
+        iv.setImage(image);
+        iv.setFitHeight(100);
+        iv.setFitWidth(65);
+
         victoryPoints = new VictoryPoints(vp);
         requiredStructure = new Structure(rStructure);
         requiredProduct = new Resource[1];
