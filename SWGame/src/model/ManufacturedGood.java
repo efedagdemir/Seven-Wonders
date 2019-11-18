@@ -1,13 +1,22 @@
 package model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class ManufacturedGood extends Card {
 
     Resource[] requiredProducts;
     Resource[] givenProducts;
+    Image image;
+    ImageView iv;
 
-    public ManufacturedGood( String[] gProductType, int[] gProductNo, String[] rProductType, int[] rProductNo){
+    public ManufacturedGood( String[] gProductType, int[] gProductNo, String[] rProductType, int[] rProductNo, String img){
 
-
+        image = new Image(img);
+        iv = new javafx.scene.image.ImageView();
+        iv.setImage(image);
+        iv.setFitHeight(100);
+        iv.setFitWidth(65);
         givenProducts = new Resource[gProductType.length];
         for (int i = 0; i < gProductType.length; i++ ){
             Resource g = new Resource(gProductType[i], gProductNo[i]);
