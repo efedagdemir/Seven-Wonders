@@ -2,6 +2,7 @@ import controller.ControllerFacade;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.GameView;
 import view.MainMenuPane;
 
 public class SevenWonders extends Application {
@@ -12,16 +13,17 @@ public class SevenWonders extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         ControllerFacade controllerFacade = ControllerFacade.getInstance();
+        GameView gameView = GameView.getInstance();
+
         controllerFacade.setStage(primaryStage);
+        gameView.setStage(primaryStage);
+
         primaryStage.setTitle("Seven Wonders");
-        MainMenuPane mainMenu = new MainMenuPane();
-        //set the background image in main menu
-        //create the new button and add image
-        Scene scene = new Scene(mainMenu, 1300, 750);
-        primaryStage.setScene(scene);
+        gameView.showMainMenu();
         //add new action play button to pass the other page
-        primaryStage.show();
+        //primaryStage.show();
 
     }
 
