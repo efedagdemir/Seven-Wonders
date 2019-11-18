@@ -39,11 +39,11 @@ public class ViewManipulator {
 
     }
 
-    void updateInfoPane( Item [] itemList){
+    void updateInfoPane( ArrayList<Item> itemList){
 
     }
 
-    void notifyWonderPane( WonderBoard [] wonders){
+    void notifyWonderPane( ArrayList<WonderBoard> wonders){
 
     }
 
@@ -51,7 +51,7 @@ public class ViewManipulator {
 
     }
 
-    void notifyGameBorderPane( Player [] playerList, Card[][] cards){
+    void notifyGameBorderPane( ArrayList <Player> playerList, Card[][] cards){
 
 
     }

@@ -19,13 +19,15 @@ public class ManufacturedGood extends Card {
         iv.setFitWidth(65);
         givenProducts = new Resource[gProductType.length];
         for (int i = 0; i < gProductType.length; i++ ){
-            Resource g = new Resource(gProductType[i], gProductNo[i]);
+            Resource g = new Resource(gProductType[i], gProductNo[i],
+                    "images/" + gProductType[i].toLowerCase() + ".png");
             givenProducts[i] = g;
         }
 
         requiredProducts = new Resource[rProductType.length];
         for (int i = 0; i < rProductType.length; i++ ){
-            Resource r = new Resource(rProductType[i], rProductNo[i]);
+            Resource r = new Resource(rProductType[i], rProductNo[i],
+                    "images/" + rProductType[i].toLowerCase() + ".png");
             requiredProducts[i] = r;
         }
     }
