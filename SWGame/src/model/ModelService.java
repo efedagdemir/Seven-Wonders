@@ -6,7 +6,7 @@ public class ModelService {
     Age currentAge;
     Player currentPlayer;
     ImmutableList<Player>  playerList;
-    Card[][] rotating cardList;
+    Card[][] rotatingCardList;
     ViewManipulator viewManipulator;
     WonderBoard wonder;
     WonderBoard[] wonderList;

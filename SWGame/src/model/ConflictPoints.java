@@ -10,7 +10,7 @@ public class ConflictPoints extends Item {
         noOfItems = noOfItems + warPoint;
     }
 
-    void getNoOfItems(){
+    int getNoOfItems(){
         return noOfItems;
     }
 }

@@ -2,7 +2,7 @@ package model;
 
 public class CommercialStructure extends Card {
 
-    private VictoryPoint victoryPoints;
+    private VictoryPoints victoryPoints;
     private Coin givenCoins;
     private Structure requiredStructure;
     private Structure providedStructure;
@@ -11,12 +11,12 @@ public class CommercialStructure extends Card {
     private Resource[] discountedResources;
 
     public CommercialStructure(int vp, int coins, String rStructure, String pStructure, boolean leftDiscount, boolean rightDiscount, String[] discountedResources){
-        victoryPoints = new VictoryPoint(vp);
-        givenCoins = new Coin();
+        victoryPoints = new VictoryPoints(vp);
+        givenCoins = new Coin(coins);
         requiredStructure = new Structure(rStructure);
         providedStructure = new Structure(pStructure);
 
-        givenCoins.noOfItems = coins;
+
         this.leftDiscount = leftDiscount;
         this.rightDiscount = rightDiscount;
         this.discountedResources = new Resource[discountedResources.length];
@@ -31,3 +31,4 @@ public class CommercialStructure extends Card {
         super.constructCard();
     }
 }
+

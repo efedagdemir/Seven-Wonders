@@ -6,7 +6,7 @@ public class VictoryPoints extends Item {
         noOfItems = noOfVictoryPoints;
     }
 
-    void getNoOfItems(){
+    int getNoOfItems(){
         return noOfItems;
     }
 
