@@ -3,9 +3,6 @@ package model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-//import javax.swing.text.html.ImageView;
-import java.awt.*;
-
 public class Guild extends Card {
 
     VictoryPoint victoryPoints;
@@ -28,8 +25,8 @@ public class Guild extends Card {
         requiredProduct = new Resource[rProductType.length];
 
         for (int i = 0; i < rProductType.length; i++ ){
-            //Resource r = new Resource(rProductType[i], rProductNo[i]);
-            //requiredProduct[i] = r;
+            Resource r = new Resource(rProductType[i], rProductNo[i],"image/" + rProductType[i].toLowerCase()+".png");
+            requiredProduct[i] = r;
         }
     }
     /*Constructor for Guilds which require only one resource */
@@ -43,8 +40,8 @@ public class Guild extends Card {
 
         victoryPoints = new VictoryPoint(vp);
         requiredStructure = new Structure(rStructure);
-        /*requiredProduct = new Resource[1];
-        requiredProduct[0] = new Resource(resName, resNo);*/
+        requiredProduct = new Resource[1];
+        requiredProduct[0] =new Resource(resName,  resNo, "image/"+resName.toLowerCase() + ".png");
     }
 
     @Override
