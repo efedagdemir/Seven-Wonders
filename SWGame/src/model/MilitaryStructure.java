@@ -28,7 +28,7 @@ public class MilitaryStructure extends Card {
         requiredProducts = new Resource[gPName.length];
         for(int i = 0; i < gPName.length; i++){
 
-            Resource r = new Resource(gPName[i], gPNo[i],"image/" + gPName.toLowerCase() + ".png");
+            Resource r = new Resource(gPName[i], gPNo[i],"image/" + gPName[i].toLowerCase() + ".png");
             requiredProducts[i] = r;
         }
     }
