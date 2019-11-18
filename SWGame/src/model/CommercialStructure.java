@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public class CommercialStructure extends Card {
 
-    private VictoryPoints victoryPoints;
+    private VictoryPoint victoryPoints;
     private Coin givenCoins;
     private Structure requiredStructure;
     private Structure providedStructure;
@@ -15,12 +15,12 @@ public class CommercialStructure extends Card {
     Image image;
     ImageView iv;
 
-    public CommercialStructure(int vp, int coins, String rStructure, String pStructure, boolean leftDiscount, boolean rightDiscount, String[] discountedResources, String img){
+    public CommercialStructure(int vp, int coins, String rStructure, String pStructure, boolean leftDiscount, boolean rightDiscount, String[] discountedResources, String img, String nameC){
         image = new Image(img);
         iv = new ImageView();
         iv.setImage(image);
-
-        victoryPoints = new VictoryPoints(vp);
+        name = nameC;
+        victoryPoints = new VictoryPoint(vp);
         givenCoins = new Coin(coins);
         requiredStructure = new Structure(rStructure);
         providedStructure = new Structure(pStructure);
@@ -31,13 +31,35 @@ public class CommercialStructure extends Card {
         this.discountedResources = new Resource[discountedResources.length];
 
         for (int i = 0; i < discountedResources.length; i++) {
-            (this.discountedResources[i]).resourceName = discountedResources[i];
+            Resource r = new Resource(discountedResources[i],1, leftDiscount, rightDiscount);
+            discountedResources[i] = r;
         }
     }
 
     @Override
     void constructCard() {
-        super.constructCard();
-    }
+        ModelService modelService = ModelService.getInstance();
+        Player currentPlayer = modelService.getCurrentPlayer();
+        if ( currentPlayer.isFree(this) == true){
+            currentPlayer.updateHand(this);
+            currentPlayer.updateFreeStructures(providedStructure);
+            currentPlayer.updateDiscountedStructure(discountedResources);
+            currentPlayer.updateCoin(givenCoins);
+            currentPlayer.updateVictoryPoints(victoryPoints);
+        }
+        else{
+            if (currentPlayer.checkRequirements(requiredStructure, null, givenCoins) == true){
+                currentPlayer.updateHand(this);
+                currentPlayer.updateFreeStructures(providedStructure);
+                currentPlayer.updateDiscountedStructure(discountedResources);
+                currentPlayer.updateCoin(givenCoins);
+                currentPlayer.updateVictoryPoints(victoryPoints);
+            }
+            else {
+                System.out.println("Can't afford!!");
+            }
+        }
+        }
+
 }
 
