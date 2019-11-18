@@ -53,6 +53,13 @@ public class ModelService {
     //Will update the current player as each turn is played.
     void updateCurrentPlayer(){
 
+            if(playerIndex == numberOfPlayers - 1){
+                playerIndex = 0;
+            }
+            else{
+                playerIndex++;
+            }
+            currentPlayer = playerList.get(playerIndex);
     }
     /*
      Will remove the chosen card from the rotating card list.
@@ -70,15 +77,24 @@ public class ModelService {
      */
     void initializeGame(){
         createWonderBoards();
+        currentAge.createDeck(numberOfPlayers);
         createPlayer();
+        shuffle(wonderList);
 
     }
 
     void createPlayer(){
 
-        if (numberOfPlayers == 3){
+            Player player1 = new Player(null, 3, null );
+            Player player2 = new Player(null, 3, null );
+            Player player3 = new Player(null, 3, null );
+            playerList.add(player1);
+            playerList.add(player2);
+            playerList.add(player3);
 
-            Player player1 = new Player();
+            if (numberOfPlayers == 4){
+            Player player4 = new Player(null, 3, null );
+            playerList.add(player4);
         }
     }
     //Will shift the rotatingCardList when called and will make it turn according to the directionFactor attribute.
@@ -168,7 +184,7 @@ public class ModelService {
     which will assign the names of the players.
     */
     void assignGame(String[] names){
-        assignWonderBoard( wonderList, playerList);
+        assignWonderBoard(wonderList, playerList);
         createRotatingCardList();
         assignGame(names);
     }
@@ -179,15 +195,15 @@ public class ModelService {
     And then will assign that wonder board object to that player.
     This process will be done for every player object in the playerList.
      */
-    void assignWonderBoard(WonderBoard[] wonderList, Player[] playerList){
+    void assignWonderBoard(WonderBoard[] wonderList, ArrayList<Player> playerList){
 
-        int length = playerList.length;
-        int l_player = playerList.length;
+        int length = playerList.size();
+        int l_player = playerList.size();
         int l_wonder = wonderList.length;
         Random rand = new Random();
         int int_wonder;
         int int_player;
-        ArrayList<Integer> cars = new ArrayList<Integer>();
+
 
         for ( int i = 0; i < length; i++){
             int_wonder = rand.nextInt(l_wonder);
@@ -266,7 +282,121 @@ public class ModelService {
     /*
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.
      */
-    public WonderBoard[] createWonderBoards(){
+    public ArrayList<WonderBoard> createWonderBoards(){
+
+        wonderList = new ArrayList<WonderBoard>();
+        Resource glass = new Resource("Glass", 1 , "images/glass.png");
+        /*Alexandria */
+        Resource[] requiredResource = new Resource[1];
+        VictoryPoint v3 = new VictoryPoint(3);
+        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        WonderStage a1 = new WonderStage(null, requiredResource, v3,null );
+
+        Resource[] providedR1 = new Resource[2];
+        providedR1[0] = new Resource("Ore", 1, "images/ore.png");
+        providedR1[1] = new Resource("Timber", 1, "images/timber.png");
+        requiredResource[0] = new Resource("Ore", 2, "images/ore.png");
+        WonderStage a2 = new WonderStage(providedR1, requiredResource , null,null);
+
+        requiredResource[0] = new Resource("Glass", 2, "images/glass.png");
+        VictoryPoint v7 = new VictoryPoint(7);
+        WonderStage a3 = new WonderStage(null, requiredResource, v7, null );
+
+        WonderBoard Alexandria = new WonderBoard("Alexandria", glass,"images/alexandriaA.png", a1, a2, a3);
+        wonderList.add(Alexandria);
+
+        /*Babyblon*/
+        requiredResource[0] = new Resource("Clay", 2, "images/clay.png");
+        WonderStage b1 = new WonderStage(null, requiredResource, v3, null);
+
+        requiredResource[0] = new Resource("Timber", 3, "images/timber.png");
+        providedR1[0] = new Resource("Stone", 1, "images/stone.png");
+        providedR1[1] = new Resource("Papyrus", 1, "images/papyrus.png");
+        WonderStage b2 = new WonderStage( requiredResource, providedR1, null, null);
+
+        requiredResource[0] = new Resource("Clay", 4, "images/clay.png");
+        WonderStage b3 = new WonderStage(null, requiredResource, v7, null);
+
+        Resource clay = new Resource("Clay", 1, "images/clay.png" );
+        WonderBoard Babylon = new WonderBoard("Babylon",clay, "images/babylonA.png", b1, b2, b3);
+        wonderList.add(Babylon);
+
+        /*Ephesos*/
+        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        WonderStage e1 = new WonderStage(null, requiredResource, v3, null);
+        requiredResource[0] = new Resource("Timber", 2, "images/timber.png");
+        providedR1[0] = new Resource("Stone", 1, "images/stone.png");
+        providedR1[1] = new Resource("Textile", 1, "images/textile.png");
+        WonderStage e2 = new WonderStage(providedR1, requiredResource, null, null);
+        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
+        WonderStage e3 = new WonderStage(null, requiredResource, v7, null);
+
+        Resource papyrus = new Resource("Papyrus", 1, "images/papyrus.png" );
+        WonderBoard Ephesos = new WonderBoard("Ephesos",papyrus,"images/ephesosA.png", e1, e2, e3);
+        wonderList.add(Ephesos);
+
+        /*Gizah*/
+        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+
+        WonderStage g1 = new WonderStage(null, requiredResource, v3, null );
+
+        providedR1[0] = new Resource("Ore", 4, "images/ore.png");
+        providedR1[1] = new Resource("Textile", 1, "images/textile.png");
+        WonderStage g2 = new WonderStage(providedR1, requiredResource, null, null);
+        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
+        WonderStage g3 = new WonderStage(null, requiredResource, v7, null );
+
+        Resource stone = new Resource("Stone", 1, "images/stone.png");
+        WonderBoard Gizah  = new WonderBoard("Gizah", stone, "images/gizahA.png" , g1, g2, g3);
+        wonderList.add(Gizah);
+
+        /*Halikarnassus*/
+
+
+        WonderStage h1 = new WonderStage(null, requiredResource, v3, null);
+
+        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        providedR1[0] = new Resource("Stone", 1, "images/stone.png");
+        providedR1[1] = new Resource("Textile", 1, "images/textile.png");
+        WonderStage h2 = new WonderStage(providedR1, requiredResource, null,null);
+
+        requiredResource[0] = new Resource("Textile", 2, "images/textile.png");
+        WonderStage h3 = new WonderStage(null, requiredResource, v7, null);
+
+        Resource textile = new Resource("Textile", 1, "images/textile.png");
+        WonderBoard Halikarnassus = new WonderBoard("Halikarnassus", textile, "halikarnassusA.png", h1, h2, h3);
+        wonderList.add(Halikarnassus);
+
+        /*Olympia*/
+        WonderStage o1 = new WonderStage(null, requiredResource, v3, null);
+
+        providedR1[0] = new Resource("Ore", 1, "images/ore.png");
+        providedR1[1] = new Resource("Clay", 1, "images/clay.png");
+        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        WonderStage o2 = new WonderStage(providedR1, requiredResource , null, null);
+
+        WonderStage o3 = new WonderStage(null, requiredResource, v7, null);
+
+        Resource timber = new Resource("Timber", 1, "images/timber.png");
+        WonderBoard Olympia = new WonderBoard("Olympia", timber, "olympiaA.png", o1, o2,o3);
+        wonderList.add(Olympia);
+
+        /*Ore*/
+
+        WonderStage r1 = new WonderStage(null, requiredResource, v3, null);
+
+        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
+        ConflictPoint c = new ConflictPoint(2);
+        WonderStage r2 = new WonderStage(null, requiredResource, null, c);
+
+        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
+        WonderStage r3 = new WonderStage(null, requiredResource, v7, null);
+
+        Resource ore = new Resource("Ore", 1, "images/ore.png");
+        WonderBoard Rhodos = new WonderBoard("Rhodos", ore,"rhodosA.png", r1, r2, r3 );
+        wonderList.add(Rhodos);
+
+        return wonderList;
 
     }
 
