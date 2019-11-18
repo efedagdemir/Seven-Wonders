@@ -11,6 +11,6 @@ public class CardActionPane extends BorderPane {
     public CardActionPane() {
         setCenter(cardFlowPane);
         //for( int i = 0; i < )
-        setStyle("-fx-background-color: #fdbfac");
+        setStyle("-fx-background-color: #e67300");
     }
 }

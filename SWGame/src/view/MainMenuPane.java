@@ -14,7 +14,7 @@ import javafx.scene.text.TextAlignment;
 public class MainMenuPane extends BorderPane {
     //private static MainMenuPane mainMenu = new MainMenuPane();
     public Button startButton = new Button("Start Game");
-    public Button howToPlayButton = new Button("How to Play");
+    public static Button howToPlayButton = new Button("How to Play");
     public static Button creditsButton = new Button("Credits");
     public VBox menuButtons = new VBox();
     public Label gameName = new Label("Seven Wonders");

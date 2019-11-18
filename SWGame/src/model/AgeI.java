@@ -6,7 +6,6 @@ class AgeI extends Age {
     void createDeck(int numOfPlayers) {
 
         /*Civilian Structures */
-
         CivilianStructure Altar = new CivilianStructure(2, null, "Temple", null, 0, "images/altar.png", "Altar");
         CivilianStructure Theater = new CivilianStructure(2, null, "Statue", null, 0,"images/theater.png", "Theater");
         CivilianStructure Baths = new CivilianStructure(3, null, "Aqueduct", "Stone", 1,"images/altar.png",  "Baths" );

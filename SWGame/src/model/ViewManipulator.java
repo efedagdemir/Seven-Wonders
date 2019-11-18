@@ -25,7 +25,7 @@ public class ViewManipulator {
     }
 
     void notifyNextTurnScreen( Player current){
-        gameView.nextTurnScreen(current);
+        gameView.nextTurnScreenA(current);
     }
 
     void notifyConflictScreen( ArrayList<Player> playerList){
