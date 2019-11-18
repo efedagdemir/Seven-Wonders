@@ -1,5 +1,8 @@
 package model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class CommercialStructure extends Card {
 
     private VictoryPoints victoryPoints;
@@ -9,8 +12,14 @@ public class CommercialStructure extends Card {
     private boolean leftDiscount;
     private boolean rightDiscount;
     private Resource[] discountedResources;
+    Image image;
+    ImageView iv;
 
-    public CommercialStructure(int vp, int coins, String rStructure, String pStructure, boolean leftDiscount, boolean rightDiscount, String[] discountedResources){
+    public CommercialStructure(int vp, int coins, String rStructure, String pStructure, boolean leftDiscount, boolean rightDiscount, String[] discountedResources, String img){
+        image = new Image(img);
+        iv = new ImageView();
+        iv.setImage(image);
+
         victoryPoints = new VictoryPoints(vp);
         givenCoins = new Coin(coins);
         requiredStructure = new Structure(rStructure);
