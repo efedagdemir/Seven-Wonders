@@ -1,9 +1,7 @@
 package model;
-//import javafx.scene.*; //image.Image;
-//import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.nio.Buffer;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 
 public class CivilianStructure extends Card {
@@ -12,11 +10,15 @@ public class CivilianStructure extends Card {
     Structure requiredStructure;
     Structure providedStructure;
     Resource[] requiredProduct;
+    Image image;
+    ImageView iv;
 
     /*Constructor for Civilian Cards which require more than one resources*/
     public CivilianStructure( int vPoints, String rStructure, String pStructure, String[] rProductType,  int[] rProductNo, String img){
 
-        BufferedImage img = new Buffer()
+        image = new Image(img);
+        iv = new ImageView();
+        iv.setImage(image);
 
         victoryPoints = new VictoryPoints(vPoints);
         requiredStructure = new Structure(rStructure);
@@ -31,8 +33,13 @@ public class CivilianStructure extends Card {
     }
 
     /*Constructor for Civilian Cards which require only one resource */
-    public CivilianStructure( int vPoints, String rStructure, String pStructure, String resName,  int resNo){
+    public CivilianStructure( int vPoints, String rStructure, String pStructure, String resName,  int resNo, String img){
 
+        image = new Image(img);
+        iv = new ImageView();
+        iv.setImage(image);
+        iv.setFitHeight(100);
+        iv.setFitWidth(65);
         victoryPoints = new VictoryPoints(vPoints);
         requiredStructure = new Structure(rStructure);
         providedStructure = new Structure(pStructure);
