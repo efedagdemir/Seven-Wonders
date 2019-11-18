@@ -8,15 +8,15 @@ public class Resource extends Item {
         noOfItems = resourceAmount;
     }
 
-    void setNoOfItems(int resourceAmount){
-        noOfItems = numOfItems + resourceAmount;
+    public int getNoOfItems() {
+        return noOfItems;
     }
 
     public String getResourceName() {
         return resourceName;
     }
 
-    void getNoOfItems(){
-        return noOfItems;
+    void setNoOfItems(int resourceAmount) {
+        noOfItems = noOfItems + resourceAmount;
     }
 }

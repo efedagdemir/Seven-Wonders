@@ -4,17 +4,17 @@ package model;
 class WonderStage {
     private Resource[] providedResources;
     private Resource[] requiredResources;
-    private VictoryPoints providedVictoryPoints;
+    private VictoryPoint providedVictoryPoint;
     private ConflictPoints providedConflictPoints;
 
     WonderStage(Resource[] providedResources,
                 Resource[] requiredResources,
-                VictoryPoints victoryPoints,
+                VictoryPoint victoryPoint,
                 ConflictPoints conflictPoints
     ) {
         setProvidedResources(providedResources);
         setRequiredResources(requiredResources);
-        setProvidedVictoryPoints(victoryPoints);
+        setProvidedVictoryPoint(victoryPoint);
         setProvidedConflictPoints(conflictPoints);
     }
 
@@ -38,12 +38,12 @@ class WonderStage {
         this.requiredResources = requiredResources;
     }
 
-    public VictoryPoints getProvidedVictoryPoints() {
-        return providedVictoryPoints;
+    public VictoryPoint getProvidedVictoryPoint() {
+        return providedVictoryPoint;
     }
 
-    private void setProvidedVictoryPoints(VictoryPoints providedVictoryPoints) {
-        this.providedVictoryPoints = providedVictoryPoints;
+    private void setProvidedVictoryPoint(VictoryPoint providedVictoryPoint) {
+        this.providedVictoryPoint = providedVictoryPoint;
     }
 
     public ConflictPoints getProvidedConflictPoints() {

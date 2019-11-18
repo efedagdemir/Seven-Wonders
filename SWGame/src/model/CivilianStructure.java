@@ -34,7 +34,6 @@ public class CivilianStructure extends Card {
 
     @Override
     void constructCard() {
-        super.constructCard();
 
     }
 }

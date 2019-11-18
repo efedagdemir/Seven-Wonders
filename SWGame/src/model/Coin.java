@@ -1,6 +1,7 @@
 package model;
 
 public class Coin extends Item {
+
     public Coin(int coinAmount) {
         noOfItems = coinAmount;
     }
@@ -9,7 +10,7 @@ public class Coin extends Item {
         noOfItems = noOfItems + coinAmount;
     }
 
-    void getNoOfItems(){
+    public int getNoOfItems() {
         return noOfItems;
     }
 }
