@@ -1,8 +1,8 @@
 package model;
 
-public class ConflictPoints extends Item {
+public class ConflictPoint extends Item {
 
-    public ConflictPoints(int warPoint) {
+    public ConflictPoint(int warPoint) {
         noOfItems = warPoint;
     }
 
