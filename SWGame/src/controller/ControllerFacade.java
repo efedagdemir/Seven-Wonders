@@ -54,6 +54,9 @@ public class ControllerFacade {
         if(event.getTarget() == MainMenuPane.howToPlayButton){
             htpPopUp.showAndWait();
         }
+        if(event.getTarget() == PlayerInfoPane.pInfohowToPlayButton){
+            htpPopUp.showAndWait();
+        }
         /*if(event.getTarget() == creditsPane.okayButton){
             System.out.println( "cok iyi");
             creditsPopUp.hide();
