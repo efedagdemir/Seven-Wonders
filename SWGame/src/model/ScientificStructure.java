@@ -27,7 +27,7 @@ public class ScientificStructure extends Card {
         type = t;
         requiredP = new Resource[rName.length];
         for (int i = 0; i < rName.length; i++ ){
-            Resource a = new Resource(rName[i], rNo[i]);
+            Resource a = new Resource(rName[i], rNo[i],"image/" + rName[i].toLowerCase() + ".png");
             requiredP[i] = a;
         }
 

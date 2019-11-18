@@ -25,7 +25,7 @@ public class Guild extends Card {
         requiredProduct = new Resource[rProductType.length];
 
         for (int i = 0; i < rProductType.length; i++ ){
-            Resource r = new Resource(rProductType[i], rProductNo[i]);
+            Resource r = new Resource(rProductType[i], rProductNo[i],"image/" + rProductType[i].toLowerCase()+".png");
             requiredProduct[i] = r;
         }
     }
@@ -41,7 +41,7 @@ public class Guild extends Card {
         victoryPoints = new VictoryPoint(vp);
         requiredStructure = new Structure(rStructure);
         requiredProduct = new Resource[1];
-        requiredProduct[0] =new Resource(resName,  resNo);
+        requiredProduct[0] =new Resource(resName,  resNo, "image/"+resName.toLowerCase() + ".png");
     }
 
     @Override
