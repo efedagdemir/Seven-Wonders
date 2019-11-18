@@ -2,6 +2,7 @@ package model;
 
 
 public class Coin extends Item {
+
     public Coin(int coinAmount) {
         noOfItems = coinAmount;
     }
