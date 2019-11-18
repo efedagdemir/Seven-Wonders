@@ -12,6 +12,7 @@ public class GamePane extends BorderPane {
     public ResourcePane resourcePaneLeft = new ResourcePane();
     public ResourcePane resourcePaneRight = new ResourcePane();
 
+
     ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
     public GamePane() {

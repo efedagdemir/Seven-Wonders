@@ -69,7 +69,7 @@ public class ModelService {
     which will create the player objects and the shuffle() method which will shuffle the wonder boards and cards.
      */
     void initializeGame(){
-        createWonderBoards();
+        //createWonderBoards();
         createPlayer();
 
     }
@@ -78,7 +78,7 @@ public class ModelService {
 
         if (numberOfPlayers == 3){
 
-            Player player1 = new Player();
+            //Player player1 = new Player();
         }
     }
     //Will shift the rotatingCardList when called and will make it turn according to the directionFactor attribute.
@@ -168,7 +168,7 @@ public class ModelService {
     which will assign the names of the players.
     */
     void assignGame(String[] names){
-        assignWonderBoard( wonderList, playerList);
+        //assignWonderBoard( wonderList, playerList);
         createRotatingCardList();
         assignGame(names);
     }
@@ -266,9 +266,9 @@ public class ModelService {
     /*
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.
      */
-    public WonderBoard[] createWonderBoards(){
+    /*public WonderBoard[] createWonderBoards(){
 
-    }
+    }*/
 
     public Player getCurrentPlayer(){
         return currentPlayer;

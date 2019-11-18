@@ -8,11 +8,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+//import javafx.event.ActionEvent;
 
 public class MainMenuPane extends BorderPane {
+    //private static MainMenuPane mainMenu = new MainMenuPane();
     public Button startButton = new Button("Start Game");
     public Button howToPlayButton = new Button("How to Play");
-    public Button creditsButton = new Button("Credits");
+    public static Button creditsButton = new Button("Credits");
     public VBox menuButtons = new VBox();
     public Label gameName = new Label("Seven Wonders");
 
@@ -37,6 +39,11 @@ public class MainMenuPane extends BorderPane {
 
 //      setBorder(new Border(new Layout));
         startButton.setOnAction(e -> controllerFacade.startGame());
-        creditsButton.setOnAction(e -> controllerFacade.commandModel());
+        creditsButton.setOnAction(e -> controllerFacade.commandModel(e));
+        howToPlayButton.setOnAction(e -> controllerFacade.commandModel(e));
     }
+
+    /*public static MainMenuPane getInstance() {
+        return mainMenu;
+    }*/
 }
