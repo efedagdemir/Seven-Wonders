@@ -14,9 +14,7 @@ public class ModelService {
     WonderBoard[] wonderList;
     int directionFactor;
 
-    private ModelService() {
-        currentPlayer = new Player();
-    }
+    private ModelService(){}
 
     public static ModelService getInstance() {
         if(modelService == null){

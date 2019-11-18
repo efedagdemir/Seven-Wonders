@@ -1,7 +1,10 @@
 package model;
+import java.util.List;
 
 abstract class Age {
-    Card[] cardDeck;
+    List<Card> cardDeck;
 
-    abstract void createDeck(int numOfPlayers);
+    void createDeck(int numOfPlayers){
+
+    }
 }
