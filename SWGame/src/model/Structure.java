@@ -8,15 +8,15 @@ public class Structure extends Item {
         noOfItems++;
     }
 
-    void setNoOfItems(){
-        noOfItems++;
+    void setNoOfItems(int no){
+
     }
 
     public String getType() {
         return type;
     }
 
-    int getNoOfItems(){
+    public int getNoOfItems() {
         return noOfItems;
     }
 }

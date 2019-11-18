@@ -1,19 +1,30 @@
 package controller;
 
-public class ControllerFacade {
-    private static ControllerFacade controllerFacade;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import view.GameView;
 
-    private ControllerFacade(){}
+public class ControllerFacade {
+    private static ControllerFacade controllerFacade = new ControllerFacade();
+    GameView gameView = GameView.getInstance();
+    Stage primaryStage;
+
+    private ControllerFacade() {
+    }
 
     public static ControllerFacade getInstance() {
-        if(controllerFacade == null){
-            controllerFacade = new ControllerFacade();
-        }
+//        if(controllerFacade == null){
+//            controllerFacade = new ControllerFacade();
+//        }
         return controllerFacade;
     }
 
-    public void startGame(){
+    public void setStage(Stage stage) {
+        primaryStage = stage;
+    }
 
+    public void startGame(){
+        primaryStage.setScene(new Scene(gameView.gamePane));
     }
 
     public void takeAction(){
@@ -21,6 +32,6 @@ public class ControllerFacade {
     }
 
     public void commandModel(){
-
+        primaryStage.setScene(new Scene(gameView.mainMenuPane));
     }
 }
