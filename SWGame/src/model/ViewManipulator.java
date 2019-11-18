@@ -7,8 +7,7 @@ import java.util.ArrayList;
 public class ViewManipulator {
     private static ViewManipulator viewManipulator;
     GameView gameView;
-    private ViewManipulator(){}
-
+    private ViewManipulator(){};
     public  static ViewManipulator getInstance() {
         if(viewManipulator == null){
             viewManipulator = new ViewManipulator();
@@ -17,19 +16,19 @@ public class ViewManipulator {
     }
 
     void notifyMainMenu(){
-
+        gameView.showMainMenu();
     }
 
     void notifyNameScreen(){
-
+        gameView.showNameScreen();
     }
 
     void notifyNextTurnScreen( Player current){
-
+        gameView.nextTurnScreen(current);
     }
 
     void notifyConflictScreen( ArrayList<Player> playerList){
-
+        gameView.showConflictScreen(playerList);
     }
 
     void notifyCredits(){
@@ -49,11 +48,10 @@ public class ViewManipulator {
     }
 
     void notifyGameOverPane( ArrayList<Player> playerList){
-
+        gameView.showGameOverPane(playerList);
     }
 
     void notifyGameBorderPane( ArrayList <Player> playerList, Card[][] cards){
-        gameView.showGamePnae(playerList, cards);
-
+        gameView.showGamePane(playerList, cards);
     }
 }
