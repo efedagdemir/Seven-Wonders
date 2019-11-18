@@ -2,6 +2,8 @@ package model;
 
 import view.GameView;
 
+import java.util.ArrayList;
+
 public class ViewManipulator {
     private static ViewManipulator viewManipulator;
     GameView gameView;
@@ -25,7 +27,7 @@ public class ViewManipulator {
 
     }
 
-    void notifyConflictScreen( Player [] playerList){
+    void notifyConflictScreen( ArrayList<Player> playerList){
 
     }
 
@@ -45,7 +47,7 @@ public class ViewManipulator {
 
     }
 
-    void notifyGameOverPane( Player [] playerList){
+    void notifyGameOverPane( ArrayList<Player> playerList){
 
     }
 

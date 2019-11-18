@@ -98,21 +98,21 @@ public class ModelService {
      Will call the notifyWonderPane() method from the ViewManipulator.
     */
     void buildWonder(){
-
+        viewManipulator.notifyWonderPane(wonderList);
     }
 
     /*
      Will call the notifyHowToPlay() method from the ViewManipulator.
      */
     void showHowToPlay(){
-
+        viewManipulator.notifyHowToPlay();
     }
 
     /*
     Will call the notifyGameOverPane() from the ViewManipulator.
      */
     void showGameOverPage(){
-
+        viewManipulator.notifyGameOverPane(playerList);
     }
 
     /*
@@ -161,7 +161,6 @@ public class ModelService {
         Random rand = new Random();
         int int_wonder;
         int int_player;
-        ArrayList<Integer> cars = new ArrayList<Integer>();
         for ( int i = 0; i < length; i++){
             int_wonder = rand.nextInt(l_wonder);
             int_player = rand.nextInt(l_player);
