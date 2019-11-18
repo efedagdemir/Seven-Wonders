@@ -5,6 +5,7 @@ public class GameView {
     public GamePane gamePane = new GamePane();
     public MainMenuPane mainMenuPane = new MainMenuPane();
     public NextTurnPane nextTurnPane = new NextTurnPane();
+    public CreditsPane creditsPane = new CreditsPane();
 
     private GameView() {
     }
