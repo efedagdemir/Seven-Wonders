@@ -16,19 +16,19 @@ public class ViewManipulator {
     }
 
     void notifyMainMenu(){
-
+        gameView.showMainMenu();
     }
 
     void notifyNameScreen(){
-
+        gameView.showNameScreen();
     }
 
     void notifyNextTurnScreen( Player current){
-
+        gameView.nextTurnScreen(current);
     }
 
     void notifyConflictScreen( ArrayList<Player> playerList){
-
+        gameView.showConflictScreen(playerList);
     }
 
     void notifyCredits(){
@@ -48,11 +48,10 @@ public class ViewManipulator {
     }
 
     void notifyGameOverPane( ArrayList<Player> playerList){
-
+        gameView.showGameOverPane(playerList);
     }
 
     void notifyGameBorderPane( ArrayList <Player> playerList, Card[][] cards){
-
-
+        gameView.showGamePane(playerList, cards);
     }
 }
