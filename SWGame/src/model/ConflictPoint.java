@@ -1,10 +1,16 @@
 package model;
 
 public class ConflictPoint extends Item {
-    int noOfItem;
+
+    public ConflictPoint(int warPoint) {
+        noOfItems = warPoint;
+    }
+
+    void setNoOfItems(int warPoint){
+        noOfItems = noOfItems + warPoint;
+    }
 
     int getNoOfItems(){
         return noOfItems;
     }
-
 }

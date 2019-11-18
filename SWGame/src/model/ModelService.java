@@ -7,7 +7,8 @@ public class ModelService {
     Card xyz;
     Age currentAge;
     Player currentPlayer;
-    public List<Player> playerList;
+    int numberOfPlayers;
+    List<Player>  playerList;
     Card[][] rotatingCardList;
     ViewManipulator viewManipulator;
     WonderBoard wonder;
@@ -24,7 +25,7 @@ public class ModelService {
         if(currentAge instanceof AgeI){
             currentAge = new AgeII();
         }
-       if(currentAge instanceof AgeII){
+        if(currentAge instanceof AgeII){
             currentAge = new AgeII();
         }
         if(currentAge instanceof AgeIII){
@@ -152,21 +153,47 @@ public class ModelService {
     void assignWonderBoard(WonderBoard[] wonderList, Player[] playerList){
 
     }
-
+    void shuffle(List l){}
     /*
     Will divide the shuffled cardDeck object into 4 equal sub card sets
     and then will put these into a card array which is called RotatingCardList.
     */
     Card[][] createRotatingCardList(){
-        return null;
+
+        if ( numberOfPlayers == 3 ){
+            int rotNo = currentAge.cardDeck.size() / 3;
+            Card[][] rotatingCardList = new Card[3][rotNo];
+            shuffle(currentAge.cardDeck);
+            int cardDeckNo = 0;
+            for (int j = 0; j < 3; j++){
+                for (int i = 0; i < rotNo; i++){
+                  rotatingCardList[j][i] = currentAge.cardDeck.get(cardDeckNo);
+                  cardDeckNo++;
+                }
+            }
+
+        } else if ( numberOfPlayers == 4 ){
+            int rotNo = currentAge.cardDeck.size() / 4;
+            Card[][] rotatingCardList = new Card[4][rotNo];
+            shuffle(currentAge.cardDeck);
+            int cardDeckNo = 0;
+            for (int j = 0; j < 4; j++){
+                for (int i = 0; i < rotNo; i++){
+                    rotatingCardList[j][i] = currentAge.cardDeck.get(cardDeckNo);
+                    cardDeckNo++;
+                }
+            }
+        }
+        return rotatingCardList;
     }
 
     /*
     Will assign the given names to the names of the player objetcs.
      */
     void assignName(String[] names, Player[] playerList){
-
+        return;
     }
+
 
     /*
     Will call the notifyGameBorderPane(playerList: Player[], rotatingCardList : Card[][]) from the ViewManipulator.
@@ -177,10 +204,13 @@ public class ModelService {
     /*
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.
      */
-    public WonderBoard[] createWonderBoards() {
-        return null;
+    public WonderBoard[] createWonderBoards(){
+
     }
 
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
 
 
 

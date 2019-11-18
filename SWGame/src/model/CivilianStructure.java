@@ -6,21 +6,22 @@ import javafx.scene.image.ImageView;
 
 public class CivilianStructure extends Card {
 
-    VictoryPoints victoryPoints;
+    VictoryPoint victoryPoints;
     Structure requiredStructure;
     Structure providedStructure;
+
     Resource[] requiredProduct;
     Image image;
     ImageView iv;
 
     /*Constructor for Civilian Cards which require more than one resources*/
-    public CivilianStructure( int vPoints, String rStructure, String pStructure, String[] rProductType,  int[] rProductNo, String img){
-
+    public CivilianStructure( int vPoints, String rStructure, String pStructure, String[] rProductType,  int[] rProductNo, String img, String nameC){
+        name = nameC;
         image = new Image(img);
         iv = new ImageView();
         iv.setImage(image);
 
-        victoryPoints = new VictoryPoints(vPoints);
+        victoryPoints = new VictoryPoint(vPoints);
         requiredStructure = new Structure(rStructure);
         providedStructure = new Structure(pStructure);
         requiredProduct = new Resource[rProductType.length];
@@ -33,14 +34,14 @@ public class CivilianStructure extends Card {
     }
 
     /*Constructor for Civilian Cards which require only one resource */
-    public CivilianStructure( int vPoints, String rStructure, String pStructure, String resName,  int resNo, String img){
-
+    public CivilianStructure( int vPoints, String rStructure, String pStructure, String resName,  int resNo, String img, String nameC){
+        name = nameC;
         image = new Image(img);
         iv = new ImageView();
         iv.setImage(image);
         iv.setFitHeight(100);
         iv.setFitWidth(65);
-        victoryPoints = new VictoryPoints(vPoints);
+        victoryPoints = new VictoryPoint(vPoints);
         requiredStructure = new Structure(rStructure);
         providedStructure = new Structure(pStructure);
         requiredProduct = new Resource[1];
@@ -50,6 +51,23 @@ public class CivilianStructure extends Card {
 
     @Override
     void constructCard() {
+        ModelService modelService = ModelService.getInstance();
+        Player currentPlayer = modelService.getCurrentPlayer();
+        if ( currentPlayer.isFree(this) == true){
+            currentPlayer.updateHand(this);
+            currentPlayer.updateVictoryPoints(victoryPoints);
+            currentPlayer.updateFreeStructures(providedStructure);
+        }
+        else{
+            if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null) == true){
+                currentPlayer.updateHand(this);
+                currentPlayer.updateVictoryPoints(victoryPoints);
+                currentPlayer.updateFreeStructures(providedStructure);
+            }
+            else {
+                System.out.println("Can't afford!!");
+            }
+        }
 
     }
 }

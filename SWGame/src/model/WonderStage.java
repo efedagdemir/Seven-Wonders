@@ -5,12 +5,12 @@ class WonderStage {
     private Resource[] providedResources;
     private Resource[] requiredResources;
     private VictoryPoint providedVictoryPoint;
-    private ConflictPoints providedConflictPoints;
+    private ConflictPoint providedConflictPoints;
 
     WonderStage(Resource[] providedResources,
                 Resource[] requiredResources,
                 VictoryPoint victoryPoint,
-                ConflictPoints conflictPoints
+                ConflictPoint conflictPoints
     ) {
         setProvidedResources(providedResources);
         setRequiredResources(requiredResources);
@@ -46,11 +46,11 @@ class WonderStage {
         this.providedVictoryPoint = providedVictoryPoint;
     }
 
-    public ConflictPoints getProvidedConflictPoints() {
+    public ConflictPoint getProvidedConflictPoints() {
         return providedConflictPoints;
     }
 
-    public void setProvidedConflictPoints(ConflictPoints providedConflictPoints) {
+    public void setProvidedConflictPoints(ConflictPoint providedConflictPoints) {
         this.providedConflictPoints = providedConflictPoints;
     }
 }
