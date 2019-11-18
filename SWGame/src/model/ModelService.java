@@ -1,4 +1,5 @@
 package model;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -247,10 +248,10 @@ public class ModelService {
     /*
     Will assign the given names to the names of the player objects.
      */
-    void assignName(String[] names, Player[] playerList){
+    void assignName(String[] names, ArrayList<Player> playerList){
 
-        for (int i = 0; i < playerList.length; i++){
-            playerList[i].name = names[i];
+        for (int i = 0; i < playerList.size(); i++){
+            playerList.get(i).name = names[i];
 
         }
     }
