@@ -18,7 +18,7 @@ public class SevenWonders extends Application {
         MainMenuPane mainMenu = new MainMenuPane();
         //set the background image in main menu
         //create the new button and add image
-        Scene scene = new Scene(mainMenu, 1025, 750);
+        Scene scene = new Scene(mainMenu, 1300, 750);
         primaryStage.setScene(scene);
         //add new action play button to pass the other page
         primaryStage.show();

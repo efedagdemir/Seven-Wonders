@@ -6,6 +6,6 @@ public class OpponentInfoPane extends FlowPane {
     public OpponentInfoPane() {
 
         setStyle("-fx-background-color: #003ef6");
-        setHeight(200);
+        setPrefHeight(150);
     }
 }

@@ -32,6 +32,6 @@ public class ControllerFacade {
     }
 
     public void commandModel(){
-        primaryStage.setScene(new Scene(gameView.mainMenuPane));
+        primaryStage.setScene(new Scene(gameView.nextTurnPane));
     }
 }
