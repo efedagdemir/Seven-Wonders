@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public class ViewManipulator {
     private static ViewManipulator viewManipulator;
     GameView gameView;
-    private ViewManipulator(){};
+    private ViewManipulator(){}
+
     public  static ViewManipulator getInstance() {
         if(viewManipulator == null){
             viewManipulator = new ViewManipulator();
@@ -36,7 +37,7 @@ public class ViewManipulator {
     }
 
     void notifyHowToPlay(){
-        gameView.showHowToPlaye();
+        gameView.showHowToPlay();
     }
 
     void updateInfoPane( ArrayList<Item> itemList){
