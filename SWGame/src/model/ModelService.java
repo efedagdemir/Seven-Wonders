@@ -183,7 +183,7 @@ public class ModelService {
     which will assign the names of the players.
     */
     void assignGame(String[] names){
-        assignWonderBoard( wonderList, playerList);
+        //assignWonderBoard( wonderList, playerList);
         createRotatingCardList();
         assignGame(names);
     }
@@ -282,7 +282,7 @@ public class ModelService {
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.
      */
     public WonderBoard[] createWonderBoards(){
-
+        return null;
     }
 
     public Player getCurrentPlayer(){

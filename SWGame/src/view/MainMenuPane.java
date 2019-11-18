@@ -4,8 +4,9 @@ import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 //import javafx.event.ActionEvent;
@@ -18,10 +19,13 @@ public class MainMenuPane extends BorderPane {
     public VBox menuButtons = new VBox();
     public Label gameName = new Label("Seven Wonders");
 
+    //BackgroundImage backgroundImage = new BackgroundImage(new Image("images/wood.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
     ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
     public MainMenuPane() {
         setPrefSize(1300,750);
+        //setBackground( new Background(backgroundImage));
         setCenter(menuButtons);
         gameName.setFont(new Font(30));
         gameName.setStyle("-fx-text-fill: #dfabdd;");

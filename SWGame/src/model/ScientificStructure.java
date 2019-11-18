@@ -27,8 +27,8 @@ public class ScientificStructure extends Card {
         type = t;
         requiredP = new Resource[rName.length];
         for (int i = 0; i < rName.length; i++ ){
-            Resource a = new Resource(rName[i], rNo[i]);
-            requiredP[i] = a;
+            //Resource a = new Resource(rName[i], rNo[i]);
+            //requiredP[i] = a;
         }
 
         providedS = new Structure[pS.length];
