@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-class Player {
+public class Player {
     String name;
 
     Coin currentCoin;
@@ -265,11 +265,7 @@ class Player {
             affordC = requiredCoin.getNoOfItems() <= currentCoin.getNoOfItems();
         }
 
-        if(affordC && affordR && affordS){
-            return true;
-        }
-
-
+        return affordC && affordR && affordS;
     }
 
     //Adds the built card to the hand of the player.
@@ -317,11 +313,7 @@ class Player {
 
     }
 
-    //Creates the player object.
-    Player createPlayer(String name, int coinAmount, WonderBoard wonder){
-        Player player = new Player( name,  coinAmount, wonder);
-        return player;
-    }
+
 
     public void buyResource(Resource resource){
         int money = -2;
