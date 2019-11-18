@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ModelService {
     private static ModelService modelService = new ModelService();
@@ -8,7 +10,7 @@ public class ModelService {
     Age currentAge;
     Player currentPlayer;
     int numberOfPlayers;
-    List<Player>  playerList;
+    ArrayList<Player> playerList;
     Card[][] rotatingCardList;
     ViewManipulator viewManipulator;
     WonderBoard wonder;
@@ -117,21 +119,21 @@ public class ModelService {
     Will call the notifyNameScreen() from the ViewManipulator.
      */
     void showNameScreen(){
-
+        viewManipulator.notifyNameScreen();
     }
 
     /*
     Will call the notifyCredits() from the ViewManipulator.
     */
     void showCredits(){
-
+        viewManipulator.notifyCredits();
     }
 
     /*
     Will call the notifyMainMenu() from the ViewManipulator.
     */
     void showMainMenu(){
-
+        viewManipulator.notifyMainMenu();
     }
 
     /*
@@ -141,7 +143,9 @@ public class ModelService {
     which will assign the names of the players.
     */
     void assignGame(String[] names){
-
+        assignWonderBoard( wonderList, playerList);
+        createRotatingCardList();
+        assignGame(names);
     }
 
     /*
@@ -150,8 +154,27 @@ public class ModelService {
     And then will assign that wonder board object to that player.
     This process will be done for every player object in the playerList.
      */
-    void assignWonderBoard(WonderBoard[] wonderList, Player[] playerList){
-
+    void assignWonderBoard(WonderBoard[] wonderList, ArrayList<Player> playerList){
+        int length = playerList.size();
+        int l_player = playerList.size();
+        int l_wonder = wonderList.length;
+        Random rand = new Random();
+        int int_wonder;
+        int int_player;
+        ArrayList<Integer> cars = new ArrayList<Integer>();
+        for ( int i = 0; i < length; i++){
+            int_wonder = rand.nextInt(l_wonder);
+            int_player = rand.nextInt(l_player);
+            playerList.get(int_player).wonder = wonderList[int_wonder];
+            for ( int j = int_player; j < l_player - 1; j++){
+                playerList.remove(j);
+            }
+            for ( int j = int_wonder; j < l_wonder - 1; j++){
+                wonderList[j] = wonderList[j + 1];
+            }
+            l_player--;
+            l_wonder--;
+        }
     }
     void shuffle(List l){}
     /*
@@ -188,10 +211,10 @@ public class ModelService {
     }
 
     /*
-    Will assign the given names to the names of the player objetcs.
+    Will assign the given names to the names of the player objects.
      */
     void assignName(String[] names, Player[] playerList){
-        return;
+
     }
 
 
