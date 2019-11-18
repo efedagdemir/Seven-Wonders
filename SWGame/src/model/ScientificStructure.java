@@ -1,13 +1,24 @@
 package model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class ScientificStructure extends Card {
 
     Structure requiredS;
     Resource[] requiredP;
     Structure[] providedS;
     String type;
+    Image image;
+    ImageView iv;
 
-        public ScientificStructure(String t, String rS, String[] rName, int[] rNo, String[] pS){
+        public ScientificStructure(String t, String rS, String[] rName, int[] rNo, String[] pS, String img){
+
+        image = new Image(img);
+        iv = new javafx.scene.image.ImageView();
+        iv.setImage(image);
+        iv.setFitHeight(100);
+        iv.setFitWidth(65);
         type = t;
         requiredS = new Structure(rS);
 
