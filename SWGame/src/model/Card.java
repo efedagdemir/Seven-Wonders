@@ -1,5 +1,22 @@
 package model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public abstract class Card {
- void constructCard(){}
+
+    int numOfPlayers;
+    Image cardImage;
+    ImageView cardImageView;
+
+    public Card(){
+    }
+
+    void constructCard(){
+    }
+
+    void sellCard(){
+    }
+
+    void buildWonder(){}
 }

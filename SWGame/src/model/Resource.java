@@ -19,15 +19,15 @@ public class Resource extends Item {
         this.rightDiscount = rightDiscount;
     }
 
-    void setNoOfItems(int resourceAmount){
-        noOfItems = noOfItems + resourceAmount;
+    public int getNoOfItems() {
+        return noOfItems;
     }
 
     public String getResourceName() {
         return resourceName;
     }
 
-    int getNoOfItems(){
-        return noOfItems;
+    void setNoOfItems(int resourceAmount) {
+        noOfItems = noOfItems + resourceAmount;
     }
 }

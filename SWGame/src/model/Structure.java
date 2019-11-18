@@ -16,7 +16,7 @@ public class Structure extends Item {
         return type;
     }
 
-    int getNoOfItems(){
+    public int getNoOfItems() {
         return noOfItems;
     }
 }

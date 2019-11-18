@@ -1,11 +1,13 @@
 package model;
 
+import java.util.List;
+
 public class ModelService {
     private static ModelService modelService;
     Card xyz;
     Age currentAge;
     Player currentPlayer;
-    ImmutableList<Player>  playerList;
+    List<Player> playerList;
     Card[][] rotatingCardList;
     ViewManipulator viewManipulator;
     WonderBoard wonder;
@@ -159,7 +161,7 @@ public class ModelService {
     and then will put these into a card array which is called RotatingCardList.
     */
     Card[][] createRotatingCardList(){
-
+        return null;
     }
 
     /*
@@ -178,8 +180,8 @@ public class ModelService {
     /*
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.
      */
-    WonderBoard[] createWonderBoards(){
-
+    public WonderBoard[] createWonderBoards() {
+        return null;
     }
 
 
