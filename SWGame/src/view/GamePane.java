@@ -15,7 +15,7 @@ public class GamePane extends BorderPane {
     ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
     public GamePane() {
-        setPrefSize(1025, 750);
+        setPrefSize(1300, 750);
         setTop(opponentInfoPane);
         setBottom(playerInfoPane);
         setLeft(resourcePaneLeft);

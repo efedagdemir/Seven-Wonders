@@ -3,11 +3,11 @@ package model;
 import java.util.List;
 
 public class ModelService {
-    private static ModelService modelService;
+    private static ModelService modelService = new ModelService();
     Card xyz;
     Age currentAge;
     Player currentPlayer;
-    List<Player> playerList;
+    public List<Player> playerList;
     Card[][] rotatingCardList;
     ViewManipulator viewManipulator;
     WonderBoard wonder;
@@ -17,9 +17,6 @@ public class ModelService {
     private ModelService(){}
 
     public static ModelService getInstance() {
-        if(modelService == null){
-            modelService = new ModelService();
-        }
         return modelService;
     }
 

@@ -3,7 +3,7 @@ package model;
 //
 //import java.util.ArrayList;
 //
-class Player {
+public class Player {
 //    String name = " as";
 //    Resource[] currentResources;
 //    Item currentCoin;
