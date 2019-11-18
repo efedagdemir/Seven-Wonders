@@ -52,6 +52,15 @@ public class ModelService {
     }
     //Will update the current player as each turn is played.
     void updateCurrentPlayer(){
+        if(playerIndex == numberOfPlayers - 1){
+            playerIndex = 0;
+        }
+        else{
+            playerIndex++;
+        }
+
+        currentPlayer = playerList.get(playerIndex);
+
 
     }
     /*
@@ -69,16 +78,22 @@ public class ModelService {
     which will create the player objects and the shuffle() method which will shuffle the wonder boards and cards.
      */
     void initializeGame(){
-        //createWonderBoards();
+        createWonderBoards();
         createPlayer();
 
     }
 
     void createPlayer(){
+        Player player1 = new Player(null, 3, null );
+        Player player2 = new Player(null, 3, null );
+        Player player3 = new Player(null, 3, null );
+        playerList.add(player1);
+        playerList.add(player2);
+        playerList.add(player3);
 
-        if (numberOfPlayers == 3){
-
-            //Player player1 = new Player();
+        if (numberOfPlayers == 4){
+            Player player4 = new Player(null, 3, null );
+            playerList.add(player4);
         }
     }
     //Will shift the rotatingCardList when called and will make it turn according to the directionFactor attribute.
@@ -168,7 +183,7 @@ public class ModelService {
     which will assign the names of the players.
     */
     void assignGame(String[] names){
-        //assignWonderBoard( wonderList, playerList);
+        assignWonderBoard( wonderList, playerList);
         createRotatingCardList();
         assignGame(names);
     }
@@ -266,9 +281,9 @@ public class ModelService {
     /*
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.
      */
-    /*public WonderBoard[] createWonderBoards(){
+    public WonderBoard[] createWonderBoards(){
 
-    }*/
+    }
 
     public Player getCurrentPlayer(){
         return currentPlayer;

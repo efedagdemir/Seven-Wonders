@@ -25,7 +25,7 @@ public class Player {
     public Player(String name, int coinAmount, WonderBoard wonder) {
         this.name = name;
         this.wonder = wonder;
-        currentCoin = new Coin(coinAmount);
+        currentCoin = new Coin(coinAmount, "images/coin.png");
         victoryPoints = new VictoryPoint(0);
         conflictPoints = new ConflictPoint(0);
         militaryP = new MilitaryPower(0);
