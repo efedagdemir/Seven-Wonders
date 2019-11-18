@@ -9,6 +9,7 @@ public class CivilianStructure extends Card {
     VictoryPoint victoryPoints;
     Structure requiredStructure;
     Structure providedStructure;
+
     Resource[] requiredProduct;
     Image image;
     ImageView iv;
