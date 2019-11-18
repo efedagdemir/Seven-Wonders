@@ -27,7 +27,7 @@ public class CivilianStructure extends Card {
         requiredProduct = new Resource[rProductType.length];
 
         for (int i = 0; i < rProductType.length; i++ ){
-                Resource r = new Resource(rProductType[i], rProductNo[i]);
+                Resource r = new Resource(rProductType[i], rProductNo[i], "images/"+ rProductType[i].toLowerCase() + ".png");
                 requiredProduct[i] = r;
         }
 
@@ -45,7 +45,7 @@ public class CivilianStructure extends Card {
         requiredStructure = new Structure(rStructure);
         providedStructure = new Structure(pStructure);
         requiredProduct = new Resource[1];
-        requiredProduct[0] =new Resource(resName,  resNo);
+        requiredProduct[0] =new Resource(resName, resNo, "images/" + resName.toLowerCase() + ".png");
 
     }
 

@@ -21,7 +21,7 @@ public class CommercialStructure extends Card {
         iv.setImage(image);
         name = nameC;
         victoryPoints = new VictoryPoint(vp);
-        givenCoins = new Coin(coins);
+        givenCoins = new Coin(coins,"images/coin.png");
         requiredStructure = new Structure(rStructure);
         providedStructure = new Structure(pStructure);
 
@@ -31,7 +31,8 @@ public class CommercialStructure extends Card {
         this.discountedR = new Resource[discountedResources.length];
 
         for (int i = 0; i < discountedResources.length; i++) {
-            Resource r = new Resource(discountedResources[i],1, leftDiscount, rightDiscount);
+            Resource r = new Resource(discountedResources[i],1, leftDiscount, rightDiscount,
+                    "images/" +  discountedResources[i].toLowerCase() + ".png");
             discountedR[i] = r;
         }
     }
