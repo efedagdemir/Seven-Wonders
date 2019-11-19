@@ -1,5 +1,7 @@
 package model;
 
 public abstract class Card {
- void constructCard(){}
+ String name;
+ abstract void constructCard();
+ String getName(){ return name;}
 }

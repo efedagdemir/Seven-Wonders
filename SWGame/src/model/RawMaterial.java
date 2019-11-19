@@ -9,24 +9,36 @@ public class RawMaterial extends Card {
     Image image;
     ImageView iv;
 
-    public RawMaterial(int amount, String[] prName, int[] prNo, String img){
-
+    public RawMaterial(int amount, String[] prName, int[] prNo, String img, String nameC){
+        name = nameC;
         image = new Image(img);
         iv = new javafx.scene.image.ImageView();
         iv.setImage(image);
         iv.setFitHeight(100);
         iv.setFitWidth(65);
-        price = new Coin(amount);
+        price = new Coin(amount, "images/coin.png");
 
         products = new Resource[prName.length];
         for(int i = 0; i < prName.length; i++){
-            Resource r = new Resource(prName[i], prNo[i]);
+            Resource r = new Resource(prName[i], prNo[i], "images/"+ prName[i].toLowerCase() + ".png");
             products[i] = r;
         }
     }
 
     @Override
     void constructCard() {
-        super.constructCard();
+        ModelService modelService = ModelService.getInstance();
+        Player currentPlayer = modelService.getCurrentPlayer();
+        if (currentPlayer.isFree(this) == true){
+            currentPlayer.updateHand(this);
+            currentPlayer.updateResources(products);
+        }
+        else {
+            if (currentPlayer.checkRequirements(null, null, price) == true){
+                currentPlayer.updateHand(this);
+                currentPlayer.updateResources(products);
+            }
+            else {System.out.println("Can't afford!");}
+        }
     }
 }

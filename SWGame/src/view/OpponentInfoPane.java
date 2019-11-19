@@ -5,7 +5,7 @@ import javafx.scene.layout.FlowPane;
 public class OpponentInfoPane extends FlowPane {
     public OpponentInfoPane() {
 
-        setStyle("-fx-background-color: #003ef6");
-        setHeight(200);
+        setStyle("-fx-background-color: #ffcc99");
+        setPrefHeight(150);
     }
 }

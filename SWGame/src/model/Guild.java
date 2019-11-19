@@ -5,26 +5,27 @@ import javafx.scene.image.ImageView;
 
 public class Guild extends Card {
 
-    VictoryPoints victoryPoints;
+    VictoryPoint victoryPoints;
     Structure requiredStructure;
     Resource[] requiredProduct;
     Image image;
     ImageView iv;
 
     /*Constructor for Guilds which require more than one resources*/
-    public Guild(int vp, String rStructure, String[] rProductType,  int[] rProductNo, String img){
+    public Guild(int vp, String rStructure, String[] rProductType,  int[] rProductNo, String img, String nameC){
+        name = nameC;
         image = new Image(img);
         iv = new ImageView();
         iv.setImage(image);
         iv.setFitHeight(100);
         iv.setFitWidth(65);
 
-        victoryPoints = new VictoryPoints(vp);
+        victoryPoints = new VictoryPoint(vp);
         requiredStructure = new Structure(rStructure);
         requiredProduct = new Resource[rProductType.length];
 
         for (int i = 0; i < rProductType.length; i++ ){
-            Resource r = new Resource(rProductType[i], rProductNo[i]);
+            Resource r = new Resource(rProductType[i], rProductNo[i],"image/" + rProductType[i].toLowerCase()+".png");
             requiredProduct[i] = r;
         }
     }
@@ -37,14 +38,30 @@ public class Guild extends Card {
         iv.setFitHeight(100);
         iv.setFitWidth(65);
 
-        victoryPoints = new VictoryPoints(vp);
+        victoryPoints = new VictoryPoint(vp);
         requiredStructure = new Structure(rStructure);
         requiredProduct = new Resource[1];
-        requiredProduct[0] =new Resource(resName,  resNo);
+        requiredProduct[0] =new Resource(resName,  resNo, "image/"+resName.toLowerCase() + ".png");
     }
 
     @Override
     void constructCard() {
-        super.constructCard();
+        ModelService modelService = ModelService.getInstance();
+        Player currentPlayer = modelService.getCurrentPlayer();
+        if ( currentPlayer.isFree(this) == true ){
+            currentPlayer.updateHand(this);
+            currentPlayer.updateVictoryPoints(victoryPoints);
+        }
+        else {
+            if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null) == true)
+            {
+                currentPlayer.updateHand(this);
+                currentPlayer.updateVictoryPoints(victoryPoints);
+            }
+            else {
+                System.out.println("Can't afford");
+            }
+
+        }
     }
 }

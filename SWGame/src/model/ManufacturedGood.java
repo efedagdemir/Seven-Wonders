@@ -10,8 +10,8 @@ public class ManufacturedGood extends Card {
     Image image;
     ImageView iv;
 
-    public ManufacturedGood( String[] gProductType, int[] gProductNo, String[] rProductType, int[] rProductNo, String img){
-
+    public ManufacturedGood( String[] gProductType, int[] gProductNo, String[] rProductType, int[] rProductNo, String img, String nameC){
+        name = nameC;
         image = new Image(img);
         iv = new javafx.scene.image.ImageView();
         iv.setImage(image);
@@ -19,20 +19,39 @@ public class ManufacturedGood extends Card {
         iv.setFitWidth(65);
         givenProducts = new Resource[gProductType.length];
         for (int i = 0; i < gProductType.length; i++ ){
-            Resource g = new Resource(gProductType[i], gProductNo[i]);
+            Resource g = new Resource(gProductType[i], gProductNo[i],
+                    "images/" + gProductType[i].toLowerCase() + ".png");
             givenProducts[i] = g;
         }
 
         requiredProducts = new Resource[rProductType.length];
         for (int i = 0; i < rProductType.length; i++ ){
-            Resource r = new Resource(rProductType[i], rProductNo[i]);
+            Resource r = new Resource(rProductType[i], rProductNo[i],
+                    "images/" + rProductType[i].toLowerCase() + ".png");
             requiredProducts[i] = r;
         }
     }
 
     @Override
     void constructCard() {
-        super.constructCard();
+        ModelService modelService = ModelService.getInstance();
+        Player currentPlayer = modelService.getCurrentPlayer();
+        if ( currentPlayer.isFree(this) == true ){
+            currentPlayer.updateHand(this);
+            currentPlayer.updateResources(givenProducts);
+        }
+        else {
+            if (currentPlayer.checkRequirements(null, requiredProducts, null) == true)
+            {
+                currentPlayer.updateHand(this);
+                currentPlayer.updateResources(givenProducts);
+            }
+            else {
+                System.out.println("Can't afford");
+            }
+
+        }
+
     }
 
 

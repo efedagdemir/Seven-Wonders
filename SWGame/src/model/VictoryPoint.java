@@ -2,13 +2,18 @@ package model;
 
 public class VictoryPoint extends Item {
 
-    public VictoryPoint(int noOfVictoryPoints) {
+    public VictoryPoint(int noOfVictoryPoints){
         noOfItems = noOfVictoryPoints;
     }
 
-    public int getNoOfItems() {
+    void setNoOfItems(int noOfVictoryPoints){
+        noOfItems = noOfItems + noOfVictoryPoints;
+    }
+
+    int getNoOfItems(){
         return noOfItems;
     }
+
 
 
 }
