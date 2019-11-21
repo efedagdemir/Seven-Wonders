@@ -29,18 +29,22 @@ public class GameInitializer {
             }
             e.consume();
         });
-        node.setOnDragEntered(e -> {
-            if (e.getDragboard().hasImage()) {
-                node.setStyle("-fx-background-color: " + hoveredColor);
-            }
-            e.consume();
-        });
-        node.setOnDragExited(e -> {
-            if (e.getDragboard().hasImage()) {
-                node.setStyle("-fx-background-color: " + backgroundColor);
-            }
-            e.consume();
-        });
+        if (hoveredColor != null) {
+            node.setOnDragEntered(e -> {
+                if (e.getDragboard().hasImage()) {
+                    node.setStyle("-fx-background-color: " + hoveredColor);
+                }
+                e.consume();
+            });
+        }
+        if (backgroundColor != null) {
+            node.setOnDragExited(e -> {
+                if (e.getDragboard().hasImage()) {
+                    node.setStyle("-fx-background-color: " + backgroundColor);
+                }
+                e.consume();
+            });
+        }
         node.setOnDragDropped(e -> ControllerFacade.getInstance().takeAction(e));
     }
 

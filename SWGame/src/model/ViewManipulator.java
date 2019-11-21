@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ViewManipulator {
     private static ViewManipulator viewManipulator;
-    GameView gameView;
+    GameView gameView = GameView.getInstance();
     private ViewManipulator(){}
 
     public  static ViewManipulator getInstance() {
