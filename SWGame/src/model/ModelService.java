@@ -1,6 +1,8 @@
 package model;
-import java.lang.reflect.Array;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ModelService {
     private static ModelService modelService ;
@@ -10,6 +12,7 @@ public class ModelService {
     int numberOfPlayers;
     ArrayList<Player>  playerList;
 
+    Card selectedCard;
 
 
     Card[][] rotatingCardList;
@@ -269,7 +272,7 @@ public class ModelService {
     void assignWonderBoard(ArrayList<WonderBoard> wonderList, ArrayList<Player> playerList){
         Collections.shuffle(wonderList);
         int i = 0;
-        for(Player player : playerList){
+        for (Player player : playerList) {
             System.out.println(i);
             System.out.println(playerList.size());
             player.wonder = wonderList.get(i);
@@ -467,6 +470,14 @@ public class ModelService {
 
         return wonderList;
 
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
     }
 
     public Player getCurrentPlayer(){

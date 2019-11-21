@@ -1,73 +1,72 @@
 package view;
 
+import controller.ControllerFacade;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
-import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModelService;
-import view.GameView;
+import model.Resource;
+import model.ScientificType;
 
 public class PlayerInfoPane extends BorderPane {
-    //ModelService modelService = ModelService.getInstance();
+    public static Button howToPlayButton = new Button("How to Play");
     //Buttons
     Button nextTurnButton = new Button("Next Turn");
-    public Button howToPlayButton = new Button("How to Play");
+    public VBox freeStBox = new VBox();
     //Vertical Boxes
     public VBox rightButtons = new VBox();
-    //public VBox freeStBox = new VBox();
     //Images
-    public Image coinImg = new Image("images/coin.png");
-    public Image victoryPointImg = new Image("images/victoryPoint.png");
-    public Image militaryPowerImg = new Image("images/militaryPower.png");
-    public Image cogImg = new Image("images/cog.png");
-    public Image rulerImg = new Image("images/ruler.png");
-    public Image tombImg = new Image("images/tomb.png");
-    public Image clayImg = new Image("images/clay.png");
-    public Image glassImg = new Image("images/glass.png");
-    public Image oreImg = new Image("images/ore.png");
-    public Image papyrusImg = new Image("images/papyrus.png");
-    public Image stoneImg = new Image("images/stone.png");
-    public Image textileImg = new Image("images/textile.png");
-    public Image timberImg = new Image("images/timber.png");
-    public Image background = new Image("papyrusbg2.jpg");
-
+    public Image coinImg = new Image("coin.png");
+    public Image victoryPointImg = new Image("victoryPoint.png");
+    public Image militaryPowerImg = new Image("militaryPower.png");
+    public Image cogImg = new Image("cog.png");
+    public Image rulerImg = new Image("ruler.png");
+    public Image tombImg = new Image("tomb.png");
+    public Image clayImg = new Image("clay.png");
+    public Image glassImg = new Image("glass.png");
+    public Image oreImg = new Image("ore.png");
+    public Image papyrusImg = new Image("papyrus.png");
+    public Image stoneImg = new Image("stone.png");
+    public Image textileImg = new Image("textile.png");
+    public Image timberImg = new Image("timber.png");
     //Labels
-    public Label playerNameLabel = new Label("Player1");
-    public Label coinAmountLabel = new Label("x 0");
-    public Label victoryPointAmountLabel = new Label("x 0");
-    public Label militaryPowerAmountLabel = new Label("x 0");
-    public Label cogStructAmountLabel = new Label("x 0");
-    public Label rulerStructAmountLabel = new Label("x 0");
-    public Label tombStructAmountLabel = new Label("x 0");
+    public Label playerNameLabel;
+    public Image background = new Image("papyrusbg2.jpg");
+    public Label coinAmountLabel;
+    public Label victoryPointAmountLabel;
+    public Label militaryPowerAmountLabel;
+    public Label cogStructAmountLabel;
+    public Label rulerStructAmountLabel;
+    public Label tombStructAmountLabel;
+    //    public Label stables = new Label("Stables");
+//    public Label dispensary = new Label("Dispensary");
+//    public Label acqueduct = new Label("Acqueduct");
+    public Label forum = new Label("- Forum");
     public Label freeLabel = new Label("Free Structures");
     public Label temple = new Label("- Temple");
-    public Label stables = new Label("Stables");
-    public Label dispensary = new Label("Dispensary");
-    public Label acqueduct = new Label("Acqueduct");
-    public Label forum = new Label("- Forum");
-    public Label caravansery = new Label("Caravansery");
-    public Label courthouse = new Label("Courthouse");
-    public Label library = new Label("Library");
-    public Label statue = new Label("Statue");
+    //    public Label caravansery = new Label("Caravansery");
+//    public Label courthouse = new Label("Courthouse");
+//    public Label library = new Label("Library");
+//    public Label statue = new Label("Statue");
     public Label laboratory = new Label("- Laboratory");
+    ModelService modelService = ModelService.getInstance();
     public Label archeryRange = new Label("- Archery Range");
     public Label resourceLabel = new Label("Resources");
-    public Label clayAmountLabel = new Label("x 0");
-    public Label glassAmountLabel = new Label("x 0");
-    public Label oreAmountLabel = new Label("x 0");
-    public Label papyrusAmountLabel = new Label("x 0");
-    public Label stoneAmountLabel = new Label("x 0");
-    public Label textileAmountLabel = new Label("x 0");
-    public Label timberAmountLabel = new Label("x 0");
+    public Label clayAmountLabel = new Label("x " + getNumOfResource("Clay"));
+    public Label glassAmountLabel = new Label("x " + getNumOfResource("Glass"));
+    public Label oreAmountLabel = new Label("x " + getNumOfResource("Ore"));
+    public Label papyrusAmountLabel = new Label("x " + getNumOfResource("Papyrus"));
+    public Label stoneAmountLabel = new Label("x " + getNumOfResource("Stone"));
+    public Label textileAmountLabel = new Label("x " + getNumOfResource("Textile"));
+    public Label timberAmountLabel = new Label("x " + getNumOfResource("Timber"));
 
     //Image Views
     public ImageView coinImgView = new ImageView(coinImg);
@@ -93,6 +92,24 @@ public class PlayerInfoPane extends BorderPane {
 
 
     public PlayerInfoPane() {
+
+        playerNameLabel = new Label(ModelService.getInstance().getCurrentPlayer().getName());
+        coinAmountLabel = new Label("x " + modelService.getCurrentPlayer().getCurrentCoin().getNoOfItems());
+        victoryPointAmountLabel = new Label("x " + modelService.getCurrentPlayer().getVictoryPoints().getNoOfItems());
+        militaryPowerAmountLabel = new Label("x " + modelService.getCurrentPlayer().getMilitaryPower().getNoOfItems());
+        cogStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Cog"));
+        rulerStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Ruler"));
+        tombStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Tomb"));
+
+
+        clayAmountLabel = new Label("x " + getNumOfResource("Clay"));
+        glassAmountLabel = new Label("x " + getNumOfResource("Glass"));
+        oreAmountLabel = new Label("x " + getNumOfResource("Ore"));
+        papyrusAmountLabel = new Label("x " + getNumOfResource("Papyrus"));
+        stoneAmountLabel = new Label("x " + getNumOfResource("Stone"));
+        textileAmountLabel = new Label("x " + getNumOfResource("Textile"));
+        timberAmountLabel = new Label("x " + getNumOfResource("Timber"));
+
         resourcesGrid.setBorder(new Border( new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         attributeGrid.setBorder(new Border( new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         rightButtons.setBorder(new Border( new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -156,20 +173,6 @@ public class PlayerInfoPane extends BorderPane {
         attributeGrid.add(tombImgView, 2, 4);
         attributeGrid.add(tombStructAmountLabel, 3, 4);
 
-        /*GridPane.setConstraints( playerNameLabel, 0, 0);
-        GridPane.setConstraints( coinImgView, 0, 1);
-        GridPane.setConstraints( coinAmountLabel, 1, 1);
-        GridPane.setConstraints( militaryPowerImgView, 0, 2);
-        GridPane.setConstraints( militaryPowerAmountLabel, 1, 2);
-        GridPane.setConstraints( victoryPointImgView, 0, 3);
-        GridPane.setConstraints( victoryPointAmountLabel, 1, 3);*/
-        //GridPane.setConstraints( victoryPointAmountLabel, 1, 3);
-        /*GridPane.setConstraints(cogImgView, 2, 1);
-        GridPane.setConstraints(cogStructAmountLabel, 3, 1);
-        GridPane.setConstraints(rulerImgView, 2, 2);
-        GridPane.setConstraints(rulerStructAmountLabel, 3, 2);
-        GridPane.setConstraints(tombImgView, 2, 3);
-        GridPane.setConstraints(tombStructAmountLabel, 3, 3);*/
         playerNameLabel.setStyle("-fx-font-weight: bold");
         coinAmountLabel.setStyle("-fx-font-weight: bold");
         victoryPointAmountLabel.setStyle("-fx-font-weight: bold");
@@ -215,7 +218,7 @@ public class PlayerInfoPane extends BorderPane {
 
 
         //attributeGrid.getChildren().addAll(playerNameLabel, coinImgView, coinAmountLabel, militaryPowerImgView, militaryPowerAmountLabel, victoryPointImgView, victoryPointAmountLabel,
-                //cogImgView, cogStructAmountLabel, rulerImgView, rulerStructAmountLabel, tombImgView, tombStructAmountLabel);
+        //cogImgView, cogStructAmountLabel, rulerImgView, rulerStructAmountLabel, tombImgView, tombStructAmountLabel);
         //playerAttributeBox.getChildren().addAll(playerNameLabel, coinImgView, militaryPowerImgView, victoryPointImgView);
         //playerAttributeBox.setSpacing(20);
 
@@ -293,6 +296,45 @@ public class PlayerInfoPane extends BorderPane {
         setStyle("-fx-background-color: #ffcc99");
         setPrefHeight(120);
         //getChildren().addAll(bottomBorder, rightButtons);
-        //nextTurnButton.setOnAction(e -> GameView.getInstance().nextTurnScreen());
+        nextTurnButton.setOnAction(e -> GameView.getInstance().nextTurnScreen());
+        howToPlayButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
+
     }
+
+    public void update() {
+        coinAmountLabel.setText("x " + modelService.getCurrentPlayer().getCurrentCoin().getNoOfItems());
+        victoryPointAmountLabel.setText("x " + modelService.getCurrentPlayer().getVictoryPoints().getNoOfItems());
+        militaryPowerAmountLabel.setText("x " + modelService.getCurrentPlayer().getMilitaryPower().getNoOfItems());
+        cogStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Cog"));
+        rulerStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Ruler"));
+        tombStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Tomb"));
+        clayAmountLabel.setText("x " + getNumOfResource("Clay"));
+        glassAmountLabel.setText("x " + getNumOfResource("Glass"));
+        oreAmountLabel.setText("x " + getNumOfResource("Ore"));
+        papyrusAmountLabel.setText("x " + getNumOfResource("Papyrus"));
+        stoneAmountLabel.setText("x " + getNumOfResource("Stone"));
+        textileAmountLabel.setText("x " + getNumOfResource("Textile"));
+        timberAmountLabel.setText("x " + getNumOfResource("Timber"));
+    }
+
+    private int getNumOfThisTypeOfStructure(String str) {
+        for (ScientificType type : modelService.getCurrentPlayer().getScientificTypes()) {
+            if (type.getScientificType().equals(str)) {
+                return type.getNoOfItems();
+            }
+        }
+        return 0;
+    }
+
+    private int getNumOfResource(String str) {
+        for (Resource resource : modelService.getCurrentPlayer().getCurrentResources()) {
+            if (resource.getResourceName().equals(str)) {
+                return resource.getNoOfItems();
+            }
+        }
+        return 0;
+    }
+
+
+
 }
