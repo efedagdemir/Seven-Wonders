@@ -140,7 +140,8 @@ public class Player {
 
     //Increments the resources of the player according to the cards the player takes.
     void updateResources(Resource[] resourceArr){
-
+        if (resourceArr == null)
+            return;
         Resource res;
         for(int i = 0; i < resourceArr.length; i++){
             boolean exists = false;

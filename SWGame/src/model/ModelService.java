@@ -25,17 +25,9 @@ public class ModelService {
         return playerIndex;
     }
 
-    public void incrementPlayerIndex() {
-        playerIndex++;
-        if(playerIndex == 4){
-            playerIndex = 0;
-        }
-    }
-
-    public int playerIndex;
-
     private ModelService(){
         System.out.println("Model Service");
+        viewManipulator = ViewManipulator.getInstance();
         numberOfPlayers = 3;
         currentAge = new AgeI();
         currentAge.createDeck(numberOfPlayers);
@@ -44,6 +36,20 @@ public class ModelService {
         rotatingCardList = new Card[numberOfPlayers][rotNo];
         playerIndex = 0;
 
+    }
+
+    public void incrementPlayerIndex() {
+        playerIndex++;
+        if (playerIndex == 4) {
+            playerIndex = 0;
+        }
+    }
+
+    public int playerIndex;
+
+    public void constructCard() {
+        if (selectedCard != null)
+            selectedCard.constructCard();
     }
 
     public static ModelService getInstance() {

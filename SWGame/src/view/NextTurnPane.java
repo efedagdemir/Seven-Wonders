@@ -26,7 +26,7 @@ public class NextTurnPane extends BorderPane {
         setBottom(buttonBox);
         nextTurnLabel.setTextAlignment(TextAlignment.CENTER);
         setCenter(nextTurnLabel);
-        setBottom(okButton);
+        setBottom(buttonBox);
         nextTurnLabel.setFont(new Font(30));
         nextTurnLabel.setStyle("-fx-text-fill: #dfabdd;");
         okButton.setPrefSize(100, 50);
