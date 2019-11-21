@@ -52,7 +52,7 @@ public class CommercialStructure extends Card {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedStructure);
             currentPlayer.updateDiscountedResources(discountedR);
-            currentPlayer.updateCoin(givenCoins.getNoOfItems());
+            currentPlayer.addCoin(givenCoins.getNoOfItems());
             currentPlayer.updateVictoryPoints(victoryPoints);
         }
         else{
@@ -60,7 +60,7 @@ public class CommercialStructure extends Card {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateFreeStructures(providedStructure);
                 currentPlayer.updateDiscountedResources(discountedR);
-                currentPlayer.updateCoin(givenCoins.getNoOfItems());
+                currentPlayer.addCoin(givenCoins.getNoOfItems());
                 currentPlayer.updateVictoryPoints(victoryPoints);
             }
             else {

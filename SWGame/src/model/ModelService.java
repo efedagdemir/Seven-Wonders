@@ -189,7 +189,7 @@ public class ModelService {
 
     void updateCoin(Coin coin){
         if(coin != null){
-            currentPlayer.updateCoin(coin.getNoOfItems());
+            currentPlayer.addCoin(coin.getNoOfItems());
         }
     }
 
