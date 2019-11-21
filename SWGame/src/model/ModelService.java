@@ -213,6 +213,7 @@ public class ModelService {
      Will call the notifyWonderPane() method from the ViewManipulator.
     */
     public void buildWonder(){
+        currentPlayer.wonder.buildWonderStage();
         viewManipulator.notifyWonderPane(wonderList);
     }
 
@@ -454,7 +455,7 @@ public class ModelService {
         WonderStage r1 = new WonderStage(null, requiredResource, v3, null);
 
         requiredResource[0] = new Resource("Papyrus", 2, "papyrus.png");
-        ConflictPoint c = new ConflictPoint(2);
+        MilitaryPower c = new MilitaryPower(2);
         WonderStage r2 = new WonderStage(null, requiredResource, null, c);
 
         requiredResource[0] = new Resource("Papyrus", 2, "papyrus.png");
