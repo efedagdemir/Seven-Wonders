@@ -16,7 +16,7 @@ public class ScientificType extends Item {
         return name;
     }
 
-    int getNoOfItems(){
+    public int getNoOfItems(){
         return noOfItems;
     }
 }
