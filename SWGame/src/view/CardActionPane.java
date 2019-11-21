@@ -118,7 +118,7 @@ public class CardActionPane extends BorderPane {
         }
         ImageView[] requiredResources = wonderStage.getRequiredResources() != null ? getImages(wonderStage.getRequiredResources()) : null;
         ImageView[] providedResources = wonderStage.getProvidedResources() != null ? getImages(wonderStage.getProvidedResources()) : null;
-        ImageView cp = wonderStage.getProvidedConflictPoints() != null ? wonderStage.getProvidedConflictPoints().getIv() : null;
+        ImageView cp = wonderStage.getProvidedMilitaryPower() != null ? wonderStage.getProvidedMilitaryPower().getIv() : null;
         ImageView vp = wonderStage.getProvidedVictoryPoint() != null ? wonderStage.getProvidedVictoryPoint().getIv() : null;
 
         for (ImageView image : requiredResources) {
