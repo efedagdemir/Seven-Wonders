@@ -5,27 +5,38 @@ public class WonderStage {
     private Resource[] providedResources;
     private Resource[] requiredResources;
     private VictoryPoint providedVictoryPoint;
-    private ConflictPoint providedConflictPoints;
+    private MilitaryPower providedMilitaryPower;
 
     WonderStage(Resource[] providedResources,
                 Resource[] requiredResources,
                 VictoryPoint victoryPoint,
-                ConflictPoint conflictPoints
+                MilitaryPower militaryPower
     ) {
         setProvidedResources(providedResources);
         setRequiredResources(requiredResources);
         setProvidedVictoryPoint(victoryPoint);
-        setProvidedConflictPoints(conflictPoints);
+        setProvidedMilitaryPower(militaryPower);
     }
     WonderStage(WonderStage ws){
         setProvidedResources(ws.providedResources);
         setRequiredResources(ws.requiredResources);
         setProvidedVictoryPoint(ws.providedVictoryPoint);
-        setProvidedConflictPoints(ws.providedConflictPoints);
+        setProvidedMilitaryPower(ws.providedMilitaryPower);
     }
 
-    void buildWonderStage() {
-        //TODO(need other classes to add wonder attributes to the player)
+    boolean buildWonderStage() {
+        System.out.println("GELDİM");
+        ModelService ms = ModelService.getInstance();
+       if ( ms.getCurrentPlayer().checkRequirements(null,requiredResources,null))
+       {
+           ms.getCurrentPlayer().updateVictoryPoints(providedVictoryPoint);
+           ms.getCurrentPlayer().updateResources(providedResources);
+           ms.getCurrentPlayer().updateMilitaryPower(providedMilitaryPower.getNoOfItems());
+           return true;
+       }
+        System.out.println("CANT AFFORD");
+        return false;
+
     }
 
     public Resource[] getProvidedResources() {
@@ -62,11 +73,11 @@ public class WonderStage {
         this.providedVictoryPoint = providedVictoryPoint;
     }
 
-    public ConflictPoint getProvidedConflictPoints() {
-        return providedConflictPoints;
+    public MilitaryPower getProvidedMilitaryPower() {
+        return providedMilitaryPower;
     }
 
-    public void setProvidedConflictPoints(ConflictPoint providedConflictPoints) {
-        this.providedConflictPoints = providedConflictPoints;
+    public void setProvidedMilitaryPower(MilitaryPower providedMilitaryPower) {
+        this.providedMilitaryPower = providedMilitaryPower;
     }
 }
