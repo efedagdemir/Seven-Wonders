@@ -4,6 +4,6 @@ import model.ModelService;
 
 public class SellCardDropBoard extends DropBoard {
     public void takeCardAction() {
-        ModelService.getInstance().getCurrentPlayer().updateCoin(3);
+        ModelService.getInstance().getCurrentPlayer().addCoin(3);
     }
 }
