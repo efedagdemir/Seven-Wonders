@@ -12,28 +12,35 @@ public class CommercialStructure extends Card {
     private boolean leftDiscount;
     private boolean rightDiscount;
     private Resource[] discountedR;
-    Image image;
-    ImageView iv;
 
+    String path;
     public CommercialStructure(int vp, int coins, String rStructure, String pStructure, boolean leftDiscount, boolean rightDiscount, String[] discountedResources, String img, String nameC){
+
         image = new Image(img);
         iv = new ImageView();
         iv.setImage(image);
         name = nameC;
+        path = img;
+        System.out.println(img);
         victoryPoints = new VictoryPoint(vp);
-        givenCoins = new Coin(coins,"images/coin.png");
-        requiredStructure = new Structure(rStructure);
-        providedStructure = new Structure(pStructure);
+        givenCoins = new Coin(coins,"coin.png");
+        if (rStructure != null)
+            requiredStructure = new Structure(rStructure);
+        if (pStructure != null)
+            providedStructure = new Structure(pStructure);
 
 
         this.leftDiscount = leftDiscount;
         this.rightDiscount = rightDiscount;
-        this.discountedR = new Resource[discountedResources.length];
+        if (discountedResources != null){
+            this.discountedR = new Resource[discountedResources.length];
 
-        for (int i = 0; i < discountedResources.length; i++) {
-            Resource r = new Resource(discountedResources[i],1, leftDiscount, rightDiscount,
-                    "images/" +  discountedResources[i].toLowerCase() + ".png");
-            discountedR[i] = r;
+            for (int i = 0; i < discountedResources.length; i++) {
+                Resource r = new Resource(discountedResources[i],1, leftDiscount, rightDiscount,
+                        discountedResources[i].toLowerCase() + ".png");
+                discountedR[i] = r;
+
+            }
         }
     }
 
@@ -60,7 +67,7 @@ public class CommercialStructure extends Card {
                 System.out.println("Can't afford!!");
             }
         }
-        }
+    }
 
+    public String getPath(){ return path;}
 }
-

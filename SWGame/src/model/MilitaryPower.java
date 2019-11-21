@@ -10,7 +10,7 @@ public class MilitaryPower extends Item {
         noOfItems = noOfItems + military;
     }
 
-    int getNoOfItems(){
+    public int getNoOfItems(){
         return noOfItems;
     }
 

@@ -23,7 +23,11 @@ public class WonderBoard {
         this.wonderLevel = 1;
         setWonderName(wonderName);
         setProducedResource(producedResource);
-        addWonderStages(wonderStages);
+        for(int i = 0 ; i < wonderStages.length; i++){
+            this.wonderStages = new WonderStage[3];
+            this.wonderStages[i] = new WonderStage(wonderStages[i]);
+        }
+        this.wonderStages = wonderStages;
         image = new Image(img);
         iv = new ImageView();
         iv.setImage(image);
@@ -32,14 +36,6 @@ public class WonderBoard {
     void buildWonderStage() {
         getWonderStages()[wonderLevel - 1].buildWonderStage();
         incrementWonderLevel();
-    }
-
-    private boolean addWonderStages(WonderStage[] wonderStages) {
-        if (wonderStages.length != NUMBER_OF_STAGES) {
-            return false;
-        }
-        this.wonderStages = wonderStages;
-        return true;
     }
 
     //setters and getters
@@ -57,6 +53,7 @@ public class WonderBoard {
     }
 
     private void setProducedResource(Resource producedResource) {
+        System.out.println(producedResource.getResourceName());
         this.producedResource = producedResource;
     }
 
@@ -70,5 +67,8 @@ public class WonderBoard {
 
     public WonderStage[] getWonderStages() {
         return wonderStages;
+    }
+    public WonderStage getWonderStage(int i) {
+        return wonderStages[i];
     }
 }

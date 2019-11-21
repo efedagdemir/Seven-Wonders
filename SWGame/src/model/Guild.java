@@ -11,7 +11,7 @@ public class Guild extends Card {
     Image image;
     ImageView iv;
 
-    /*Constructor for Guilds which require more than one resources*/
+    //Constructor for Guilds which require more than one resources
     public Guild(int vp, String rStructure, String[] rProductType,  int[] rProductNo, String img, String nameC){
         name = nameC;
         image = new Image(img);
@@ -21,12 +21,15 @@ public class Guild extends Card {
         iv.setFitWidth(65);
 
         victoryPoints = new VictoryPoint(vp);
-        requiredStructure = new Structure(rStructure);
-        requiredProduct = new Resource[rProductType.length];
+        if (rStructure != null)
+            requiredStructure = new Structure(rStructure);
+        if (rProductType != null){
+            requiredProduct = new Resource[rProductType.length];
 
-        for (int i = 0; i < rProductType.length; i++ ){
-            Resource r = new Resource(rProductType[i], rProductNo[i],"image/" + rProductType[i].toLowerCase()+".png");
-            requiredProduct[i] = r;
+            for (int i = 0; i < rProductType.length; i++ ){
+                Resource r = new Resource(rProductType[i], rProductNo[i],rProductType[i].toLowerCase()+".png");
+                requiredProduct[i] = r;
+            }
         }
     }
     /*Constructor for Guilds which require only one resource */
@@ -39,9 +42,11 @@ public class Guild extends Card {
         iv.setFitWidth(65);
 
         victoryPoints = new VictoryPoint(vp);
-        requiredStructure = new Structure(rStructure);
-        requiredProduct = new Resource[1];
-        requiredProduct[0] =new Resource(resName,  resNo, "image/"+resName.toLowerCase() + ".png");
+        if (rStructure != null)
+            requiredStructure = new Structure(rStructure);
+        if (resName != null){
+            requiredProduct = new Resource[1];
+            requiredProduct[0] =new Resource(resName,  resNo, resName.toLowerCase() + ".png");}
     }
 
     @Override
