@@ -253,7 +253,6 @@ public class PlayerInfoPane extends BorderPane {
         dropShadow.setOffsetY(3.0);
         dropShadow.setColor(Color.color(0.4,0.5,0.5));
         //Buttons
-        Button nextTurnButton = new Button("Next Turn");
         nextTurnButton.setEffect(dropShadow);
         howToPlayButton.setEffect(dropShadow);
         resourcesGrid.setAlignment(Pos.BOTTOM_CENTER);

@@ -267,6 +267,11 @@ public class Player {
         return affordC && affordR && affordS;
     }
 
+    /*This method updates the current player's coin amount by three. */
+    public void sellCard(){
+        currentCoin.setNoOfItems(3);
+    }
+
     //Adds the built card to the hand of the player.
     void updateHand(Card card){
         hand.add(card);
