@@ -11,10 +11,8 @@ public class CivilianStructure extends Card {
     Structure providedStructure;
 
     Resource[] requiredProduct;
-    Image image;
-    ImageView iv;
 
-    /*Constructor for Civilian Cards which require more than one resources*/
+    //Constructor for Civilian Cards which require more than one resources
     public CivilianStructure( int vPoints, String rStructure, String pStructure, String[] rProductType,  int[] rProductNo, String img, String nameC){
         name = nameC;
         image = new Image(img);
@@ -22,13 +20,16 @@ public class CivilianStructure extends Card {
         iv.setImage(image);
 
         victoryPoints = new VictoryPoint(vPoints);
-        requiredStructure = new Structure(rStructure);
-        providedStructure = new Structure(pStructure);
-        requiredProduct = new Resource[rProductType.length];
-
-        for (int i = 0; i < rProductType.length; i++ ){
-                Resource r = new Resource(rProductType[i], rProductNo[i], "images/"+ rProductType[i].toLowerCase() + ".png");
+        if (rStructure != null)
+            requiredStructure = new Structure(rStructure);
+        if (pStructure != null)
+            providedStructure = new Structure(pStructure);
+        if (rProductType != null){
+            requiredProduct = new Resource[rProductType.length];
+            for (int i = 0; i < rProductType.length; i++ ){
+                Resource r = new Resource(rProductType[i], rProductNo[i],  rProductType[i].toLowerCase() + ".png");
                 requiredProduct[i] = r;
+            }
         }
 
     }
@@ -41,11 +42,15 @@ public class CivilianStructure extends Card {
         iv.setImage(image);
         iv.setFitHeight(100);
         iv.setFitWidth(65);
+
         victoryPoints = new VictoryPoint(vPoints);
-        requiredStructure = new Structure(rStructure);
-        providedStructure = new Structure(pStructure);
-        requiredProduct = new Resource[1];
-        requiredProduct[0] =new Resource(resName, resNo, "images/" + resName.toLowerCase() + ".png");
+        if (rStructure != null)
+            requiredStructure = new Structure(rStructure);
+        if (pStructure != null)
+            providedStructure = new Structure(pStructure);
+        if (resName != null){
+            requiredProduct = new Resource[1];
+            requiredProduct[0] =new Resource(resName, resNo, resName.toLowerCase() + ".png");}
 
     }
 
