@@ -1,15 +1,20 @@
 package view;
 
-import controller.ControllerFacade;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
+        import controller.ControllerFacade;
+        import javafx.geometry.Pos;
+        import javafx.scene.control.Button;
+        import javafx.scene.control.Label;
+        import javafx.scene.control.ScrollBar;
+        import javafx.scene.control.ScrollPane;
+        import javafx.scene.effect.DropShadow;
+        import javafx.scene.effect.Glow;
+        import javafx.scene.image.Image;
+        import javafx.scene.layout.*;
+        import javafx.scene.text.Font;
+        import javafx.scene.text.TextAlignment;
+        import javafx.scene.image.Image;
+
+        import java.awt.*;
 
 public class HowToPlayPane extends ScrollPane {
     //private static CreditsPane creditsPane = new CreditsPane();
@@ -239,6 +244,8 @@ public class HowToPlayPane extends ScrollPane {
             "Note: a booklet of scorecards is in the box to help you count the points for your first few games... or keep track of your more memorable games.\n");
     //public Button okayButton = new Button( "Okay");
 
+    //public Image menuBackground = new Image("7Wbg.jpg");
+    //public BackgroundImage backgroundImage = new BackgroundImage( menuBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
     ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
     public HowToPlayPane(){
@@ -252,11 +259,25 @@ public class HowToPlayPane extends ScrollPane {
         htpBox.getChildren().addAll( htpLabel, rules, morerules, morerules2);
         //setCenter(htpBox);
         htpLabel.setFont(new Font(18));
-        htpLabel.setStyle("-fx-text-fill: #dfabdd;");
+        //htpLabel.setStyle("-fx-text-fill: #dfabdd;");
         htpBox.setSpacing(10);
         //htpBox.setAlignment(Pos.CENTER);
         htpLabel.setTextAlignment(TextAlignment.CENTER);
         //okayButton.setOnAction(e -> controllerFacade.commandModel(e));
+        htpLabel.setFont(new Font(50));
+        htpLabel.setStyle("-fx-text-fill: #e0bf16;");
+        //htpBox.setBackground( new Background(backgroundImage));
+        Glow glow = new Glow();
+        glow.setLevel(1.0);
+        htpLabel.setEffect(glow);
+        DropShadow dropShadow2 = new DropShadow();
+        dropShadow2.setRadius(5.0);
+        dropShadow2.setOffsetX(3.0);
+        dropShadow2.setOffsetY(3.0);
+        htpLabel.setEffect(dropShadow2);
+        rules.setStyle("-fx-font-weight: bold");
+        morerules.setStyle("-fx-font-weight: bold");
+        morerules2.setStyle("-fx-font-weight: bold");
     }
 
     /*public static CreditsPane getInstance(){
