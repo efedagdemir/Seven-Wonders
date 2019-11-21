@@ -27,6 +27,7 @@ public class ActionManager {
 
     public void determineCardAction(DropBoard db, Card card) {
         removeFromRotatingCards(card);
+        System.out.println("TAKEAC");
         db.takeCardAction();
     }
 }
