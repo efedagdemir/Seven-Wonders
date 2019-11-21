@@ -72,7 +72,7 @@ public class ModelService {
                 for ( int j = i; j < rotatingCardList[playerIndex].length - 1; j++){
                     rotatingCardList[playerIndex][j] = rotatingCardList[playerIndex][j + 1];
                 }
-                Card arr[] = new Card[rotatingCardList[playerIndex].length - 1];
+                Card[] arr = new Card[rotatingCardList[playerIndex].length - 1];
                 for ( int j = 0; j < rotatingCardList[playerIndex].length - 1; j++){
                     arr[j] = rotatingCardList[playerIndex][j];
                 }
@@ -100,23 +100,23 @@ public class ModelService {
 
     void createPlayer(){
 
-        Player player1 = new Player(null, 3, null );
-        Player player2 = new Player(null, 3, null );
-        Player player3 = new Player(null, 3, null );
+        Player player1 = new Player("Player1", 3, null );
+        Player player2 = new Player("Player2", 3, null );
+        Player player3 = new Player("Player3", 3, null );
         playerList.add(player1);
         playerList.add(player2);
         playerList.add(player3);
         if (numberOfPlayers == 4){
 
-            Player player4 = new Player(null, 3, null );
+            Player player4 = new Player("Player4", 3, null );
             playerList.add(player4);
         }
     }
     //Will shift the rotatingCardList when called and will make it turn according to the directionFactor attribute.
     void rotateDecks(){
-        Card temp1[] = rotatingCardList[0];
-        Card temp2[] = rotatingCardList[1];
-        Card temp3[] = rotatingCardList[2];
+        Card[] temp1 = rotatingCardList[0];
+        Card[] temp2 = rotatingCardList[1];
+        Card[] temp3 = rotatingCardList[2];
         rotatingCardList[1] = temp1;
         rotatingCardList[2] = temp2;
         rotatingCardList[0] = temp3;

@@ -3,7 +3,7 @@ package model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-class WonderBoard {
+public class WonderBoard {
 
     private final int NUMBER_OF_STAGES = 3;
     private int wonderLevel;
