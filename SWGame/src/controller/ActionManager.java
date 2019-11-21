@@ -21,13 +21,9 @@ public class ActionManager {
 
     }
 
-    void removeFromRotatingCards(Card card){
 
-    }
+    public void determineCardAction(DropBoard db) {
 
-    public void determineCardAction(DropBoard db, Card card) {
-        removeFromRotatingCards(card);
-        System.out.println("TAKEAC");
         db.takeCardAction();
     }
 }
