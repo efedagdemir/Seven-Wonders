@@ -1,16 +1,18 @@
 package view;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import model.ModelService;
 
 public class CardActionPane extends BorderPane {
     public FlowPane cardFlowPane = new FlowPane();
 
 
-
     public CardActionPane() {
-        setCenter(cardFlowPane);
-        //for( int i = 0; i < )
-        setStyle("-fx-background-color: #e67300");
+
+        getChildren().add(cardFlowPane);
+        setStyle("-fx-background-color: #fdbfac");
     }
 }

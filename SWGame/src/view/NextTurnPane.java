@@ -33,7 +33,7 @@ public class NextTurnPane extends BorderPane {
         buttonBox.setSpacing(10);
         nextTurnLabel.setAlignment(Pos.CENTER);
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
-        okButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
+        //okButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
 
     }
 }

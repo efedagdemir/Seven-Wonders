@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Player {
     String name;
 
+
     Coin currentCoin;
     WonderBoard wonder;
     VictoryPoint victoryPoints;
@@ -21,11 +22,9 @@ public class Player {
     ArrayList<Resource> currentResources;
     ArrayList<Structure> freeStructures;
 
-
-    public Player(String name, int coinAmount, WonderBoard wonder) {
+    public Player(String name, int coinAmount) {
         this.name = name;
-        this.wonder = wonder;
-        currentCoin = new Coin(coinAmount, "images/coin.png");
+        currentCoin = new Coin(coinAmount, "coin.png");
         victoryPoints = new VictoryPoint(0);
         conflictPoints = new ConflictPoint(0);
         finalPoint = 0;
@@ -38,10 +37,6 @@ public class Player {
         scientificTypes = new ArrayList<>();
         itemList = new ArrayList<>();
         currentResources = new ArrayList<>();
-
-
-        currentResources.add(wonder.getProducedResource());
-        itemList.add(wonder.getProducedResource());
         updateItemList(currentCoin);
         updateItemList(militaryP);
 
@@ -178,7 +173,6 @@ public class Player {
     }
 
     void updateVictoryPoints(WonderStage wonder){
-
     }
 
 
@@ -328,6 +322,28 @@ public class Player {
         r[0] = resource;
         updateResources(r);
 
+    }
+
+
+
+    public Coin getCurrentCoin() {
+        return currentCoin;
+    }
+
+    public MilitaryPower getMilitaryP() {
+        return militaryP;
+    }
+
+    public ArrayList<ScientificType> getScientificTypes() {
+        return scientificTypes;
+    }
+
+    public ArrayList<Resource> getCurrentResources() {
+        return currentResources;
+    }
+
+    public ArrayList<Structure> getFreeStructures() {
+        return freeStructures;
     }
 
 

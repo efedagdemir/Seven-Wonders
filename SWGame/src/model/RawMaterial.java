@@ -6,8 +6,7 @@ public class RawMaterial extends Card {
 
     Coin price;
     Resource[] products;
-    Image image;
-    ImageView iv;
+
 
     public RawMaterial(int amount, String[] prName, int[] prNo, String img, String nameC){
         name = nameC;
@@ -16,12 +15,17 @@ public class RawMaterial extends Card {
         iv.setImage(image);
         iv.setFitHeight(100);
         iv.setFitWidth(65);
-        price = new Coin(amount, "images/coin.png");
 
-        products = new Resource[prName.length];
-        for(int i = 0; i < prName.length; i++){
-            Resource r = new Resource(prName[i], prNo[i], "images/"+ prName[i].toLowerCase() + ".png");
-            products[i] = r;
+        price = new Coin(amount, "coin.png");
+
+        if (prName != null){
+            products = new Resource[prName.length];
+            for(int i = 0; i < prName.length; i++){
+
+                System.out.println(prName[i].toLowerCase() + ".png");
+                Resource r = new Resource(prName[i], prNo[i],  prName[i].toLowerCase() + ".png");
+                products[i] = r;
+            }
         }
     }
 
