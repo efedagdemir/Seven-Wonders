@@ -168,7 +168,6 @@ public class Player {
         updateItemList(currentCoin);
         return true;
     }
-
     //Updates the current victory points of the player according to the cards taken
     // and according to the wonders built
     void updateVictoryPoints(VictoryPoint vc){

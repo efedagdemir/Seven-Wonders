@@ -1,10 +1,8 @@
 package view;
 
-import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import model.ModelService;
-import model.Player;
 
 public class AllOpponentsPane extends BorderPane {
     //ModelService modelService = ModelService.getInstance();
@@ -14,16 +12,17 @@ public class AllOpponentsPane extends BorderPane {
     //public OpponentInfoPane centerNeighbor;
 
     public AllOpponentsPane(/*Player left, Player right*/){
-        leftNeighbor = new OpponentInfoPane();
-        rightNeighbor = new OpponentInfoPane();
+        ModelService modelService = ModelService.getInstance();
+        leftNeighbor = new OpponentInfoPane(modelService.getCurrentPlayer().getLeftNeighbor());
+        rightNeighbor = new OpponentInfoPane(modelService.getCurrentPlayer().getRightNeighbor());
 
         //setLeft(leftNeighbor);
         //setRight(rightNeighbor);
 
         leftNeighbor.setBorder(new Border( new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         rightNeighbor.setBorder(new Border( new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        leftNeighbor.playerNameLabel.setText("Player 2");
-        rightNeighbor.playerNameLabel.setText("Player 3");
+        leftNeighbor.playerNameLabel.setText(ModelService.getInstance().getCurrentPlayer().getLeftNeighbor().getName());
+        rightNeighbor.playerNameLabel.setText(ModelService.getInstance().getCurrentPlayer().getRightNeighbor().getName());
 
         setPrefHeight(120);
         //getChildren().addAll(leftNeighbor, rightNeighbor);
