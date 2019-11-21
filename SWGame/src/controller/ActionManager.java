@@ -2,14 +2,15 @@ package controller;
 
 import model.Card;
 import model.Resource;
+import view.DropBoard;
 
 /* A singleton controller class which is responsible for the actions of the game */
-class ActionManager {
+public class ActionManager {
     private static ActionManager actionManager;
 
     private ActionManager(){}
 
-    static ActionManager getInstance() {
+    public static ActionManager getInstance() {
         if(actionManager == null){
             actionManager = new ActionManager();
         }
@@ -24,7 +25,8 @@ class ActionManager {
 
     }
 
-    void determineCardAction(Card card){
-
+    public void determineCardAction(DropBoard db, Card card) {
+        removeFromRotatingCards(card);
+        db.takeCardAction();
     }
 }
