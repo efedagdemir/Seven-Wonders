@@ -160,9 +160,13 @@ public class Player {
     }
 
     //Updates the current coin of the player according to the actions taken.
-    void updateCoin(int coinAmount){
+    public boolean addCoin(int coinAmount){
+        if ( currentCoin.getNoOfItems() - coinAmount < 0)
+            return false;
+
         currentCoin.setNoOfItems(coinAmount);
         updateItemList(currentCoin);
+        return true;
     }
 
     //Updates the current victory points of the player according to the cards taken
@@ -317,7 +321,7 @@ public class Player {
                 money = -1;
             }
         }
-        updateCoin(money);
+        addCoin(money);
         Resource[] r = new Resource[1];
         r[0] = resource;
         updateResources(r);
