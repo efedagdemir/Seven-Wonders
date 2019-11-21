@@ -13,13 +13,15 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModelService;
+import model.Player;
 import model.Resource;
 import model.ScientificType;
 
 public class PlayerInfoPane extends BorderPane {
+    Player player;
     public static Button howToPlayButton = new Button("How to Play");
     //Buttons
-    Button nextTurnButton = new Button("Next Turn");
+    public static Button nextTurnButton = new Button("Next Turn");
     public VBox freeStBox = new VBox();
     //Vertical Boxes
     public VBox rightButtons = new VBox();
@@ -91,12 +93,12 @@ public class PlayerInfoPane extends BorderPane {
     public BackgroundImage backgroundImage = new BackgroundImage( background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
 
-    public PlayerInfoPane() {
-
-        playerNameLabel = new Label(ModelService.getInstance().getCurrentPlayer().getName());
-        coinAmountLabel = new Label("x " + modelService.getCurrentPlayer().getCurrentCoin().getNoOfItems());
-        victoryPointAmountLabel = new Label("x " + modelService.getCurrentPlayer().getVictoryPoints().getNoOfItems());
-        militaryPowerAmountLabel = new Label("x " + modelService.getCurrentPlayer().getMilitaryPower().getNoOfItems());
+    public PlayerInfoPane(Player player) {
+        this.player = player;
+        playerNameLabel = new Label(player.getName());
+        coinAmountLabel = new Label("x " + player.getCurrentCoin().getNoOfItems());
+        victoryPointAmountLabel = new Label("x " + player.getVictoryPoints().getNoOfItems());
+        militaryPowerAmountLabel = new Label("x " + player.getMilitaryPower().getNoOfItems());
         cogStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Cog"));
         rulerStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Ruler"));
         tombStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Tomb"));
@@ -296,15 +298,15 @@ public class PlayerInfoPane extends BorderPane {
         setStyle("-fx-background-color: #ffcc99");
         setPrefHeight(120);
         //getChildren().addAll(bottomBorder, rightButtons);
-        nextTurnButton.setOnAction(e -> GameView.getInstance().nextTurnScreen());
+        nextTurnButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
         howToPlayButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
 
     }
 
     public void update() {
-        coinAmountLabel.setText("x " + modelService.getCurrentPlayer().getCurrentCoin().getNoOfItems());
-        victoryPointAmountLabel.setText("x " + modelService.getCurrentPlayer().getVictoryPoints().getNoOfItems());
-        militaryPowerAmountLabel.setText("x " + modelService.getCurrentPlayer().getMilitaryPower().getNoOfItems());
+        coinAmountLabel.setText("x " + player.getCurrentCoin().getNoOfItems());
+        victoryPointAmountLabel.setText("x " + player.getVictoryPoints().getNoOfItems());
+        militaryPowerAmountLabel.setText("x " + player.getMilitaryPower().getNoOfItems());
         cogStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Cog"));
         rulerStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Ruler"));
         tombStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Tomb"));
@@ -318,18 +320,22 @@ public class PlayerInfoPane extends BorderPane {
     }
 
     private int getNumOfThisTypeOfStructure(String str) {
-        for (ScientificType type : modelService.getCurrentPlayer().getScientificTypes()) {
-            if (type.getScientificType().equals(str)) {
-                return type.getNoOfItems();
+       if (player != null){
+            for (ScientificType type : player.getScientificTypes()) {
+                if (type.getScientificType().equals(str)) {
+                    return type.getNoOfItems();
+                }
             }
-        }
+           }
         return 0;
     }
 
     private int getNumOfResource(String str) {
-        for (Resource resource : modelService.getCurrentPlayer().getCurrentResources()) {
-            if (resource.getResourceName().equals(str)) {
-                return resource.getNoOfItems();
+        if (player != null){
+            for (Resource resource : player.getCurrentResources()) {
+                if (resource.getResourceName().equals(str)) {
+                    return resource.getNoOfItems();
+                }
             }
         }
         return 0;

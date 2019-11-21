@@ -74,7 +74,8 @@ public class CardActionPane extends BorderPane {
         setBottom(wonder);
         if (modelService != null) {
             Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
-            for (int i = 0; i < cardList.length; i++) {
+            for (int i = 0; i < modelService.getCardLength(); i++) {
+                System.out.println("tekrar gırdı");
                 Card currentCard = cardList[i];
                 ImageView iv = currentCard.getIV();
                 imageViews.add(iv);

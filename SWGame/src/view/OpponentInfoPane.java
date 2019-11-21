@@ -260,18 +260,22 @@ public class OpponentInfoPane extends BorderPane {
     }
 
     private int getNumOfThisTypeOfStructure(String str, Player neighbor) {
-        for (ScientificType type : neighbor.getScientificTypes()) {
-            if (type.getScientificType().equals(str)) {
-                return type.getNoOfItems();
+       if (neighbor != null){
+            for (ScientificType type : neighbor.getScientificTypes()) {
+                if (type.getScientificType().equals(str)) {
+                    return type.getNoOfItems();
+                }
             }
-        }
+       }
         return 0;
     }
 
     private int getNumOfResource(String str, Player neighbor) {
-        for (Resource resource : neighbor.getCurrentResources()) {
-            if (resource.getResourceName().equals(str)) {
-                return resource.getNoOfItems();
+        if (neighbor != null){
+            for (Resource resource : neighbor.getCurrentResources()) {
+                if (resource.getResourceName().equals(str)) {
+                    return resource.getNoOfItems();
+                }
             }
         }
         return 0;
