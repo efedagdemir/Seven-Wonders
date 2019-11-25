@@ -140,7 +140,8 @@ public class Player {
 
     //Increments the resources of the player according to the cards the player takes.
     void updateResources(Resource[] resourceArr){
-
+        if (resourceArr == null)
+            return;
         Resource res;
         for(int i = 0; i < resourceArr.length; i++){
             boolean exists = false;
@@ -264,6 +265,11 @@ public class Player {
         }
 
         return affordC && affordR && affordS;
+    }
+
+    /*This method updates the current player's coin amount by three. */
+    public void sellCard(){
+        currentCoin.setNoOfItems(3);
     }
 
     //Adds the built card to the hand of the player.

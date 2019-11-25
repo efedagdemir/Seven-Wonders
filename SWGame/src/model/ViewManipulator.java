@@ -7,7 +7,9 @@ import java.util.ArrayList;
 public class ViewManipulator {
     private static ViewManipulator viewManipulator;
     GameView gameView;
-    private ViewManipulator(){}
+    private ViewManipulator(){
+        gameView = GameView.getInstance();
+    }
 
     public  static ViewManipulator getInstance() {
         if(viewManipulator == null){
@@ -52,7 +54,7 @@ public class ViewManipulator {
         gameView.showGameOverPane(playerList);
     }
 
-    void notifyGameBorderPane( ArrayList <Player> playerList, Card[][] cards){
-        gameView.showGamePane(playerList, cards);
+    void notifyGameBorderPane(Player player){
+        gameView.showGamePane(player);
     }
 }

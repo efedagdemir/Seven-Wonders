@@ -3,6 +3,7 @@ package view;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import model.ModelService;
+import model.Player;
 
 public class AllOpponentsPane extends BorderPane {
     //ModelService modelService = ModelService.getInstance();
@@ -11,10 +12,10 @@ public class AllOpponentsPane extends BorderPane {
     public HBox opponentsBox = new HBox();
     //public OpponentInfoPane centerNeighbor;
 
-    public AllOpponentsPane(/*Player left, Player right*/){
-        ModelService modelService = ModelService.getInstance();
-        leftNeighbor = new OpponentInfoPane(modelService.getCurrentPlayer().getLeftNeighbor());
-        rightNeighbor = new OpponentInfoPane(modelService.getCurrentPlayer().getRightNeighbor());
+    public AllOpponentsPane(Player player){
+       
+        leftNeighbor = new OpponentInfoPane(player.getLeftNeighbor());
+        rightNeighbor = new OpponentInfoPane(player.getRightNeighbor());
 
         //setLeft(leftNeighbor);
         //setRight(rightNeighbor);

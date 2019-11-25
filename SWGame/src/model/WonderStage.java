@@ -31,7 +31,7 @@ public class WonderStage {
        {
            ms.getCurrentPlayer().updateVictoryPoints(providedVictoryPoint);
            ms.getCurrentPlayer().updateResources(providedResources);
-           ms.getCurrentPlayer().updateMilitaryPower(providedMilitaryPower.getNoOfItems());
+           ms.getCurrentPlayer().updateMilitaryPower(providedMilitaryPower == null ? 0: providedMilitaryPower.getNoOfItems());
            return true;
        }
         System.out.println("CANT AFFORD");

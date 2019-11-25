@@ -20,22 +20,22 @@ public class ModelService {
     WonderBoard wonder;
     ArrayList<WonderBoard> wonderList;
     int directionFactor;
+    int cardLength;
+    public int playerIndex;
+
 
     public int getPlayerIndex() {
         return playerIndex;
     }
 
-    public void incrementPlayerIndex() {
-        playerIndex++;
-        if(playerIndex == 4){
-            playerIndex = 0;
-        }
+    public int getCardLength() {
+        return cardLength;
     }
 
-    public int playerIndex;
 
     private ModelService(){
-        System.out.println("Model Service");
+        cardLength = 7;
+        viewManipulator = ViewManipulator.getInstance();
         numberOfPlayers = 3;
         currentAge = new AgeI();
         currentAge.createDeck(numberOfPlayers);
@@ -46,11 +46,16 @@ public class ModelService {
 
     }
 
+
+    public void constructCard() {
+        if (selectedCard != null)
+            selectedCard.constructCard();
+    }
+
     public static ModelService getInstance() {
         if(modelService == null){
             modelService = new ModelService();
         }
-        System.out.println("Model Instance");
         return modelService;
     }
 
@@ -69,6 +74,8 @@ public class ModelService {
     public void updateCurrentPlayer(){
         if(playerIndex == numberOfPlayers - 1){
             playerIndex = 0;
+            rotateDecks();
+            cardLength--;
         }
         else{
             playerIndex++;
@@ -80,22 +87,28 @@ public class ModelService {
      Will remove the chosen card from the rotating card list.
      The parameter of this method will be the card which is chosen by player.
      */
-    void removeRotatingCardList(Card card){
-        for ( int i = 0; i < rotatingCardList[playerIndex].length; i++){
-            if ( rotatingCardList[playerIndex][i] == card){
-                for ( int j = i; j < rotatingCardList[playerIndex].length - 1; j++){
-                    rotatingCardList[playerIndex][j] = rotatingCardList[playerIndex][j + 1];
-                }
-                Card[] arr = new Card[rotatingCardList[playerIndex].length - 1];
-                for ( int j = 0; j < rotatingCardList[playerIndex].length - 1; j++){
-                    arr[j] = rotatingCardList[playerIndex][j];
-                }
-                rotatingCardList[playerIndex] = new Card [rotatingCardList[playerIndex].length - 1];
-                for ( int j = 0; j < rotatingCardList[playerIndex].length; j++){
-                    rotatingCardList[playerIndex][j] = arr[j];
+    public void removeFromRotatingCardList(){
+
+        if (selectedCard != null){
+            System.out.println("hi bitches");
+            for ( int i = 0; i < rotatingCardList[playerIndex].length; i++){
+                if ( rotatingCardList[playerIndex][i] == selectedCard){
+                    for ( int j = i; j < rotatingCardList[playerIndex].length - 1; j++){
+                        rotatingCardList[playerIndex][j] = rotatingCardList[playerIndex][j + 1];
+                    }
+                    Card[] arr = new Card[rotatingCardList[playerIndex].length - 1];
+                    for ( int j = 0; j < rotatingCardList[playerIndex].length - 1; j++){
+                        arr[j] = rotatingCardList[playerIndex][j];
+                    }
+                    rotatingCardList[playerIndex] = new Card [rotatingCardList[playerIndex].length - 1];
+                    for ( int j = 0; j < rotatingCardList[playerIndex].length; j++){
+                        rotatingCardList[playerIndex][j] = arr[j];
+                    }
                 }
             }
         }
+        System.out.println(rotatingCardList.length);
+        selectedCard = null;
     }
 
     /*
@@ -290,9 +303,7 @@ public class ModelService {
     }
 
     void shuffle(List<Card> l){
-        System.out.println("yeap");
-        if(l == null)
-            System.out.println("null");
+
         Collections.shuffle(l);
     }
 
@@ -345,7 +356,7 @@ public class ModelService {
     Will call the notifyGameBorderPane(playerList: Player[], rotatingCardList : Card[][]) from the ViewManipulator.
      */
     public void showGameScreen(){
-        viewManipulator.notifyGameBorderPane( playerList, rotatingCardList);
+        viewManipulator.notifyGameBorderPane( currentPlayer);
     }
     /*
     Creates 7 different WonderBoards according to their unique WonderStage’s and returns an array of these WonderBoards.

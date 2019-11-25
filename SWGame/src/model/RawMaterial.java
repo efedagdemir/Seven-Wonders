@@ -1,6 +1,6 @@
 package model;
+
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class RawMaterial extends Card {
 
@@ -41,6 +41,7 @@ public class RawMaterial extends Card {
             if (currentPlayer.checkRequirements(null, null, price) == true){
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(products);
+                currentPlayer.addCoin(-1 * price.getNoOfItems());
             }
             else {System.out.println("Can't afford!");}
         }

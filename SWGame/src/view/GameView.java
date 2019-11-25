@@ -1,5 +1,6 @@
 package view;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Card;
 import model.Item;
@@ -10,16 +11,18 @@ import java.util.ArrayList;
 
 public class GameView {
     private static final GameView gameView = new GameView();
-    public GamePane gamePane;
-    public MainMenuPane mainMenuPane;
-    public NextTurnPane nextTurnPane;
-    public CreditsPane creditsPane;
-    public HowToPlayPane howToPlayPane;
+
+    Stage htpPopUp = new Stage();
+    Stage creditsPopUp = new Stage();
     Stage primaryStage;
     Scene scene;
 
     private GameView() {
         System.out.println("Game View");
+        htpPopUp.setScene(new Scene(new HowToPlayPane()));
+        htpPopUp.initModality((Modality.APPLICATION_MODAL));
+        creditsPopUp.setScene(new Scene(new CreditsPane()));
+        creditsPopUp.initModality(Modality.APPLICATION_MODAL);
         //gamePane = GamePane.getInstance();
         //mainMenuPane = MainMenuPane.getInstance();
         //nextTurnPane = new NextTurnPane();
@@ -63,16 +66,20 @@ public class GameView {
 
     public void showConflictScreen(ArrayList<Player> playerList){}
 
-    public void showCredits() {
+    public void showCredits() {  creditsPopUp.showAndWait();
     }
-    public void showHowToPlay(){}
+    public void showHowToPlay(){ htpPopUp.showAndWait(); }
     public void shopUpdatedInfoPane(ArrayList<Item> itemList){}
-
     public void showUpdatedWonderPane(ArrayList<WonderBoard> wonders) {
 
     }
     public void showGameOverPane(ArrayList<Player> playerList){}
 
-    public void showGamePane(ArrayList<Player> playerList, Card[][] cards) {
+    public void showGamePane(Player player) {
+
+        GamePane gamePane = new GamePane(player);
+        Scene sc = new Scene(gamePane);
+        primaryStage.setScene(sc);
+        primaryStage.show();
     }
 }

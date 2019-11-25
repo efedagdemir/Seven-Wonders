@@ -14,17 +14,13 @@ public class ControllerFacade {
     private static final ControllerFacade controllerFacade = new ControllerFacade();
     GameView gameView = GameView.getInstance();
     Stage primaryStage;
-    //MainMenuPane mainMenu = MainMenuPane.getInstance();
-    Stage creditsPopUp = new Stage();
-    Stage htpPopUp = new Stage();
-    //CreditsPane creditsPane = CreditsPane.getInstance();
+    ModelService modelService;
 
     private ControllerFacade() {
+        modelService = ModelService.getInstance();
         System.out.println("Controller Facade");
-        creditsPopUp.setScene(new Scene(new CreditsPane()));
-        creditsPopUp.initModality(Modality.APPLICATION_MODAL);
-        htpPopUp.setScene(new Scene(new HowToPlayPane()));
-        htpPopUp.initModality((Modality.APPLICATION_MODAL));
+
+
     }
 
     public static ControllerFacade getInstance() {
@@ -47,40 +43,37 @@ public class ControllerFacade {
     public void startGame(){
         GameInitializer.getInstance().initializeGame();
         GameInitializer.getInstance().arrangeGame();
-        primaryStage.setScene(new Scene(new GamePane()));
+        modelService.showGameScreen();
+
     }
 
     public void takeAction(DragEvent e) {
-        Card selectedCard = ModelService.getInstance().getSelectedCard();
-        if (selectedCard != null) {
-            ActionManager.getInstance().determineCardAction((DropBoard) e.getGestureTarget(), selectedCard);
-            ModelService.getInstance().setSelectedCard(null);
-        }
+
+        ActionManager.getInstance().determineCardAction((DropBoard) e.getGestureTarget());
+        ModelService.getInstance().removeFromRotatingCardList();
+
     }
 
     public void commandModel(ActionEvent event) {
         if(event.getTarget() == MainMenuPane.creditsButton){
-            creditsPopUp.showAndWait();
+            modelService.showCredits();
+
+        }
+        if(event.getTarget() == PlayerInfoPane.nextTurnButton){
+            System.out.println("HMMMMMMMMM");
+            modelService.showNextTurnPage();
         }
         if(event.getTarget() == NextTurnPane.okButton){
             System.out.println("hi");
-            ModelService.getInstance().updateCurrentPlayer();
-            GamePane gamePane = new GamePane();
-            Scene sc = new Scene(gamePane);
-            primaryStage.setScene(sc);
+            modelService.showGameScreen();
         }
         if(event.getTarget() == MainMenuPane.howToPlayButton){
-            htpPopUp.showAndWait();
+            modelService.showHowToPlay();
+
         }
         if (event.getTarget() == PlayerInfoPane.howToPlayButton) {
-            htpPopUp.showAndWait();
+            modelService.showHowToPlay();
         }
-//        if(event.getTarget() == creditsPane.okayButton){
-//            System.out.println( "cok iyi");
-//            creditsPopUp.hide();
-//        }
-        //primaryStage.setScene(new Scene(gameView.nextTurnPane));
-
     }
 
     public void initializeDADListeners(Node node, String backgroundColor, String hoveredColor) {

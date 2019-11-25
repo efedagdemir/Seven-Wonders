@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.layout.BorderPane;
+import model.Player;
 //import javafx.scene.layout.VBox;
 
 public class GamePane extends BorderPane {
@@ -20,9 +21,9 @@ public class GamePane extends BorderPane {
 //        return gamePane;
 //    }
 
-    public GamePane() {
-        allOpponentsPane = new AllOpponentsPane();
-        playerInfoPane = new PlayerInfoPane();
+    public GamePane(Player player) {
+        allOpponentsPane = new AllOpponentsPane(player);
+        playerInfoPane = new PlayerInfoPane(player);
         cardActionPane = new CardActionPane();
         resourcePaneLeft = new ResourcePane();
         resourcePaneRight = new ResourcePane();
