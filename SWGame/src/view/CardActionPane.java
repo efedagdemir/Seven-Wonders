@@ -19,12 +19,13 @@ import model.WonderStage;
 import java.util.ArrayList;
 
 public class CardActionPane extends BorderPane {
-    public FlowPane cardFlowPane;
-    public HBox imageBox;
-    public SellCardDropBoard sellCard;
-    public BuildWonderDropBoard wonder1;
-    public BuildWonderDropBoard wonder2;
-    public BuildWonderDropBoard wonder3;
+    ArrayList<ImageView> imageViews;
+    private FlowPane cardFlowPane;
+    private HBox imageBox;
+    private SellCardDropBoard sellCard;
+    private BuildWonderDropBoard wonder1;
+    private BuildWonderDropBoard wonder2;
+    private BuildWonderDropBoard wonder3;
     ModelService modelService;
 
     public CardActionPane() {
@@ -38,7 +39,7 @@ public class CardActionPane extends BorderPane {
         cardFlowPane = new FlowPane();
         setCenter(cardFlowPane);
         imageBox = new HBox();
-        ArrayList<ImageView> imageViews = new ArrayList<>();
+        imageViews = new ArrayList<>();
         Label sellCardLabel = new Label("Sell Card");
         sellCard = new SellCardDropBoard();
         sellCardLabel.setTextFill(Color.web("#FFFFFF"));
@@ -75,7 +76,6 @@ public class CardActionPane extends BorderPane {
         if (modelService != null) {
             Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
             for (int i = 0; i < modelService.getCardLength(); i++) {
-                System.out.println("tekrar gırdı");
                 Card currentCard = cardList[i];
                 ImageView iv = currentCard.getIV();
                 imageViews.add(iv);
@@ -90,7 +90,7 @@ public class CardActionPane extends BorderPane {
                     e.consume();
                 });
                 iv.setOnDragDone(e -> {
-                    iv.setManaged(false);
+//                    update();
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
@@ -104,6 +104,37 @@ public class CardActionPane extends BorderPane {
 
 //        cardFlowPane.setStyle("-fx-background-color: #FFFFFF");
         // setStyle("-fx-background-color: #FFFFFF");
+    }
+
+    public void update() {
+        if (modelService != null) {
+            Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
+            for (int i = 0; i < modelService.getCardLength() - 1; i++) {
+                Card currentCard = cardList[i];
+                ImageView iv = currentCard.getIV();
+                imageViews.add(iv);
+                iv.setFitHeight(180);
+                iv.setFitWidth(120);
+                iv.setOnDragDetected(e -> {
+                    Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    modelService.setSelectedCard(currentCard);
+                    content.putImage(iv.getImage());
+                    db.setContent(content);
+                    e.consume();
+                });
+                iv.setOnDragDone(e -> {
+                    ((GamePane) getScene().getRoot()).update();
+                    e.consume();
+                });
+
+            }
+            imageBox.getChildren().addAll(imageViews);
+            imageBox.setSpacing(20);
+            cardFlowPane.getChildren().add(imageBox);
+            cardFlowPane.setAlignment(Pos.CENTER);
+            setCenter(cardFlowPane);
+        }
     }
 
     private BuildWonderDropBoard wonderStageHBox(int i) {

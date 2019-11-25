@@ -36,12 +36,14 @@ public class RawMaterial extends Card {
         if (currentPlayer.isFree(this) == true){
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(products);
+            ModelService.getInstance().removeFromRotatingCardList();
         }
         else {
             if (currentPlayer.checkRequirements(null, null, price) == true){
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(products);
                 currentPlayer.addCoin(-1 * price.getNoOfItems());
+                ModelService.getInstance().removeFromRotatingCardList();
             }
             else {System.out.println("Can't afford!");}
         }

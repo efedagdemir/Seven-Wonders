@@ -62,6 +62,7 @@ public class CommercialStructure extends Card {
                 currentPlayer.updateDiscountedResources(discountedR);
                 currentPlayer.addCoin(givenCoins.getNoOfItems());
                 currentPlayer.updateVictoryPoints(victoryPoints);
+                ModelService.getInstance().removeFromRotatingCardList();
             }
             else {
                 System.out.println("Can't afford!!");

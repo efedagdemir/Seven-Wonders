@@ -323,13 +323,13 @@ public class PlayerInfoPane extends BorderPane {
     }
 
     private int getNumOfThisTypeOfStructure(String str) {
-       if (player != null){
+        if (player != null) {
             for (ScientificType type : player.getScientificTypes()) {
                 if (type.getScientificType().equals(str)) {
                     return type.getNoOfItems();
                 }
             }
-           }
+        }
         return 0;
     }
 
@@ -343,7 +343,4 @@ public class PlayerInfoPane extends BorderPane {
         }
         return 0;
     }
-
-
-
 }

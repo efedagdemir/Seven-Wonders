@@ -47,6 +47,7 @@ public class MilitaryStructure extends Card {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateMilitaryPower(militaryItem.getNoOfItems());
                 currentPlayer.updateFreeStructures(providedStructure);
+                ModelService.getInstance().removeFromRotatingCardList();
             }
             else { System.out.println("Can't afford");}
         }
