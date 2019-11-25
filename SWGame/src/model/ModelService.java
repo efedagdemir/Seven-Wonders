@@ -1,34 +1,47 @@
 package model;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
-import java.util.Random;
+import java.util.List;
 
 public class ModelService {
-    private static ModelService modelService;
-    Card xyz;
+    private static ModelService modelService ;
+
     Age currentAge;
     Player currentPlayer;
     int numberOfPlayers;
     ArrayList<Player>  playerList;
+
+    Card selectedCard;
+
+
     Card[][] rotatingCardList;
     ViewManipulator viewManipulator;
     WonderBoard wonder;
     ArrayList<WonderBoard> wonderList;
     int directionFactor;
-    int playerIndex;
+
+    public int getPlayerIndex() {
+        return playerIndex;
+    }
+
+    public void incrementPlayerIndex() {
+        playerIndex++;
+        if(playerIndex == 4){
+            playerIndex = 0;
+        }
+    }
+
+    public int playerIndex;
 
     private ModelService(){
-
-        if ( numberOfPlayers == 4 ){
-        int rotNo = currentAge.cardDeck.size() / 4;
+        System.out.println("Model Service");
+        numberOfPlayers = 3;
+        currentAge = new AgeI();
+        currentAge.createDeck(numberOfPlayers);
+        playerList = new ArrayList<>();
+        int rotNo = 7;
         rotatingCardList = new Card[numberOfPlayers][rotNo];
-        }
-        else if (numberOfPlayers == 3 ){
-            int rotNo = currentAge.cardDeck.size() / 4;
-            rotatingCardList = new Card[numberOfPlayers][rotNo];
-        }
         playerIndex = 0;
 
     }
@@ -37,6 +50,7 @@ public class ModelService {
         if(modelService == null){
             modelService = new ModelService();
         }
+        System.out.println("Model Instance");
         return modelService;
     }
 
@@ -52,7 +66,7 @@ public class ModelService {
         }
     }
     //Will update the current player as each turn is played.
-    void updateCurrentPlayer(){
+    public void updateCurrentPlayer(){
         if(playerIndex == numberOfPlayers - 1){
             playerIndex = 0;
         }
@@ -90,9 +104,8 @@ public class ModelService {
     which will create the cards, the createPlayer() method from the Player class
     which will create the player objects and the shuffle() method which will shuffle the wonder boards and cards.
      */
-    void initializeGame(){
+    public void initializeGame(){
         createWonderBoards();
-        currentAge.createDeck(numberOfPlayers);
         createPlayer();
         shuffle(wonderList);
 
@@ -100,17 +113,26 @@ public class ModelService {
 
     void createPlayer(){
 
-        Player player1 = new Player("Player1", 3, null );
-        Player player2 = new Player("Player2", 3, null );
-        Player player3 = new Player("Player3", 3, null );
+        playerList.clear();
+        Player player1 = new Player("Player1", 3);
+        Player player2 = new Player("Player2", 3);
+        Player player3 = new Player("Player3", 3);
         playerList.add(player1);
         playerList.add(player2);
         playerList.add(player3);
+        player1.setLeftNeighbor(player3);
+        player1.setRightNeighbor(player2);
+        player2.setLeftNeighbor(player1);
+        player2.setRightNeighbor(player3);
+        player3.setLeftNeighbor(player2);
+        player3.setRightNeighbor(player1);
         if (numberOfPlayers == 4){
 
-            Player player4 = new Player("Player4", 3, null );
+            Player player4 = new Player("Player4", 3);
             playerList.add(player4);
         }
+        currentPlayer = player1;
+        playerIndex = 0;
     }
     //Will shift the rotatingCardList when called and will make it turn according to the directionFactor attribute.
     void rotateDecks(){
@@ -142,7 +164,7 @@ public class ModelService {
     Will calculate the victory points of the players after a conflict
     and will call the notifyConflictScreen(Player[]) from the ViewManipulator class.
     */
-    void initiateAndShowConflict(){
+    public void initiateAndShowConflict(){
         for(int i = 0; i < playerList.size();i++){
             playerList.get(i).updateConflictPoints(currentAge);
         }
@@ -153,7 +175,7 @@ public class ModelService {
      Will call the showNextTurnPage() method which will then
      provide the next player and call the notifyNextTurnScreen(Player) from the ViewManipulator.
     */
-    void showNextTurnPage(){
+    public void showNextTurnPage(){
         updateCurrentPlayer();
         viewManipulator.notifyNextTurnScreen(currentPlayer);
     }
@@ -167,7 +189,7 @@ public class ModelService {
 
     void updateCoin(Coin coin){
         if(coin != null){
-            currentPlayer.updateCoin(coin.getNoOfItems());
+            currentPlayer.addCoin(coin.getNoOfItems());
         }
     }
 
@@ -183,49 +205,50 @@ public class ModelService {
         }
     }
 
-    void showUpdatedPane(){
+    public void showUpdatedPane(){
         viewManipulator.updateInfoPane(currentPlayer.getItemList());
     }
 
     /*
      Will call the notifyWonderPane() method from the ViewManipulator.
     */
-    void buildWonder(){
+    public void buildWonder(){
+        currentPlayer.wonder.buildWonderStage();
         viewManipulator.notifyWonderPane(wonderList);
     }
 
     /*
      Will call the notifyHowToPlay() method from the ViewManipulator.
      */
-    void showHowToPlay(){
+    public void showHowToPlay(){
         viewManipulator.notifyHowToPlay();
     }
 
     /*
     Will call the notifyGameOverPane() from the ViewManipulator.
      */
-    void showGameOverPage(){
+    public void showGameOverPage(){
         viewManipulator.notifyGameOverPane(playerList);
     }
 
     /*
     Will call the notifyNameScreen() from the ViewManipulator.
      */
-    void showNameScreen(){
+    public void showNameScreen(){
         viewManipulator.notifyNameScreen();
     }
 
     /*
     Will call the notifyCredits() from the ViewManipulator.
     */
-    void showCredits(){
+    public void showCredits(){
         viewManipulator.notifyCredits();
     }
 
     /*
     Will call the notifyMainMenu() from the ViewManipulator.
     */
-    void showMainMenu(){
+    public void showMainMenu(){
         viewManipulator.notifyMainMenu();
     }
 
@@ -235,10 +258,10 @@ public class ModelService {
     which will create the rotatingCardList, the assignName(String[] names)
     which will assign the names of the players.
     */
-    void assignGame(String[] names){
+    public void assignGame(){
         assignWonderBoard( wonderList, playerList);
         createRotatingCardList();
-        assignName(names, playerList);
+
     }
 
     /*
@@ -248,28 +271,17 @@ public class ModelService {
     This process will be done for every player object in the playerList.
      */
     void assignWonderBoard(ArrayList<WonderBoard> wonderList, ArrayList<Player> playerList){
-
-        int length = playerList.size();
-        int l_player = playerList.size();
-        int l_wonder = wonderList.size();
-        Random rand = new Random();
-        int int_wonder;
-        int int_player;
-
-        for ( int i = 0; i < length; i++){
-            int_wonder = rand.nextInt(l_wonder);
-            int_player = rand.nextInt(l_player);
-            playerList.get(int_player).wonder = wonderList.get(int_wonder);
-            for ( int j = int_player; j < l_player - 1; j++){
-                playerList.remove(j);
-            }
-            for ( int j = int_wonder; j < l_wonder - 1; j++){
-                wonderList.remove(j);
-            }
-
+        Collections.shuffle(wonderList);
+        int i = 0;
+        for (Player player : playerList) {
+            System.out.println(i);
+            System.out.println(playerList.size());
+            player.wonder = wonderList.get(i);
+            Resource[] res = {player.wonder.getProducedResource()};
+            player.updateResources(res);
+            System.out.println(wonderList.get(i).getWonderStage(0).getRequiredResources()[0].getResourceName());
+            i++;
         }
-        l_player--;
-        l_wonder--;
     }
 
     void shuffle(ArrayList<WonderBoard> w){
@@ -278,7 +290,9 @@ public class ModelService {
     }
 
     void shuffle(List<Card> l){
-
+        System.out.println("yeap");
+        if(l == null)
+            System.out.println("null");
         Collections.shuffle(l);
     }
 
@@ -288,14 +302,16 @@ public class ModelService {
     */
     Card[][] createRotatingCardList(){
 
+        System.out.println("girdi");
         if ( numberOfPlayers == 3 ){
-            int rotNo = currentAge.cardDeck.size() / 3;
-            shuffle(currentAge.cardDeck);
+            int rotNo = 7;
+            shuffle(currentAge.getCardDeck());
             int cardDeckNo = 0;
             for (int j = 0; j < 3; j++){
                 for (int i = 0; i < rotNo; i++){
-                  rotatingCardList[j][i] = currentAge.cardDeck.get(cardDeckNo);
-                  cardDeckNo++;
+                    rotatingCardList[j][i] = currentAge.getCardDeck().get(cardDeckNo);
+
+                    cardDeckNo++;
                 }
             }
 
@@ -328,7 +344,7 @@ public class ModelService {
     /*
     Will call the notifyGameBorderPane(playerList: Player[], rotatingCardList : Card[][]) from the ViewManipulator.
      */
-    void showGameScreen(){
+    public void showGameScreen(){
         viewManipulator.notifyGameBorderPane( playerList, rotatingCardList);
     }
     /*
@@ -337,123 +353,140 @@ public class ModelService {
     public ArrayList<WonderBoard> createWonderBoards(){
 
         wonderList = new ArrayList<WonderBoard>();
-        Resource glass = new Resource("Glass", 1 , "images/glass.png");
+        wonderList.clear();
+        Resource glass = new Resource("Glass", 1 , "glass.png");
         /*Alexandria */
         Resource[] requiredResource = new Resource[1];
         VictoryPoint v3 = new VictoryPoint(3);
-        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        requiredResource[0] = new Resource("Stone", 2, "stone.png");
         WonderStage a1 = new WonderStage(null, requiredResource, v3,null );
 
         Resource[] providedR1 = new Resource[2];
-        providedR1[0] = new Resource("Ore", 1, "images/ore.png");
-        providedR1[1] = new Resource("Timber", 1, "images/timber.png");
-        requiredResource[0] = new Resource("Ore", 2, "images/ore.png");
+        providedR1[0] = new Resource("Ore", 1, "ore.png");
+        providedR1[1] = new Resource("Timber", 1, "timber.png");
+        requiredResource[0] = new Resource("Ore", 2, "ore.png");
         WonderStage a2 = new WonderStage(providedR1, requiredResource , null,null);
 
-        requiredResource[0] = new Resource("Glass", 2, "images/glass.png");
+        requiredResource[0] = new Resource("Glass", 2, "glass.png");
         VictoryPoint v7 = new VictoryPoint(7);
         WonderStage a3 = new WonderStage(null, requiredResource, v7, null );
 
-        WonderBoard Alexandria = new WonderBoard("Alexandria", glass,"images/alexandriaA.png", a1, a2, a3);
+        WonderBoard Alexandria = new WonderBoard("Alexandria", glass,"alexandriaA.png", a1, a2, a3);
         wonderList.add(Alexandria);
 
-        /*Babyblon*/
-        requiredResource[0] = new Resource("Clay", 2, "images/clay.png");
+        //Babyblon
+        requiredResource[0] = new Resource("Clay", 2, "clay.png");
         WonderStage b1 = new WonderStage(null, requiredResource, v3, null);
 
-        requiredResource[0] = new Resource("Timber", 3, "images/timber.png");
-        providedR1[0] = new Resource("Stone", 1, "images/stone.png");
-        providedR1[1] = new Resource("Papyrus", 1, "images/papyrus.png");
+        requiredResource[0] = new Resource("Timber", 3, "timber.png");
+        providedR1[0] = new Resource("Stone", 1, "stone.png");
+        providedR1[1] = new Resource("Papyrus", 1, "papyrus.png");
         WonderStage b2 = new WonderStage( requiredResource, providedR1, null, null);
 
-        requiredResource[0] = new Resource("Clay", 4, "images/clay.png");
+        requiredResource[0] = new Resource("Clay", 4, "clay.png");
         WonderStage b3 = new WonderStage(null, requiredResource, v7, null);
 
-        Resource clay = new Resource("Clay", 1, "images/clay.png" );
-        WonderBoard Babylon = new WonderBoard("Babylon",clay, "images/babylonA.png", b1, b2, b3);
+        Resource clay = new Resource("Clay", 1, "clay.png" );
+        WonderBoard Babylon = new WonderBoard("Babylon", clay, "babylonA.png", b1, b2, b3);
         wonderList.add(Babylon);
 
-        /*Ephesos*/
-        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        //Ephesos
+        requiredResource[0] = new Resource("Stone", 2, "stone.png");
         WonderStage e1 = new WonderStage(null, requiredResource, v3, null);
-        requiredResource[0] = new Resource("Timber", 2, "images/timber.png");
-        providedR1[0] = new Resource("Stone", 1, "images/stone.png");
-        providedR1[1] = new Resource("Textile", 1, "images/textile.png");
+        requiredResource[0] = new Resource("Timber", 2, "timber.png");
+        providedR1[0] = new Resource("Stone", 1, "stone.png");
+        providedR1[1] = new Resource("Textile", 1, "textile.png");
         WonderStage e2 = new WonderStage(providedR1, requiredResource, null, null);
-        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
+        requiredResource[0] = new Resource("Papyrus", 2, "papyrus.png");
         WonderStage e3 = new WonderStage(null, requiredResource, v7, null);
 
-        Resource papyrus = new Resource("Papyrus", 1, "images/papyrus.png" );
-        WonderBoard Ephesos = new WonderBoard("Ephesos",papyrus,"images/ephesosA.png", e1, e2, e3);
+        Resource papyrus = new Resource("Papyrus", 1, "papyrus.png" );
+        WonderBoard Ephesos = new WonderBoard("Ephesos",papyrus,"ephesosA.png", e1, e2, e3);
         wonderList.add(Ephesos);
 
-        /*Gizah*/
-        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        //Gizah
+        requiredResource[0] = new Resource("Stone", 2, "stone.png");
 
         WonderStage g1 = new WonderStage(null, requiredResource, v3, null );
 
-        providedR1[0] = new Resource("Ore", 4, "images/ore.png");
-        providedR1[1] = new Resource("Textile", 1, "images/textile.png");
+        providedR1[0] = new Resource("Ore", 4, "ore.png");
+        providedR1[1] = new Resource("Textile", 1, "textile.png");
         WonderStage g2 = new WonderStage(providedR1, requiredResource, null, null);
-        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
+        requiredResource[0] = new Resource("Papyrus", 2, "papyrus.png");
         WonderStage g3 = new WonderStage(null, requiredResource, v7, null );
 
-        Resource stone = new Resource("Stone", 1, "images/stone.png");
-        WonderBoard Gizah  = new WonderBoard("Gizah", stone, "images/gizahA.png" , g1, g2, g3);
+        Resource stone = new Resource("Stone", 1, "stone.png");
+        WonderBoard Gizah  = new WonderBoard("Gizah", stone, "gizahA.png" , g1, g2, g3);
         wonderList.add(Gizah);
 
-        /*Halikarnassus*/
+        //Halikarnassus
 
 
         WonderStage h1 = new WonderStage(null, requiredResource, v3, null);
 
-        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
-        providedR1[0] = new Resource("Stone", 1, "images/stone.png");
-        providedR1[1] = new Resource("Textile", 1, "images/textile.png");
+        requiredResource[0] = new Resource("Stone", 2, "stone.png");
+        providedR1[0] = new Resource("Stone", 1, "stone.png");
+        providedR1[1] = new Resource("Textile", 1, "textile.png");
         WonderStage h2 = new WonderStage(providedR1, requiredResource, null,null);
 
-        requiredResource[0] = new Resource("Textile", 2, "images/textile.png");
+        requiredResource[0] = new Resource("Textile", 2, "textile.png");
         WonderStage h3 = new WonderStage(null, requiredResource, v7, null);
 
-        Resource textile = new Resource("Textile", 1, "images/textile.png");
+        Resource textile = new Resource("Textile", 1, "textile.png");
         WonderBoard Halikarnassus = new WonderBoard("Halikarnassus", textile, "halikarnassusA.png", h1, h2, h3);
         wonderList.add(Halikarnassus);
 
-        /*Olympia*/
+        //Olympia
         WonderStage o1 = new WonderStage(null, requiredResource, v3, null);
 
-        providedR1[0] = new Resource("Ore", 1, "images/ore.png");
-        providedR1[1] = new Resource("Clay", 1, "images/clay.png");
-        requiredResource[0] = new Resource("Stone", 2, "images/stone.png");
+        providedR1[0] = new Resource("Ore", 1, "ore.png");
+        providedR1[1] = new Resource("Clay", 1, "clay.png");
+        requiredResource[0] = new Resource("Stone", 2, "stone.png");
         WonderStage o2 = new WonderStage(providedR1, requiredResource , null, null);
 
         WonderStage o3 = new WonderStage(null, requiredResource, v7, null);
 
-        Resource timber = new Resource("Timber", 1, "images/timber.png");
+        Resource timber = new Resource("Timber", 1, "timber.png");
         WonderBoard Olympia = new WonderBoard("Olympia", timber, "olympiaA.png", o1, o2,o3);
         wonderList.add(Olympia);
 
-        /*Ore*/
+        //Rhodos
 
         WonderStage r1 = new WonderStage(null, requiredResource, v3, null);
 
-        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
-        ConflictPoint c = new ConflictPoint(2);
+        requiredResource[0] = new Resource("Papyrus", 2, "papyrus.png");
+        MilitaryPower c = new MilitaryPower(2);
         WonderStage r2 = new WonderStage(null, requiredResource, null, c);
 
-        requiredResource[0] = new Resource("Papyrus", 2, "images/papyrus.png");
+        requiredResource[0] = new Resource("Papyrus", 2, "papyrus.png");
         WonderStage r3 = new WonderStage(null, requiredResource, v7, null);
 
-        Resource ore = new Resource("Ore", 1, "images/ore.png");
+        Resource ore = new Resource("Ore", 1, "ore.png");
         WonderBoard Rhodos = new WonderBoard("Rhodos", ore,"rhodosA.png", r1, r2, r3 );
         wonderList.add(Rhodos);
+
+        for(WonderBoard wonder: wonderList){
+            System.out.println(wonder.getWonderStage(0).getRequiredResources()[0].getResourceName());
+        }
 
         return wonderList;
 
     }
 
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+    }
+
     public Player getCurrentPlayer(){
         return currentPlayer;
+    }
+
+    public Card[][] getRotatingCardList() {
+        return rotatingCardList;
     }
 
 

@@ -3,82 +3,86 @@ package view;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import model.ModelService;
+import model.Player;
+import model.Resource;
+import model.ScientificType;
 
 
 public class OpponentInfoPane extends BorderPane {
-    //Images
-    public Image coinImg = new Image("images/coin.png");
-    public Image victoryPointImg = new Image("images/victoryPoint.png");
-    public Image militaryPowerImg = new Image("images/militaryPower.png");
-    public Image cogImg = new Image("images/cog.png");
-    public Image rulerImg = new Image("images/ruler.png");
-    public Image tombImg = new Image("images/tomb.png");
-    public Image clayImg = new Image("images/clay.png");
-    public Image glassImg = new Image("images/glass.png");
-    public Image oreImg = new Image("images/ore.png");
-    public Image papyrusImg = new Image("images/papyrus.png");
-    public Image stoneImg = new Image("images/stone.png");
-    public Image textileImg = new Image("images/textile.png");
-    public Image timberImg = new Image("images/timber.png");
-    public Image background = new Image("papyrusbg2.jpg");
-    //Labels
-    public Label playerNameLabel = new Label("Player1");
-    public Label coinAmountLabel = new Label("x 0");
-    public Label victoryPointAmountLabel = new Label("x 0");
-    public Label militaryPowerAmountLabel = new Label("x 0");
-    public Label cogStructAmountLabel = new Label("x 0");
-    public Label rulerStructAmountLabel = new Label("x 0");
-    public Label tombStructAmountLabel = new Label("x 0");
-    public Label freeLabel = new Label("Free Structures");
-    public Label temple = new Label("- Temple");
-    public Label stables = new Label("Stables");
-    public Label dispensary = new Label("Dispensary");
-    public Label acqueduct = new Label("Acqueduct");
-    public Label forum = new Label("- Forum");
-    public Label caravansery = new Label("Caravansery");
-    public Label courthouse = new Label("Courthouse");
-    public Label library = new Label("Library");
-    public Label statue = new Label("Statue");
-    public Label laboratory = new Label("- Laboratory");
-    public Label archeryRange = new Label("- Archery Range");
-    public Label resourceLabel = new Label("Resources");
-    public Label clayAmountLabel = new Label("x 0");
-    public Label glassAmountLabel = new Label("x 0");
-    public Label oreAmountLabel = new Label("x 0");
-    public Label papyrusAmountLabel = new Label("x 0");
-    public Label stoneAmountLabel = new Label("x 0");
-    public Label textileAmountLabel = new Label("x 0");
-    public Label timberAmountLabel = new Label("x 0");
-    //Image Views
-    public ImageView coinImgView = new ImageView(coinImg);
-    public ImageView victoryPointImgView = new ImageView(victoryPointImg);
-    public ImageView militaryPowerImgView = new ImageView(militaryPowerImg);
-    public ImageView cogImgView = new ImageView((cogImg));
-    public ImageView rulerImgView = new ImageView((rulerImg));
-    public ImageView tombImgView = new ImageView((tombImg));
-    public ImageView clayImgView = new ImageView(clayImg);
-    public ImageView glassImgView = new ImageView(glassImg);
-    public ImageView oreImgView = new ImageView(oreImg);
-    public ImageView papyrusImgView = new ImageView(papyrusImg);
-    public ImageView stoneImgView = new ImageView(stoneImg);
-    public ImageView textileImgView = new ImageView(textileImg);
-    public ImageView timberImgView = new ImageView(timberImg);
-    //Declare and initiliaze GridPanes
-    GridPane attributeGrid = new GridPane();
-    GridPane freeStGrid = new GridPane();
-    GridPane resourcesGrid = new GridPane();
-    BorderPane bottomBorder = new BorderPane();
-    //Declare and initialize background image
-    public BackgroundImage backgroundImage = new BackgroundImage( background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+    public Label playerNameLabel = new Label("xyz");
+    ModelService modelService = ModelService.getInstance();
 
-    public OpponentInfoPane() {
+    public OpponentInfoPane(Player neighbor) {
+        //Images
+        Image coinImg = new Image("coin.png");
+        Image victoryPointImg = new Image("victoryPoint.png");
+        Image militaryPowerImg = new Image("militaryPower.png");
+        Image cogImg = new Image("cog.png");
+        Image rulerImg = new Image("ruler.png");
+        Image tombImg = new Image("tomb.png");
+        Image clayImg = new Image("clay.png");
+        Image glassImg = new Image("glass.png");
+        Image oreImg = new Image("ore.png");
+        Image papyrusImg = new Image("papyrus.png");
+        Image stoneImg = new Image("stone.png");
+        Image textileImg = new Image("textile.png");
+        Image timberImg = new Image("timber.png");
+        Image background = new Image("papyrusbg2.jpg");
+        //Labels
+        Label coinAmountLabel = new Label("x " + neighbor.getCurrentCoin().getNoOfItems());
+        Label victoryPointAmountLabel = new Label("x " + neighbor.getVictoryPoints().getNoOfItems());
+        Label militaryPowerAmountLabel = new Label("x " + neighbor.getMilitaryPower().getNoOfItems());
+        Label cogStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Cog", neighbor));
+        Label rulerStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Ruler", neighbor));
+        Label tombStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Tomb", neighbor));
+        Label freeLabel = new Label("Free Structures");
+        Label temple = new Label("- Temple");
+        Label stables = new Label("Stables");
+        Label dispensary = new Label("Dispensary");
+        Label acqueduct = new Label("Acqueduct");
+        Label forum = new Label("- Forum");
+        Label caravansery = new Label("Caravansery");
+        Label courthouse = new Label("Courthouse");
+        Label library = new Label("Library");
+        Label statue = new Label("Statue");
+        Label laboratory = new Label("- Laboratory");
+        Label archeryRange = new Label("- Archery Range");
+        Label resourceLabel = new Label("Resources");
+        Label clayAmountLabel = new Label("x " + getNumOfResource("Clay", neighbor));
+        Label glassAmountLabel = new Label("x " + getNumOfResource("Glass", neighbor));
+        Label oreAmountLabel = new Label("x " + getNumOfResource("Ore", neighbor));
+        Label papyrusAmountLabel = new Label("x " + getNumOfResource("Papyrus", neighbor));
+        Label stoneAmountLabel = new Label("x " + getNumOfResource("Stone", neighbor));
+        Label textileAmountLabel = new Label("x " + getNumOfResource("Textile", neighbor));
+        Label timberAmountLabel = new Label("x " + getNumOfResource("Timber", neighbor));
+        //Image Views
+        ImageView coinImgView = new ImageView(coinImg);
+        ImageView victoryPointImgView = new ImageView(victoryPointImg);
+        ImageView militaryPowerImgView = new ImageView(militaryPowerImg);
+        ImageView cogImgView = new ImageView((cogImg));
+        ImageView rulerImgView = new ImageView((rulerImg));
+        ImageView tombImgView = new ImageView((tombImg));
+        ImageView clayImgView = new ImageView(clayImg);
+        ImageView glassImgView = new ImageView(glassImg);
+        ImageView oreImgView = new ImageView(oreImg);
+        ImageView papyrusImgView = new ImageView(papyrusImg);
+        ImageView stoneImgView = new ImageView(stoneImg);
+        ImageView textileImgView = new ImageView(textileImg);
+        ImageView timberImgView = new ImageView(timberImg);
+        //Declare and initiliaze GridPanes
+        GridPane attributeGrid = new GridPane();
+        GridPane freeStGrid = new GridPane();
+        GridPane resourcesGrid = new GridPane();
+        BorderPane bottomBorder = new BorderPane();
+        //Declare and initialize background image
+        BackgroundImage backgroundImage = new BackgroundImage(background, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+
         //Set background images of different panes
         resourcesGrid.setBackground(new Background(backgroundImage));
         attributeGrid.setBackground(new Background(backgroundImage));
@@ -253,5 +257,23 @@ public class OpponentInfoPane extends BorderPane {
         //OpponentInfoPane preferred size
         setPrefHeight(120);
         setPrefWidth(750);
+    }
+
+    private int getNumOfThisTypeOfStructure(String str, Player neighbor) {
+        for (ScientificType type : neighbor.getScientificTypes()) {
+            if (type.getScientificType().equals(str)) {
+                return type.getNoOfItems();
+            }
+        }
+        return 0;
+    }
+
+    private int getNumOfResource(String str, Player neighbor) {
+        for (Resource resource : neighbor.getCurrentResources()) {
+            if (resource.getResourceName().equals(str)) {
+                return resource.getNoOfItems();
+            }
+        }
+        return 0;
     }
 }

@@ -1,7 +1,6 @@
 package model;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class MilitaryStructure extends Card {
 
@@ -9,27 +8,27 @@ public class MilitaryStructure extends Card {
     Structure requiredStructure;
     Structure providedStructure;
     MilitaryPower militaryItem;
-    Image image;
-    ImageView iv;
+
 
     public MilitaryStructure(int mf, String rSt, String pSt, String[] gPName, int[] gPNo, String img, String nameC){
         name = nameC;
         image = new Image(img);
         iv = new javafx.scene.image.ImageView();
         iv.setImage(image);
-        iv.setFitHeight(100);
-        iv.setFitWidth(65);
 
         militaryItem = new MilitaryPower(mf);
 
-        requiredStructure = new Structure(rSt);
-        providedStructure = new Structure(pSt);
+        if (rSt != null)
+            requiredStructure = new Structure(rSt);
+        if (pSt != null)
+            providedStructure = new Structure(pSt);
+        if (gPName != null) {
+            requiredProducts = new Resource[gPName.length];
+            for (int i = 0; i < gPName.length; i++) {
 
-        requiredProducts = new Resource[gPName.length];
-        for(int i = 0; i < gPName.length; i++){
-
-            Resource r = new Resource(gPName[i], gPNo[i],"image/" + gPName[i].toLowerCase() + ".png");
-            requiredProducts[i] = r;
+                Resource r = new Resource(gPName[i], gPNo[i], gPName[i].toLowerCase() + ".png");
+                requiredProducts[i] = r;
+            }
         }
     }
 

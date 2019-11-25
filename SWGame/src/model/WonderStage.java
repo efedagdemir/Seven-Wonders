@@ -1,25 +1,42 @@
 package model;
 
 
-class WonderStage {
+public class WonderStage {
     private Resource[] providedResources;
     private Resource[] requiredResources;
     private VictoryPoint providedVictoryPoint;
-    private ConflictPoint providedConflictPoints;
+    private MilitaryPower providedMilitaryPower;
 
     WonderStage(Resource[] providedResources,
                 Resource[] requiredResources,
                 VictoryPoint victoryPoint,
-                ConflictPoint conflictPoints
+                MilitaryPower militaryPower
     ) {
         setProvidedResources(providedResources);
         setRequiredResources(requiredResources);
         setProvidedVictoryPoint(victoryPoint);
-        setProvidedConflictPoints(conflictPoints);
+        setProvidedMilitaryPower(militaryPower);
+    }
+    WonderStage(WonderStage ws){
+        setProvidedResources(ws.providedResources);
+        setRequiredResources(ws.requiredResources);
+        setProvidedVictoryPoint(ws.providedVictoryPoint);
+        setProvidedMilitaryPower(ws.providedMilitaryPower);
     }
 
-    void buildWonderStage() {
-        //TODO(need other classes to add wonder attributes to the player)
+    boolean buildWonderStage() {
+        System.out.println("GELDİM");
+        ModelService ms = ModelService.getInstance();
+       if ( ms.getCurrentPlayer().checkRequirements(null,requiredResources,null))
+       {
+           ms.getCurrentPlayer().updateVictoryPoints(providedVictoryPoint);
+           ms.getCurrentPlayer().updateResources(providedResources);
+           ms.getCurrentPlayer().updateMilitaryPower(providedMilitaryPower.getNoOfItems());
+           return true;
+       }
+        System.out.println("CANT AFFORD");
+        return false;
+
     }
 
     public Resource[] getProvidedResources() {
@@ -27,7 +44,12 @@ class WonderStage {
     }
 
     private void setProvidedResources(Resource[] providedResources) {
-        this.providedResources = providedResources;
+        if(providedResources != null) {
+            this.providedResources = new Resource[providedResources.length];
+            for (int i = 0; i < providedResources.length; i++) {
+                this.providedResources[i] = providedResources[i];
+            }
+        }
     }
 
     public Resource[] getRequiredResources() {
@@ -35,7 +57,12 @@ class WonderStage {
     }
 
     private void setRequiredResources(Resource[] requiredResources) {
-        this.requiredResources = requiredResources;
+        if(requiredResources != null) {
+            this.requiredResources = new Resource[requiredResources.length];
+            for (int i = 0; i < requiredResources.length; i++) {
+                this.requiredResources[i] = requiredResources[i];
+            }
+        }
     }
 
     public VictoryPoint getProvidedVictoryPoint() {
@@ -46,11 +73,11 @@ class WonderStage {
         this.providedVictoryPoint = providedVictoryPoint;
     }
 
-    public ConflictPoint getProvidedConflictPoints() {
-        return providedConflictPoints;
+    public MilitaryPower getProvidedMilitaryPower() {
+        return providedMilitaryPower;
     }
 
-    public void setProvidedConflictPoints(ConflictPoint providedConflictPoints) {
-        this.providedConflictPoints = providedConflictPoints;
+    public void setProvidedMilitaryPower(MilitaryPower providedMilitaryPower) {
+        this.providedMilitaryPower = providedMilitaryPower;
     }
 }

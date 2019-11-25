@@ -17,7 +17,7 @@ public class Coin extends Item {
         noOfItems = noOfItems + coinAmount;
     }
 
-    int getNoOfItems(){
+    public int getNoOfItems(){
         return noOfItems;
     }
 }

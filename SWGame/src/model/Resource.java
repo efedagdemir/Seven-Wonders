@@ -8,7 +8,7 @@ public class Resource extends Item {
     boolean leftDiscount;
     boolean rightDiscount;
 
-    public Resource(String resourceName, int resourceAmount,String img) {
+    public Resource(String resourceName, int resourceAmount, String img) {
         this.resourceName = resourceName;
         noOfItems = resourceAmount;
         leftDiscount = false;

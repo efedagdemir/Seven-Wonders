@@ -1,67 +1,59 @@
 package view;
 
 import controller.ControllerFacade;
-import javafx.animation.FadeTransition;
-import javafx.animation.RotateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
-import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import javafx.event.ActionEvent;
-import javafx.util.Duration;
+//import javafx.event.ActionEvent;
 
 public class MainMenuPane extends BorderPane {
+    public static Button howToPlayButton;
+    public static Button creditsButton;
     //private static MainMenuPane mainMenu = new MainMenuPane();
-    public Button startButton = new Button("Start Game");
-    public Button howToPlayButton = new Button("How to Play");
-    public Button creditsButton = new Button("Credits");
-    public VBox menuButtons = new VBox();
-    public HBox titleBox = new HBox();
-    public Label gameName = new Label("Seven Wonders");
-
-    //public Image bg = new Image( "7W.jpg");
-    //public Image bg = new Image( "images/7-wonders.jpg");
-
+    private static MainMenuPane mainMenuPane;
+    public Button startButton;
+    public VBox menuButtons;
+    public Label gameName;
 
     ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
-    public MainMenuPane() {
-
+    private MainMenuPane() {
+        startButton = new Button("Start Game");
+        howToPlayButton = new Button("How to Play");
+        creditsButton = new Button("Credits");
+        menuButtons = new VBox();
+        gameName = new Label("Seven Wonders");
         setPrefSize(1300,750);
+        //setBackground( new Background(backgroundImage));
         setCenter(menuButtons);
+        //menuButtons.setLayoutX(400);
+        //menuButtons.setLayoutY(200);
+        startButton.setPrefSize(100, 50);
+        howToPlayButton.setPrefSize(100, 50);
+        creditsButton.setPrefSize(100, 50);
+        menuButtons.setSpacing(10);
+//        startButton.setPadding(Insets.EMPTY);
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("backgroundMain.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        setBackground(new Background(backgroundImage));
+        menuButtons.getChildren().addAll(gameName, startButton, howToPlayButton, creditsButton);
+        menuButtons.setAlignment(Pos.CENTER);
+        gameName.setTextAlignment(TextAlignment.CENTER);
         gameName.setFont(new Font(100));
         gameName.setStyle("-fx-text-fill: #e0bf16;");
         startButton.setStyle("-fx-font-weight: bold");
         howToPlayButton.setStyle("-fx-font-weight: bold");
         creditsButton.setStyle("-fx-font-weight: bold");
-        //gameName.setAlignment(Pos.);
-        //setTop(titleBox);
-        //titleBox.getChildren().add(gameName);
-        //titleBox.setAlignment(Pos.TOP_CENTER);
         Glow glow = new Glow();
         glow.setLevel(1.0);
         gameName.setEffect(glow);
-
-        startButton.setPrefSize(100, 50);
-        howToPlayButton.setPrefSize(100, 50);
-        creditsButton.setPrefSize(100, 50);
-        menuButtons.setSpacing(10);
-        menuButtons.getChildren().addAll(gameName, startButton, howToPlayButton, creditsButton);
-        menuButtons.setAlignment(Pos.CENTER);
-        gameName.setTextAlignment(TextAlignment.CENTER);
-
-        Image menuBackground = new Image("swBackground.jpg");
-        BackgroundImage backgroundImage = new BackgroundImage( menuBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        setBackground( new Background(backgroundImage));
+        //getChildren().add(menuButtons);
 
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(3.0);
@@ -76,14 +68,17 @@ public class MainMenuPane extends BorderPane {
         howToPlayButton.setEffect(dropShadow);
         creditsButton.setEffect(dropShadow);
         gameName.setEffect(dropShadow2);
-
-        //startButton.setOnAction(e -> controllerFacade.startGame());
-        //creditsButton.setOnAction(e -> controllerFacade.commandModel(e));
-        //howToPlayButton.setOnAction(e -> controllerFacade.commandModel(e));
+//      setBorder(new Border(new Layout));
+        startButton.setOnAction(e -> controllerFacade.startGame());
+        creditsButton.setOnAction(e -> controllerFacade.commandModel(e));
+        howToPlayButton.setOnAction(e -> controllerFacade.commandModel(e));
     }
 
-    public Button getCreditsButton() {
-        return creditsButton;
+    public static MainMenuPane getInstance() {
+        if (mainMenuPane == null) {
+            mainMenuPane = new MainMenuPane();
+        }
+        return mainMenuPane;
     }
 
     /*public static MainMenuPane getInstance() {

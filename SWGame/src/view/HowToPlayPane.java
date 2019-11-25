@@ -1,20 +1,13 @@
 package view;
 
-        import controller.ControllerFacade;
-        import javafx.geometry.Pos;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
-        import javafx.scene.control.ScrollBar;
-        import javafx.scene.control.ScrollPane;
-        import javafx.scene.effect.DropShadow;
-        import javafx.scene.effect.Glow;
-        import javafx.scene.image.Image;
-        import javafx.scene.layout.*;
-        import javafx.scene.text.Font;
-        import javafx.scene.text.TextAlignment;
-        import javafx.scene.image.Image;
-
-        import java.awt.*;
+import controller.ControllerFacade;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class HowToPlayPane extends ScrollPane {
     //private static CreditsPane creditsPane = new CreditsPane();

@@ -2,7 +2,6 @@ package view;
 
 import controller.ControllerFacade;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
@@ -15,9 +14,9 @@ public class CreditsPane extends BorderPane {
     //private static CreditsPane creditsPane = new CreditsPane();
     public VBox credsBox = new VBox();
     public Label groupName = new Label( "Group 1E");
-    public Label creators = new Label( "Efe Dağdemir\nAyşegül Gökçe\nTuana Türkmen\nSezin Zeydan\nFırat Yönak");
+    public Label creators = new Label("Efe Dağdemir\nAysegül Gökçe\nTuana Türkmen\nSezin Zeydan\nFirat Yonak");
     //public Button okayButton = new Button( "Okay");
-    public Image menuBackground = new Image("leaf.png");
+    public Image menuBackground = new Image("leaf.jpeg");
     public BackgroundImage backgroundImage = new BackgroundImage( menuBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
     ControllerFacade controllerFacade = ControllerFacade.getInstance();
