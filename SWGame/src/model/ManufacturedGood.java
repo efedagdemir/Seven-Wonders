@@ -1,7 +1,6 @@
 package model;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class ManufacturedGood extends Card {
 
@@ -40,12 +39,14 @@ public class ManufacturedGood extends Card {
         if ( currentPlayer.isFree(this) == true ){
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(givenProducts);
+            ModelService.getInstance().removeFromRotatingCardList();
         }
         else {
             if (currentPlayer.checkRequirements(null, requiredProducts, null) == true)
             {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(givenProducts);
+                ModelService.getInstance().removeFromRotatingCardList();
             }
             else {
                 System.out.println("Can't afford");

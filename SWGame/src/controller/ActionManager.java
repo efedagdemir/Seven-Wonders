@@ -1,6 +1,5 @@
 package controller;
 
-import model.Card;
 import model.Resource;
 import view.DropBoard;
 
@@ -18,7 +17,6 @@ public class ActionManager {
     }
 
     void buyResource(Resource resource){
-
     }
 
 

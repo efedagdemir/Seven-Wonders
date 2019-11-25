@@ -74,8 +74,8 @@ public class ModelService {
     public void updateCurrentPlayer(){
         if(playerIndex == numberOfPlayers - 1){
             playerIndex = 0;
-            rotateDecks();
             cardLength--;
+            rotateDecks();
         }
         else{
             playerIndex++;
@@ -108,6 +108,8 @@ public class ModelService {
             }
         }
         System.out.println(rotatingCardList.length);
+        System.out.println("removed");
+        selectedCard.getIV().setManaged(false);
         selectedCard = null;
     }
 
@@ -499,7 +501,4 @@ public class ModelService {
     public Card[][] getRotatingCardList() {
         return rotatingCardList;
     }
-
-
-
 }

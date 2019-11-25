@@ -49,7 +49,7 @@ public class Player {
             if(itemList.get(i) instanceof Resource){
                 type = (Resource) itemList.get(i);
                 if(type.getResourceName().equals(resource.getResourceName())) {
-                    itemList.get(i).setNoOfItems(resource.getNoOfItems());
+//                    itemList.get(i).setNoOfItems(resource.getNoOfItems());
                     exists = true;
                 }
             }
@@ -142,11 +142,10 @@ public class Player {
     void updateResources(Resource[] resourceArr){
         if (resourceArr == null)
             return;
-        Resource res;
         for(int i = 0; i < resourceArr.length; i++){
             boolean exists = false;
             for(int j = 0; j < currentResources.size(); j++){
-                if(resourceArr[i].getResourceName().equals(currentResources.get(i).getResourceName())){
+                if (resourceArr[i].getResourceName().equals(currentResources.get(j).getResourceName())) {
                     exists = true;
                     currentResources.get(j).setNoOfItems(resourceArr[i].getNoOfItems());
                 }

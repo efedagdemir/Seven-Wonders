@@ -62,12 +62,15 @@ public class CivilianStructure extends Card {
             currentPlayer.updateHand(this);
             currentPlayer.updateVictoryPoints(victoryPoints);
             currentPlayer.updateFreeStructures(providedStructure);
+            ModelService.getInstance().removeFromRotatingCardList();
         }
         else{
             if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null) ){
                 currentPlayer.updateHand(this);
                 currentPlayer.updateVictoryPoints(victoryPoints);
                 currentPlayer.updateFreeStructures(providedStructure);
+                System.out.println("check is true");
+                ModelService.getInstance().removeFromRotatingCardList();
             }
             else {
                 System.out.println("Can't afford!!");

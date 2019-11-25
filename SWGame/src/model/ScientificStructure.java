@@ -1,7 +1,6 @@
 package model;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class ScientificStructure extends Card {
 
@@ -56,12 +55,14 @@ public class ScientificStructure extends Card {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedS);
             currentPlayer.updateScientifictType(scType);
+            ModelService.getInstance().removeFromRotatingCardList();
         }
         else {
             if (currentPlayer.checkRequirements(requiredS, requiredP, null) == true){
                 currentPlayer.updateHand(this);
                 currentPlayer.updateFreeStructures(providedS);
                 currentPlayer.updateScientifictType(scType);
+                ModelService.getInstance().removeFromRotatingCardList();
             }
             else {System.out.println("Can't afford!");}
         }

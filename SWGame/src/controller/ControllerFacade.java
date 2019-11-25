@@ -2,11 +2,8 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.input.DragEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Card;
 import model.ModelService;
 import view.*;
 
@@ -24,11 +21,6 @@ public class ControllerFacade {
     }
 
     public static ControllerFacade getInstance() {
-//        if(controllerFacade == null){
-//            System.out.println("Controller new");
-//            controllerFacade = new ControllerFacade();
-//        }
-//        System.out.println("Controller Instance");
         return controllerFacade;
     }
 
@@ -50,7 +42,7 @@ public class ControllerFacade {
     public void takeAction(DragEvent e) {
 
         ActionManager.getInstance().determineCardAction((DropBoard) e.getGestureTarget());
-        ModelService.getInstance().removeFromRotatingCardList();
+//        ModelService.getInstance().removeFromRotatingCardList();
 
     }
 
@@ -60,11 +52,9 @@ public class ControllerFacade {
 
         }
         if(event.getTarget() == PlayerInfoPane.nextTurnButton){
-            System.out.println("HMMMMMMMMM");
             modelService.showNextTurnPage();
         }
         if(event.getTarget() == NextTurnPane.okButton){
-            System.out.println("hi");
             modelService.showGameScreen();
         }
         if(event.getTarget() == MainMenuPane.howToPlayButton){

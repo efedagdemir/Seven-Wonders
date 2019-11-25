@@ -56,12 +56,14 @@ public class Guild extends Card {
         if ( currentPlayer.isFree(this) == true ){
             currentPlayer.updateHand(this);
             currentPlayer.updateVictoryPoints(victoryPoints);
+            ModelService.getInstance().removeFromRotatingCardList();
         }
         else {
             if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null) == true)
             {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateVictoryPoints(victoryPoints);
+                ModelService.getInstance().removeFromRotatingCardList();
             }
             else {
                 System.out.println("Can't afford");
