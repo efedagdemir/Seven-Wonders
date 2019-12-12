@@ -16,3 +16,4 @@ Project Documents
 * [Iteration 1 - Project Design Report](https://docs.google.com/document/d/1uzfl9Tj8sHsr5-z9KJoI5vR5A87DY37RcPhiXVGGNK4/edit?usp=sharing)
 * [Iteration 1 - Project Final Report](https://docs.google.com/document/d/1fUxtCmg6YfSre_OZwvtv9FJ1PzUGQxdycuFUr2fR0Ic/edit?usp=sharing)
 * [Iteration 2 - Project Analysis Report](https://docs.google.com/document/d/1AfUS0kQCf30Xe1c761SLoCw75jdIcIgdkP2_HssuhWI/edit?usp=sharing)
+* [Iteration 2 - Project Design Report](https://docs.google.com/document/d/1xT5Ko0Pzxl1fn5MQxcESp3my3JWanq3xTTOkmRT-Nes/edit?usp=sharing)
