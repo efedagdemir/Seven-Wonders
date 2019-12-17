@@ -1,11 +1,15 @@
 package controller;
 
+import Client.view.DropBoard;
+import Client.view.GameView;
+import Client.view.MainMenuPane;
+import Client.view.PlayerInfoPane;
+import Server.ServerController.GameInitializer;
+import Server.model.ModelService;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.stage.Stage;
-import model.ModelService;
-import view.*;
 
 public class ControllerFacade {
     private static final ControllerFacade controllerFacade = new ControllerFacade();
@@ -51,11 +55,8 @@ public class ControllerFacade {
             modelService.showCredits();
 
         }
-        if(event.getTarget() == PlayerInfoPane.nextTurnButton){
+        if (event.getTarget() == PlayerInfoPane.readyButton) {
             modelService.showNextTurnPage();
-        }
-        if(event.getTarget() == NextTurnPane.okButton){
-            modelService.showGameScreen();
         }
         if(event.getTarget() == MainMenuPane.howToPlayButton){
             modelService.showHowToPlay();
