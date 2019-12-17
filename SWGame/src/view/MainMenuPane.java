@@ -22,9 +22,23 @@ public class MainMenuPane extends BorderPane {
     public VBox menuButtons;
     public Label gameName;
 
+    //new features
+    public static Button createGameButton;
+    public static Button joinGameButton;
+    //end of new features
+
     ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
     private MainMenuPane() {
+        // new features
+        createGameButton = new Button("Create Game");
+        joinGameButton = new Button("Join Game");
+        createGameButton.setPrefSize(100, 50);
+        joinGameButton.setPrefSize(100, 50);
+        createGameButton.setStyle("-fx-font-weight: bold");
+        joinGameButton.setStyle("-fx-font-weight: bold");
+        //end of new features
+
         startButton = new Button("Start Game");
         howToPlayButton = new Button("How to Play");
         creditsButton = new Button("Credits");
@@ -42,7 +56,7 @@ public class MainMenuPane extends BorderPane {
 //        startButton.setPadding(Insets.EMPTY);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("backgroundMain.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         setBackground(new Background(backgroundImage));
-        menuButtons.getChildren().addAll(gameName, startButton, howToPlayButton, creditsButton);
+        menuButtons.getChildren().addAll(gameName, startButton, createGameButton, joinGameButton, howToPlayButton, creditsButton);
         menuButtons.setAlignment(Pos.CENTER);
         gameName.setTextAlignment(TextAlignment.CENTER);
         gameName.setFont(new Font(100));
@@ -72,6 +86,13 @@ public class MainMenuPane extends BorderPane {
         startButton.setOnAction(e -> controllerFacade.startGame());
         creditsButton.setOnAction(e -> controllerFacade.commandModel(e));
         howToPlayButton.setOnAction(e -> controllerFacade.commandModel(e));
+
+        //new features
+        createGameButton.setEffect(dropShadow);
+        joinGameButton.setEffect(dropShadow);
+        createGameButton.setOnAction(e -> controllerFacade.commandModel(e));
+        joinGameButton.setOnAction(e -> controllerFacade.commandModel(e));
+        //end of new features
     }
 
     public static MainMenuPane getInstance() {
