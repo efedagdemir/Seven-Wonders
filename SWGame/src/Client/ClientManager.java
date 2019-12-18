@@ -35,8 +35,27 @@ public class ClientManager {
         output = new DataOutputStream(socket.getOutputStream());
 //        setPlayer();
         System.out.println("Bu sout client managerda");
-        Thread t = new Thread(new ClientThread());
-        t.start();
+
+    }
+
+    public void communicateServer() {
+        try {
+            Scanner scn = new Scanner(System.in);
+            int tosend = input.readInt();
+            while (true) {
+
+                // If client sends exit,close this connection
+                // and then break from the while loop
+                if (tosend == 1) {
+//                    System.out.println("ClientThread");
+                    Player p = new Player();
+                    updateInfoPane(player);
+                    tosend = -1;
+                }
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     public String decryptKey(String encryptedKey) {
@@ -61,24 +80,4 @@ public class ClientManager {
 //        outputObject.writeObject(request);
 //    }
 
-    class ClientThread extends Thread implements Runnable {
-        public void run() {
-            try {
-                Scanner scn = new Scanner(System.in);
-                while (true) {
-                    int tosend = input.readInt();
-
-                    // If client sends exit,close this connection
-                    // and then break from the while loop
-                    if (tosend == 1) {
-                        System.out.println("ClientThread");
-                        Player p = new Player();
-                        GameView.getInstance().showGamePane(p);
-                    }
-                }
-            } catch (Exception e) {
-
-            }
-        }
-    }
 }

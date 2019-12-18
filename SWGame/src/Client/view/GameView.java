@@ -2,6 +2,7 @@ package Client.view;
 
 import Server.model.Player;
 import Server.model.WonderBoard;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -55,10 +56,15 @@ public class GameView {
     }
 
     public void waitingScreen() {
+
         NextTurnPane nextTurn = new NextTurnPane();
+
         scene = new Scene(nextTurn, 1300, 750);
+        System.out.println("before show");
         primaryStage.setScene(scene);
+        System.out.println("before show");
         primaryStage.show();
+        System.out.println("after show");
     }
 
     public void showConflictScreen(ArrayList<Player> playerList) {
@@ -79,16 +85,20 @@ public class GameView {
     public void showGameOverPane(ArrayList<Player> playerList) {
     }
 
-    public void showGamePane(Player player) {
-        System.out.println("showGamePane in GameView");
-        GamePane gamePane = new GamePane(player);
+    public void showGamePane(Player player) throws IllegalStateException {
+        try {
+            System.out.println("showGamePane in GameView");
+            //amePane gamePane = new GamePane(player);
 
-        System.out.println("after creation of GamePane");
-        Scene sc = new Scene(gamePane);
-        System.out.println("sout1");
-        primaryStage.setScene(sc);
-        System.out.println("sout2");
-        primaryStage.show();
-        System.out.println("sout3");
+            System.out.println("after creation of GamePane");
+            //Scene sc = new Scene(gamePane);
+            System.out.println("sout1");
+            Platform.runLater(() -> primaryStage.setScene(new Scene(new GamePane(new Player()))));
+            System.out.println("sout2");
+            Platform.runLater(() -> primaryStage.show());
+            System.out.println("sout3");
+        } catch (IllegalStateException ex) {
+            System.out.println("exception");
+        }
     }
 }

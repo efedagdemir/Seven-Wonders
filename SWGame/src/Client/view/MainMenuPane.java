@@ -1,5 +1,7 @@
 package Client.view;
 
+import Client.ClientManager;
+import Server.ServerManager;
 import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +16,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 //import javafx.event.ActionEvent;
 
 public class MainMenuPane extends BorderPane {
@@ -96,7 +100,7 @@ public class MainMenuPane extends BorderPane {
             System.out.println("random");
             try {
                 cgp = new CreateGamePane();
-                cgp.acceptConnections();
+//                cgp.acceptConnections();
                 System.out.println("hhhhhhhhh");
             } catch (IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
@@ -104,12 +108,18 @@ public class MainMenuPane extends BorderPane {
             System.out.println("random2");
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
             System.out.println("lay");
+            Thread server = new Thread(new ServerThread());
+            server.start();
+            Thread client = new Thread(new ClientThread());
+            client.start();
         });
 
 
         joinGameButton.setOnAction(e -> {
             JoinGamePane cgp = new JoinGamePane();
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
+            Thread client = new Thread(new ClientThread());
+            client.start();
         });
         //end of new features
     }
@@ -119,6 +129,43 @@ public class MainMenuPane extends BorderPane {
             mainMenuPane = new MainMenuPane();
         }
         return mainMenuPane;
+    }
+
+    static class ClientThread extends Thread implements Runnable {
+        @Override
+        public void run() {
+            InetAddress a = null;
+            try {
+                a = InetAddress.getByName("Ayseguls-MacBook-Pro-2.local");
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            ClientManager client = null;
+            try {
+                client = new ClientManager(a.getCanonicalHostName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            ClientManager finalClient = client;
+            client.communicateServer();
+            System.out.println("random4");
+        }
+    }
+
+    static class ServerThread extends Thread implements Runnable {
+        @Override
+        public void run() {
+            ServerManager s = null;
+            try {
+                s = new ServerManager();
+                s.acceptConnections();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("started");
+        }
     }
 
     /*public static MainMenuPane getInstance() {

@@ -38,7 +38,7 @@ public class ServerManager {
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
                 // ObjectInputStream inputObject = new ObjectInputStream(socket.getInputStream());
                 //ObjectOutputStream outputObject = new ObjectOutputStream(socket.getOutputStream());
-                System.out.println("HHHHHHHH");
+                System.out.println("in ServerManager: method: acceptConnections");
                 ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size() - 1);
                 clientHandlers.add(c);
                 c.start();

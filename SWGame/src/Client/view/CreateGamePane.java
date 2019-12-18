@@ -1,6 +1,5 @@
 package Client.view;
 
-import Client.ClientManager;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -18,13 +17,12 @@ public class CreateGamePane extends BorderPane {
     public Label waitingLabel;
     public VBox labelBox;
 
-    public CreateGamePane() throws IOException {
+    public CreateGamePane() throws IOException, ClassNotFoundException {
         labelBox = new VBox();
-        InetAddress a = InetAddress.getByName("Ayseguls-MacBook-Pro-2.local"); //getLocalHost().getHostAddress();
-        loungeKeyLabel = new Label("Lounge key: " + a.getCanonicalHostName());//.toString().substring(1));
+        String address = InetAddress.getLocalHost().getHostAddress(); //getLocalHost().getHostAddress();
+        loungeKeyLabel = new Label("Lounge key: " + address);//.toString().substring(1));
         p1ConnectedLabel = new Label( "Player 1 has connected!");
         waitingLabel = new Label( "Waiting for other players...");
-        System.out.println(a.getCanonicalHostName());
         labelBox.setSpacing(210);
 
         DropShadow dropShadow2 = new DropShadow();
@@ -55,10 +53,4 @@ public class CreateGamePane extends BorderPane {
         setCenter(labelBox);
     }
 
-    void acceptConnections() throws IOException, ClassNotFoundException {
-
-        InetAddress a = InetAddress.getByName("Ayseguls-MacBook-Pro-2.local");
-        ClientManager client = new ClientManager(a.getCanonicalHostName());
-        System.out.println("random4");
-    }
 }
