@@ -72,6 +72,7 @@ public class JoinGamePane extends BorderPane {
             Platform.runLater(() -> warning.setVisible(false));
             client = new Thread(new MainMenuPane.ClientThread(keyField.getText()));
             client.start();
+            Platform.runLater(() -> setDisable(true));
         });
 //        setBottom(readyButton);
 
