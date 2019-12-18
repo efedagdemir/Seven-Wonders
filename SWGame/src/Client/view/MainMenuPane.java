@@ -108,18 +108,32 @@ public class MainMenuPane extends BorderPane {
             System.out.println("random2");
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
             System.out.println("lay");
-            Thread server = new Thread(new ServerThread());
-            server.start();
-            Thread client = new Thread(new ClientThread());
-            client.start();
+            synchronized (this) {
+                Thread server = new Thread(new ServerThread());
+                server.start();
+            }
+            synchronized (this) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                Thread client = null;
+                try {
+                    client = new Thread(new MainMenuPane.ClientThread());
+                    System.out.println("host is connected === MainMenuPane");
+                } catch (UnknownHostException ex) {
+                    ex.printStackTrace();
+                }
+                client.start();
+            }
         });
 
 
         joinGameButton.setOnAction(e -> {
             JoinGamePane cgp = new JoinGamePane();
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
-            Thread client = new Thread(new ClientThread());
-            client.start();
+
         });
         //end of new features
     }
@@ -132,23 +146,30 @@ public class MainMenuPane extends BorderPane {
     }
 
     static class ClientThread extends Thread implements Runnable {
+        public String ipAddress;
+
+        public ClientThread() throws UnknownHostException {
+            System.out.println("localhost ==== ClientTread-MainMenuPane");
+            ipAddress = InetAddress.getLocalHost().getHostAddress();
+            System.out.println(ipAddress);
+        }
+
+        public ClientThread(String ipAddress) {
+            this.ipAddress = ipAddress;
+        }
+
         @Override
-        public void run() {
-            InetAddress a = null;
-            try {
-                a = InetAddress.getByName("Ayseguls-MacBook-Pro-2.local");
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
+        public synchronized void run() {
             ClientManager client = null;
             try {
-                client = new ClientManager(a.getCanonicalHostName());
+                client = new ClientManager(ipAddress);
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
-            ClientManager finalClient = client;
+            assert client != null;
+            if (client == null) {
+                System.out.println("client Null ClientThread run()");
+            }
             client.communicateServer();
             System.out.println("random4");
         }
@@ -156,10 +177,11 @@ public class MainMenuPane extends BorderPane {
 
     static class ServerThread extends Thread implements Runnable {
         @Override
-        public void run() {
+        public synchronized void run() {
             ServerManager s = null;
             try {
                 s = new ServerManager();
+                System.out.println("serverThread");
                 s.acceptConnections();
             } catch (IOException e) {
                 e.printStackTrace();

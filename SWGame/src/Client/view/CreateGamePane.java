@@ -21,8 +21,8 @@ public class CreateGamePane extends BorderPane {
         labelBox = new VBox();
         String address = InetAddress.getLocalHost().getHostAddress(); //getLocalHost().getHostAddress();
         loungeKeyLabel = new Label("Lounge key: " + address);//.toString().substring(1));
-        p1ConnectedLabel = new Label( "Player 1 has connected!");
-        waitingLabel = new Label( "Waiting for other players...");
+        p1ConnectedLabel = new Label("Player 1 has connected!");
+        waitingLabel = new Label("Waiting for other players...");
         labelBox.setSpacing(210);
 
         DropShadow dropShadow2 = new DropShadow();

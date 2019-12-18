@@ -1,5 +1,6 @@
 package Client.view;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,10 +17,12 @@ public class JoinGamePane extends BorderPane {
     public Label enterKeyLabel;
     public TextField keyField;
     public VBox componentsBox;
+    public Label warning;
 
     public JoinGamePane(){
         readyButton = new Button("Ready");
         enterKeyLabel = new Label("Please enter lounge key: ");
+        warning = new Label("Cannot Connect");
         keyField = new TextField();
         componentsBox = new VBox();
 
@@ -46,6 +49,11 @@ public class JoinGamePane extends BorderPane {
         enterKeyLabel.setStyle("-fx-text-fill: #e0bf16;"); //e0bf16  c90014
         enterKeyLabel.setEffect(dropShadow2);
 
+        warning.setTextAlignment(TextAlignment.CENTER);
+        warning.setFont(new Font(20));
+        warning.setStyle("-fx-text-fill: #ff0000;"); //e0bf16  c90014
+        warning.setVisible(false);
+
         //keyField.setPrefSize(100, 100);
         keyField.setMaxHeight(100);
         keyField.setMaxWidth(100);
@@ -55,9 +63,16 @@ public class JoinGamePane extends BorderPane {
 
         componentsBox.setSpacing(50);
 
-        componentsBox.getChildren().addAll(enterKeyLabel, keyField, readyButton);
+        componentsBox.getChildren().addAll(enterKeyLabel, keyField, readyButton, warning);
         componentsBox.setAlignment(Pos.CENTER);
         setCenter(componentsBox);
+
+        readyButton.setOnAction(e -> {
+            Thread client;
+            Platform.runLater(() -> warning.setVisible(false));
+            client = new Thread(new MainMenuPane.ClientThread(keyField.getText()));
+            client.start();
+        });
 //        setBottom(readyButton);
 
 

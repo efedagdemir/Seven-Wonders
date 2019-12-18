@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class ClientManager {
     private final String KEY;
-    private final int PORT = 5553;
+    private final int PORT = 5346;
     private Player player;
     private ObjectInputStream inputObject;
     private ObjectOutputStream outputObject;
@@ -22,9 +22,9 @@ public class ClientManager {
     private List<String> messages;
 
 
-    public ClientManager(String key) throws IOException, ClassNotFoundException {
+    public ClientManager(String key) throws IOException {
         KEY = decryptKey(key);
-        System.out.println("hklhk");
+        System.out.println(KEY);
         socket = new Socket(KEY, PORT);
 
         /*TODO() make it logical, it is just temporary*/
