@@ -12,10 +12,10 @@ public class AllOpponentsPane extends BorderPane {
     public HBox opponentsBox = new HBox();
     //public OpponentInfoPane centerNeighbor;
 
-    public AllOpponentsPane(Player player) {
+    public AllOpponentsPane(Player left, Player right) {
 
-        leftNeighbor = new OpponentInfoPane(player.getLeftNeighbor());
-        rightNeighbor = new OpponentInfoPane(player.getRightNeighbor());
+        leftNeighbor = new OpponentInfoPane(left);
+        rightNeighbor = new OpponentInfoPane(right);
 
         //setLeft(leftNeighbor);
         //setRight(rightNeighbor);

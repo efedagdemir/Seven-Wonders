@@ -1,5 +1,7 @@
 package Server.ServerController;
 
+import com.google.gson.Gson;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -28,11 +30,14 @@ public class ClientHandler extends Thread {
     }
 
     public void update() throws IOException {
-//        ServerReply serverReply = new ServerReply(playerIndex);
-//        outputObject.writeObject(serverReply);
+        ServerReply serverReply = new ServerReply(playerIndex);
+        Gson gson = new Gson();
+        output.writeUTF(gson.toJson(serverReply));
     }
 
-    public void openGamePage() throws IOException {
+    public void openGamePage() throws IOException, InterruptedException {
+        Thread.sleep(200);
+        System.out.println("openGamePane in ClientHandler");
         output.writeInt(1);
     }
 

@@ -28,7 +28,7 @@ public class CardActionPane extends BorderPane {
     private BuildWonderDropBoard wonder2;
     private BuildWonderDropBoard wonder3;
 
-    public CardActionPane() {
+    public CardActionPane(Card[] cards) {
         ControllerFacade controllerFacade = ControllerFacade.getInstance();
         modelService = ModelService.getInstance();
         Image image = new Image(modelService.getCurrentPlayer().getWonder().getWonderName().toLowerCase() + "A.png");
@@ -74,10 +74,10 @@ public class CardActionPane extends BorderPane {
         wonder.setAlignment(Pos.BOTTOM_CENTER);
         setBottom(wonder);
         if (modelService != null) {
-            Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
+            Card[] cardList = cards;
             for (int i = 0; i < modelService.getCardLength(); i++) {
                 Card currentCard = cardList[i];
-                ImageView iv = currentCard.getIV();
+                ImageView iv = new ImageView(currentCard.getName() + ".png");
                 imageViews.add(iv);
                 iv.setFitHeight(180);
                 iv.setFitWidth(120);
@@ -111,7 +111,7 @@ public class CardActionPane extends BorderPane {
             Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
             for (int i = 0; i < modelService.getCardLength() - 1; i++) {
                 Card currentCard = cardList[i];
-                ImageView iv = currentCard.getIV();
+                ImageView iv = new ImageView(currentCard.getName() + ".png");
                 imageViews.add(iv);
                 iv.setFitHeight(180);
                 iv.setFitWidth(120);
@@ -150,8 +150,8 @@ public class CardActionPane extends BorderPane {
         }
         ImageView[] requiredResources = wonderStage.getRequiredResources() != null ? getImages(wonderStage.getRequiredResources()) : null;
         ImageView[] providedResources = wonderStage.getProvidedResources() != null ? getImages(wonderStage.getProvidedResources()) : null;
-        ImageView cp = wonderStage.getProvidedMilitaryPower() != null ? wonderStage.getProvidedMilitaryPower().getIv() : null;
-        ImageView vp = wonderStage.getProvidedVictoryPoint() != null ? wonderStage.getProvidedVictoryPoint().getIv() : null;
+        ImageView cp = wonderStage.getProvidedMilitaryPower() != null ? new ImageView(wonderStage.getProvidedMilitaryPower().getName()) : null;
+        ImageView vp = wonderStage.getProvidedVictoryPoint() != null ? new ImageView(wonderStage.getProvidedVictoryPoint().getName()) : null;
 
         for (ImageView image : requiredResources) {
             System.out.println("requiredResources  " + modelService.getCurrentPlayer().getName());
@@ -194,7 +194,7 @@ public class CardActionPane extends BorderPane {
         ImageView[] images = new ImageView[resources.length];
         int i = 0;
         for (Resource resource : resources) {
-            images[i] = new ImageView(resource.getImage());
+            images[i] = new ImageView(resource.getName());
             i++;
         }
         return images;

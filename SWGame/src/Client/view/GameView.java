@@ -1,5 +1,6 @@
 package Client.view;
 
+import Server.model.Card;
 import Server.model.Player;
 import Server.model.WonderBoard;
 import javafx.application.Platform;
@@ -85,7 +86,7 @@ public class GameView {
     public void showGameOverPane(ArrayList<Player> playerList) {
     }
 
-    public void showGamePane(Player player) throws IllegalStateException {
+    public void showGamePane(Player player, Card[] cards, Player left, Player right) throws IllegalStateException {
         try {
             System.out.println("showGamePane in GameView");
             //amePane gamePane = new GamePane(player);
@@ -93,7 +94,7 @@ public class GameView {
             System.out.println("after creation of GamePane");
             //Scene sc = new Scene(gamePane);
             System.out.println("sout1");
-            Platform.runLater(() -> primaryStage.setScene(new Scene(new GamePane(new Player()))));
+            Platform.runLater(() -> primaryStage.setScene(new Scene(new GamePane(player, cards, left, right))));
             System.out.println("sout2");
             Platform.runLater(() -> primaryStage.show());
             System.out.println("sout3");

@@ -1,22 +1,23 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public abstract class Item {
-    ImageView iv;
+    String name;
+    //    ImageView iv;
     int noOfItems;
-    Image image;
+//    Image image;
 
     public abstract int getNoOfItems();
 
+    public abstract String getName();
+
     abstract void setNoOfItems(int itemAmount);
 
-    public Image getImage() {
-        return image;
-    }
 
-    public ImageView getIv() {
-        return iv;
-    }
+//    public Image getImage() {
+//        return image;
+//    }
+//
+//    public ImageView getIv() {
+//        return iv;
+//    }
 }

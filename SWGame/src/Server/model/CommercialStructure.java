@@ -1,8 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class CommercialStructure extends Card {
 
     String path;
@@ -16,9 +13,9 @@ public class CommercialStructure extends Card {
 
     public CommercialStructure(int vp, int coins, String rStructure, String pStructure, boolean leftDiscount, boolean rightDiscount, String[] discountedResources, String img, String nameC) {
 
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
         name = nameC;
         path = img;
         System.out.println(img);

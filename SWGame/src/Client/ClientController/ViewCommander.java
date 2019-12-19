@@ -47,6 +47,6 @@ public class ViewCommander {
     }
 
     void showGameScreen(Player player) {
-        gameView.showGamePane(player);
+        //gameView.showGamePane(player);
     }
 }
