@@ -1,7 +1,7 @@
 package controller;
 
-import model.Resource;
-import view.DropBoard;
+import Client.view.DropBoard;
+import Server.model.Resource;
 
 /* A singleton controller class which is responsible for the actions of the game */
 public class ActionManager {
