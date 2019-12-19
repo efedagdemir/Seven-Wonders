@@ -2,12 +2,14 @@ package Client;
 
 import Client.ClientController.ClientRequest;
 import Client.view.GameView;
+import Server.ServerController.ServerReply;
+import Server.model.Card;
 import Server.model.Player;
+import com.google.gson.Gson;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
-import java.util.Scanner;
 
 public class ClientManager {
     private final String KEY;
@@ -40,21 +42,29 @@ public class ClientManager {
 
     public void communicateServer() {
         try {
-            Scanner scn = new Scanner(System.in);
-            int tosend = input.readInt();
+            int tosend;
             while (true) {
-
+                tosend = input.readInt();
+                System.out.println("in communicateServer before loop");
                 // If client sends exit,close this connection
                 // and then break from the while loop
                 if (tosend == 1) {
+                    System.out.println("communicateServer in ClientManager");
+                    Thread.sleep(100);
 //                    System.out.println("ClientThread");
-                    Player p = new Player();
-                    updateInfoPane(player);
+
+                    ServerReply s = getReply();
+                    Player player = s.getPlayer();
+                    Player leftNeighbor = s.getLeftNeighbor();
+                    Player rightNeighbor = s.getRightNeighbor();
+                    Card[] cards = s.getRotatingCardList();
+                    updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                     tosend = -1;
                 }
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
+            System.out.println("exception in communicateServer in ClientManager");
         }
     }
 
@@ -63,21 +73,25 @@ public class ClientManager {
         return encryptedKey;
     }
 
-    private void updateInfoPane(Player player) {
-        GameView.getInstance().showGamePane(player);
+    private void updateInfoPane(Player player, Card[] cards, Player left, Player right) {
+        System.out.println("updateInfoPane in ClientManager");
+        GameView.getInstance().showGamePane(player, cards, left, right);
     }
 
-//    public void setPlayer() throws IOException, ClassNotFoundException {
-//        player = getReply().getPlayer();
-//        updateInfoPane(player);
-//    }
+    public void setPlayer() throws IOException, ClassNotFoundException {
+        player = getReply().getPlayer();
+        //updateInfoPane(player,);
+    }
 
-//    public ServerReply getReply() throws ClassNotFoundException, IOException {
-//        return (ServerReply)inputObject.readObject();
-//    }
+    public ServerReply getReply() throws IOException {
+        Gson gson = new Gson();
+        return gson.fromJson(input.readUTF(), ServerReply.class);
+    }
 
-//    public void sendRequest(ClientRequest request) throws IOException {
-//        outputObject.writeObject(request);
-//    }
+    public void sendRequest(ClientRequest request) throws IOException {
+        Gson gson = new Gson();
+        output.writeUTF(gson.toJson(request));
+
+    }
 
 }

@@ -14,11 +14,11 @@ public class Guild extends Card {
     //Constructor for Guilds which require more than one resources
     public Guild(int vp, String rStructure, String[] rProductType, int[] rProductNo, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
-        iv.setFitHeight(100);
-        iv.setFitWidth(65);
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
+//        iv.setFitHeight(100);
+//        iv.setFitWidth(65);
 
         victoryPoints = new VictoryPoint(vp);
         if (rStructure != null)

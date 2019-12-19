@@ -1,5 +1,8 @@
 package Server.model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -104,7 +107,9 @@ public class ModelService {
         }
         System.out.println(rotatingCardList.length);
         System.out.println("removed");
-        selectedCard.getIV().setManaged(false);
+        ImageView iv = new ImageView();
+        iv.setImage(new Image(selectedCard.getName() + ".png"));
+        iv.setManaged(false);
         selectedCard = null;
     }
 
@@ -127,15 +132,15 @@ public class ModelService {
         Player player1 = new Player("Player1", 3);
         Player player2 = new Player("Player2", 3);
         Player player3 = new Player("Player3", 3);
-        playerList.add(player1);
-        playerList.add(player2);
-        playerList.add(player3);
-        player1.setLeftNeighbor(player3);
-        player1.setRightNeighbor(player2);
-        player2.setLeftNeighbor(player1);
-        player2.setRightNeighbor(player3);
-        player3.setLeftNeighbor(player2);
-        player3.setRightNeighbor(player1);
+        playerList.add(player1); //0
+        playerList.add(player2); //1
+        playerList.add(player3); //2
+        player1.setLeftNeighbor(2);
+        player1.setRightNeighbor(1);
+        player2.setLeftNeighbor(0);
+        player2.setRightNeighbor(2);
+        player3.setLeftNeighbor(1);
+        player3.setRightNeighbor(0);
         if (numberOfPlayers == 4) {
 
             Player player4 = new Player("Player4", 3);

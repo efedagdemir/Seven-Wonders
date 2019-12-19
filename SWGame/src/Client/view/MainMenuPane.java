@@ -183,7 +183,7 @@ public class MainMenuPane extends BorderPane {
                 s = new ServerManager();
                 System.out.println("serverThread");
                 s.acceptConnections();
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
             System.out.println("started");

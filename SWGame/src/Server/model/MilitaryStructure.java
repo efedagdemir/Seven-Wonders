@@ -1,7 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-
 public class MilitaryStructure extends Card {
 
     Resource[] requiredProducts;
@@ -12,9 +10,9 @@ public class MilitaryStructure extends Card {
 
     public MilitaryStructure(int mf, String rSt, String pSt, String[] gPName, int[] gPNo, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new javafx.scene.image.ImageView();
-        iv.setImage(image);
+//        image = new Image(img);
+//        iv = new javafx.scene.image.ImageView();
+//        iv.setImage(image);
 
         militaryItem = new MilitaryPower(mf);
 

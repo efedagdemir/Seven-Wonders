@@ -1,7 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-
 public class ManufacturedGood extends Card {
 
     Resource[] requiredProducts;
@@ -9,9 +7,9 @@ public class ManufacturedGood extends Card {
 
     public ManufacturedGood(String[] gProductType, int[] gProductNo, String[] rProductType, int[] rProductNo, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new javafx.scene.image.ImageView();
-        iv.setImage(image);
+//        image = new Image(img);
+//        iv = new javafx.scene.image.ImageView();
+//        iv.setImage(image);
 
         if (gProductType != null) {
             givenProducts = new Resource[gProductType.length];

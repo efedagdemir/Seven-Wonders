@@ -1,15 +1,21 @@
 package Server.model;
 
 public class ScientificType extends Item {
-    String name;
+    String type;
 
-    public ScientificType(String name) {
-        this.name = name;
+    public ScientificType(String type) {
+        this.type = type;
+        name = "type";
         noOfItems++;
     }
 
-    public String getScientificType() {
+    @Override
+    public String getName() {
         return name;
+    }
+
+    public String getScientificType() {
+        return type;
     }
 
     public int getNoOfItems() {

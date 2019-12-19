@@ -1,7 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-
 public class RawMaterial extends Card {
 
     Coin price;
@@ -10,11 +8,11 @@ public class RawMaterial extends Card {
 
     public RawMaterial(int amount, String[] prName, int[] prNo, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new javafx.scene.image.ImageView();
-        iv.setImage(image);
-        iv.setFitHeight(100);
-        iv.setFitWidth(65);
+//        image = new Image(img);
+//        iv = new javafx.scene.image.ImageView();
+//        iv.setImage(image);
+//        iv.setFitHeight(100);
+//        iv.setFitWidth(65);
 
         price = new Coin(amount, "coin.png");
 

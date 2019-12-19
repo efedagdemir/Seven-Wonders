@@ -1,15 +1,18 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class ConflictPoint extends Item {
 
     public ConflictPoint(int warPoint) {
-        image = new Image("militaryPower.png");
-        iv = new ImageView();
-        iv.setImage(image);
+//        image = new Image("militaryPower.png");
+//        iv = new ImageView();
+//        iv.setImage(image);
+        name = "militaryPower.png";
         noOfItems = warPoint;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     public int getNoOfItems() {

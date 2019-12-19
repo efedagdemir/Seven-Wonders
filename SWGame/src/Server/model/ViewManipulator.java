@@ -51,6 +51,6 @@ public class ViewManipulator {
     }
 
     void notifyGameBorderPane(Player player) {
-        gameView.showGamePane(player);
+        //gameView.showGamePane(player);
     }
 }
