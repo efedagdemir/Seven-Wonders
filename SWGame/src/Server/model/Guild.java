@@ -8,8 +8,8 @@ public class Guild extends Card {
     VictoryPoint victoryPoints;
     Structure requiredStructure;
     Resource[] requiredProduct;
-    Image image;
-    ImageView iv;
+//    Image image;
+//    ImageView iv;
 
     //Constructor for Guilds which require more than one resources
     public Guild(int vp, String rStructure, String[] rProductType, int[] rProductNo, String img, String nameC) {
@@ -36,11 +36,11 @@ public class Guild extends Card {
     /*Constructor for Guilds which require only one resource */
     public Guild(int vp, String rStructure, String resName, int resNo, String img) {
 
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
-        iv.setFitHeight(100);
-        iv.setFitWidth(65);
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
+//        iv.setFitHeight(100);
+//        iv.setFitWidth(65);
 
         victoryPoints = new VictoryPoint(vp);
         if (rStructure != null)
@@ -55,12 +55,12 @@ public class Guild extends Card {
     void constructCard() {
         ModelService modelService = ModelService.getInstance();
         Player currentPlayer = modelService.getCurrentPlayer();
-        if (currentPlayer.isFree(this) == true) {
+        if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateVictoryPoints(victoryPoints);
             ModelService.getInstance().removeFromRotatingCardList();
         } else {
-            if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null) == true) {
+            if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateVictoryPoints(victoryPoints);
                 ModelService.getInstance().removeFromRotatingCardList();
@@ -71,3 +71,5 @@ public class Guild extends Card {
         }
     }
 }
+
+

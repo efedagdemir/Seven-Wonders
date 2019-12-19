@@ -5,9 +5,11 @@ import Server.model.Player;
 import Server.model.WonderBoard;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameView {
@@ -17,6 +19,7 @@ public class GameView {
     Stage creditsPopUp = new Stage();
     Stage primaryStage;
     Scene scene;
+    MediaPlayer mediaPlayer;
 
     private GameView() {
         System.out.println("Game View");
@@ -101,5 +104,17 @@ public class GameView {
         } catch (IllegalStateException ex) {
             System.out.println("exception");
         }
+    }
+    public void showCreateGameScreen() throws IOException, ClassNotFoundException {
+        CreateGamePane createGamePane = new CreateGamePane();
+        Scene sc = new Scene(createGamePane, 1300, 750);
+        primaryStage.setScene(sc);
+        primaryStage.show();
+    }
+    public void showJoinGameScreen(){
+        JoinGamePane joinGamePane = new JoinGamePane();
+        Scene sc = new Scene(joinGamePane, 1300, 750);
+        primaryStage.setScene(sc);
+        primaryStage.show();
     }
 }

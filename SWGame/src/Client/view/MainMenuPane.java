@@ -1,5 +1,6 @@
 package Client.view;
 
+import Client.ClientController.ClientControllerFacade;
 import Client.ClientManager;
 import Server.ServerManager;
 import controller.ControllerFacade;
@@ -163,6 +164,7 @@ public class MainMenuPane extends BorderPane {
             ClientManager client = null;
             try {
                 client = new ClientManager(ipAddress);
+                ClientControllerFacade.getInstance().setClientManager(client);
             } catch (IOException e) {
                 e.printStackTrace();
             }

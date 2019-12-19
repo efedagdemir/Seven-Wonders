@@ -11,6 +11,8 @@ import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ControllerFacade {
     private static final ControllerFacade controllerFacade = new ControllerFacade();
     GameView gameView = GameView.getInstance();
@@ -65,6 +67,12 @@ public class ControllerFacade {
         if (event.getTarget() == PlayerInfoPane.howToPlayButton) {
             modelService.showHowToPlay();
         }
+        /*if(event.getTarget() == MainMenuPane.createGameButton){
+            modelService.showCreateGameScreen();
+        }
+        if(event.getTarget() == MainMenuPane.joinGameButton){
+            modelService.showJoinGameScreen();
+        }*/
     }
 
     public void initializeDADListeners(Node node, String backgroundColor, String hoveredColor) {

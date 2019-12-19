@@ -17,6 +17,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
+
 public class PlayerInfoPane extends BorderPane {
     public static Button howToPlayButton = new Button("How to Play");
     //Buttons
