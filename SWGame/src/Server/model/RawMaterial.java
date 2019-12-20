@@ -31,12 +31,12 @@ public class RawMaterial extends Card {
     void constructCard() {
         ModelService modelService = ModelService.getInstance();
         Player currentPlayer = modelService.getCurrentPlayer();
-        if (currentPlayer.isFree(this) == true) {
+        if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(products);
             ModelService.getInstance().removeFromRotatingCardList();
         } else {
-            if (currentPlayer.checkRequirements(null, null, price) == true) {
+            if (currentPlayer.checkRequirements(null, null, price)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(products);
                 currentPlayer.addCoin(-1 * price.getNoOfItems());

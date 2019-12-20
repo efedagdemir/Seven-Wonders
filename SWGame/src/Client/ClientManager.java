@@ -3,9 +3,10 @@ package Client;
 import Client.ClientController.ClientRequest;
 import Client.view.GameView;
 import Server.ServerController.ServerReply;
-import Server.model.Card;
-import Server.model.Player;
+import Server.model.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
 
 import java.io.*;
 import java.net.Socket;
@@ -52,7 +53,6 @@ public class ClientManager {
                     System.out.println("communicateServer in ClientManager");
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
-
                     ServerReply s = getReply();
                     Player player = s.getPlayer();
                     Player leftNeighbor = s.getLeftNeighbor();
@@ -84,7 +84,31 @@ public class ClientManager {
     }
 
     public ServerReply getReply() throws IOException {
-        Gson gson = new Gson();
+
+        RuntimeTypeAdapterFactory<Item> itemAdapterFactory = RuntimeTypeAdapterFactory.of(Item.class, "type1")
+                .registerSubtype(Coin.class, "Coin")
+                .registerSubtype(MilitaryPower.class, "MilitaryPower")
+                .registerSubtype(Resource.class, "Resource")
+                .registerSubtype(ConflictPoint.class, "ConflictPoint")
+                .registerSubtype(ScientificType.class, "ScientificType")
+                .registerSubtype(Structure.class, "Structure")
+                .registerSubtype(VictoryPoint.class, "VictoryPoint");
+
+        RuntimeTypeAdapterFactory<Card> cardAdapterFactory = RuntimeTypeAdapterFactory.of(Card.class, "type2")
+                .registerSubtype(ManufacturedGood.class, "ManufacturedGood")
+                .registerSubtype(RawMaterial.class, "RawMaterial")
+                .registerSubtype(CommercialStructure.class, "CommercialStructure")
+                .registerSubtype(CivilianStructure.class, "CivilianStructure")
+                .registerSubtype(MilitaryStructure.class, "MilitaryStructure")
+                .registerSubtype(Guild.class, "Guild")
+                .registerSubtype(ScientificStructure.class, "ScientificStructure");
+
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(itemAdapterFactory)
+                .registerTypeAdapterFactory(cardAdapterFactory)
+                .create();
+//        Gson gson = new GsonBuilder()
+//                .create();
+
         return gson.fromJson(input.readUTF(), ServerReply.class);
     }
 

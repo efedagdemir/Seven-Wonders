@@ -1,6 +1,5 @@
 package Client.view;
 
-import Server.model.ModelService;
 import Server.model.Player;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -22,8 +21,8 @@ public class AllOpponentsPane extends BorderPane {
 
         leftNeighbor.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         rightNeighbor.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        leftNeighbor.playerNameLabel.setText(ModelService.getInstance().getCurrentPlayer().getLeftNeighbor().getName());
-        rightNeighbor.playerNameLabel.setText(ModelService.getInstance().getCurrentPlayer().getRightNeighbor().getName());
+        leftNeighbor.playerNameLabel.setText(left.getName());
+        rightNeighbor.playerNameLabel.setText(right.getName());
 
         setPrefHeight(120);
         //getChildren().addAll(leftNeighbor, rightNeighbor);
