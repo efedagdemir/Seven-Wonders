@@ -1,6 +1,7 @@
 package Client.view;
 
 import Server.model.ModelService;
+import Server.model.Card;
 import Server.model.Player;
 import Server.model.WonderStage;
 import javafx.scene.layout.BorderPane;
@@ -23,13 +24,13 @@ public class GamePane extends BorderPane {
 //        return gamePane;
 //    }
 
-    public GamePane(Player player) {
+    public GamePane(Player player, Card[] cards, Player left, Player right) {
         /* TODO() remove player by implementing a way to read it from client itself */
 
-        allOpponentsPane = new AllOpponentsPane(player);
+        allOpponentsPane = new AllOpponentsPane(left, right);
         playerInfoPane = new PlayerInfoPane(player);
         System.out.println("GAME");
-        cardActionPane = new CardActionPane();
+        cardActionPane = new CardActionPane(cards);
         resourcePaneLeft = new ResourcePane();
         resourcePaneRight = new ResourcePane();
         setPrefSize(1300, 750);
@@ -38,7 +39,7 @@ public class GamePane extends BorderPane {
         setLeft(resourcePaneLeft);
         setRight(resourcePaneRight);
         setCenter(cardActionPane);
-
+        System.out.println("GAMNEPANE SON");
 
     }
 
@@ -59,6 +60,5 @@ public class GamePane extends BorderPane {
                 }
          }
     }
-
 
 }

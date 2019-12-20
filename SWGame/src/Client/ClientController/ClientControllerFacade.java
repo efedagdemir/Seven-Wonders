@@ -1,11 +1,14 @@
 package Client.ClientController;
 
+import Client.ClientManager;
 import Client.view.DropBoard;
 import Client.view.MainMenuPane;
 import Client.view.PlayerInfoPane;
 import javafx.event.ActionEvent;
 
 public class ClientControllerFacade {
+
+    ClientManager clientManager;
     private static ClientControllerFacade facade = new ClientControllerFacade();
 
     public static ClientControllerFacade getInstance() {
@@ -34,5 +37,13 @@ public class ClientControllerFacade {
 
     public void initializeView(DropBoard dropBoard, String backgroundColor, String hoveredColor) {
         ViewInitializer.initializeDropListener(dropBoard, backgroundColor, hoveredColor);
+    }
+
+    public ClientManager getClientManager() {
+        return clientManager;
+    }
+
+    public void setClientManager(ClientManager clientManager) {
+        this.clientManager = clientManager;
     }
 }

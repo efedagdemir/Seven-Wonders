@@ -1,13 +1,10 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class WonderBoard {
 
     private final int NUMBER_OF_STAGES = 3;
-    Image image;
-    ImageView iv;
+    //    Image image;
+//    ImageView iv;
     private int wonderLevel;
     private Resource producedResource;
     private String wonderName;
@@ -28,9 +25,9 @@ public class WonderBoard {
             this.wonderStages[i] = new WonderStage(wonderStages[i]);
         }
         this.wonderStages = wonderStages;
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
     }
 
     void buildWonderStage() {

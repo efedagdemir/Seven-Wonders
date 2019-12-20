@@ -1,8 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class Resource extends Item {
     String resourceName;
     boolean leftDiscount;
@@ -13,9 +10,10 @@ public class Resource extends Item {
         noOfItems = resourceAmount;
         leftDiscount = false;
         rightDiscount = false;
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
+        name = img;
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
     }
 
     public Resource(String resourceName, int resourceAmount, boolean leftDiscount, boolean rightDiscount, String img) {
@@ -23,9 +21,14 @@ public class Resource extends Item {
         noOfItems = resourceAmount;
         this.leftDiscount = leftDiscount;
         this.rightDiscount = rightDiscount;
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     public int getNoOfItems() {

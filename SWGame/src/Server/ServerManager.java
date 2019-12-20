@@ -1,6 +1,8 @@
 package Server;
 
+import Client.view.CreateGamePane;
 import Server.ServerController.ClientHandler;
+import controller.ControllerFacade;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerManager {
-    private final int NUM_OF_PLAYERS = 2;
-    private final int PORT = 5553;
+    private final int NUM_OF_PLAYERS = 3;
+    private final int PORT = 5346;
 
     private ServerSocket serverSocket;
     private String ipAddress;
@@ -26,11 +28,13 @@ public class ServerManager {
         serverSocket = new ServerSocket(PORT);
     }
 
-    public void acceptConnections() throws IOException {
+    public void acceptConnections() throws IOException, InterruptedException {
         while (clientHandlers.size() < NUM_OF_PLAYERS) {
             Socket socket = null;
             try {
+
                 socket = serverSocket.accept();
+                CreateGamePane.getInstance().update(clientHandlers.size());
 
                 System.out.println("New Client Is Connected");
 
@@ -38,10 +42,11 @@ public class ServerManager {
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
                 // ObjectInputStream inputObject = new ObjectInputStream(socket.getInputStream());
                 //ObjectOutputStream outputObject = new ObjectOutputStream(socket.getOutputStream());
-                System.out.println("HHHHHHHH");
-                ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size() - 1);
+                System.out.println("in ServerManager: method: acceptConnections");
+                ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size());
                 clientHandlers.add(c);
                 c.start();
+
             } catch (Exception e) {
                 assert socket != null;
                 System.out.println("connection failed");
@@ -49,14 +54,20 @@ public class ServerManager {
                 e.printStackTrace();
             }
         }
+        ControllerFacade.getInstance().startGame();
+        System.out.println("acceptConnections in ServerManager -- before openGamePane");
         openGamePage();
+        System.out.println("acceptConnections in ServerManager -- before update");
+        update();
     }
 
     public String getIpAddress() {
         return ipAddress;
     }
 
-    private void openGamePage() throws IOException {
+    private void openGamePage() throws IOException, InterruptedException {
+
+        System.out.println("openGamePane in ServerManager");
         for (ClientHandler c : clientHandlers) {
             c.openGamePage();
         }

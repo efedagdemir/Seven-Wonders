@@ -1,9 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-
 public class CivilianStructure extends Card {
 
     VictoryPoint victoryPoints;
@@ -15,9 +11,9 @@ public class CivilianStructure extends Card {
     //Constructor for Civilian Cards which require more than one resources
     public CivilianStructure(int vPoints, String rStructure, String pStructure, String[] rProductType, int[] rProductNo, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
 
         victoryPoints = new VictoryPoint(vPoints);
         if (rStructure != null)
@@ -37,11 +33,11 @@ public class CivilianStructure extends Card {
     /*Constructor for Civilian Cards which require only one resource */
     public CivilianStructure(int vPoints, String rStructure, String pStructure, String resName, int resNo, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new ImageView();
-        iv.setImage(image);
-        iv.setFitHeight(100);
-        iv.setFitWidth(65);
+//        image = new Image(img);
+//        iv = new ImageView();
+//        iv.setImage(image);
+//        iv.setFitHeight(100);
+//        iv.setFitWidth(65);
 
         victoryPoints = new VictoryPoint(vPoints);
         if (rStructure != null)

@@ -1,7 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-
 public class RawMaterial extends Card {
 
     Coin price;
@@ -10,11 +8,11 @@ public class RawMaterial extends Card {
 
     public RawMaterial(int amount, String[] prName, int[] prNo, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new javafx.scene.image.ImageView();
-        iv.setImage(image);
-        iv.setFitHeight(100);
-        iv.setFitWidth(65);
+//        image = new Image(img);
+//        iv = new javafx.scene.image.ImageView();
+//        iv.setImage(image);
+//        iv.setFitHeight(100);
+//        iv.setFitWidth(65);
 
         price = new Coin(amount, "coin.png");
 
@@ -33,12 +31,12 @@ public class RawMaterial extends Card {
     void constructCard() {
         ModelService modelService = ModelService.getInstance();
         Player currentPlayer = modelService.getCurrentPlayer();
-        if (currentPlayer.isFree(this) == true) {
+        if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(products);
             ModelService.getInstance().removeFromRotatingCardList();
         } else {
-            if (currentPlayer.checkRequirements(null, null, price) == true) {
+            if (currentPlayer.checkRequirements(null, null, price)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(products);
                 currentPlayer.addCoin(-1 * price.getNoOfItems());
@@ -49,3 +47,5 @@ public class RawMaterial extends Card {
         }
     }
 }
+
+

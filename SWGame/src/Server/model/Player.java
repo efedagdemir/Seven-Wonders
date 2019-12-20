@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Player {
     String name;
-
-
     Coin currentCoin;
     WonderBoard wonder;
     VictoryPoint victoryPoints;
@@ -13,8 +11,8 @@ public class Player {
     ConflictPoint conflictPoints;
     int finalPoint;
     ArrayList<Item> itemList;
-    Player leftNeighbor;
-    Player rightNeighbor;
+    int leftNeighbor;
+    int rightNeighbor;
     MilitaryPower militaryP;
     ArrayList<Card> hand;
     ArrayList<Resource> discountedResources;
@@ -401,18 +399,18 @@ public class Player {
     }
 
     public Player getRightNeighbor() {
-        return rightNeighbor;
+        return ModelService.getInstance().playerList.get(rightNeighbor);
     }
 
-    public void setRightNeighbor(Server.model.Player rightNeighbor) {
+    public void setRightNeighbor(int rightNeighbor) {
         this.rightNeighbor = rightNeighbor;
     }
 
     public Player getLeftNeighbor() {
-        return leftNeighbor;
+        return ModelService.getInstance().playerList.get(rightNeighbor);
     }
 
-    public void setLeftNeighbor(Server.model.Player leftNeighbor) {
+    public void setLeftNeighbor(int leftNeighbor) {
         this.leftNeighbor = leftNeighbor;
     }
 

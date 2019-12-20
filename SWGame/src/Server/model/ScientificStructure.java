@@ -1,7 +1,5 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-
 public class ScientificStructure extends Card {
 
     Structure requiredS;
@@ -14,11 +12,11 @@ public class ScientificStructure extends Card {
 
     public ScientificStructure(String t, String rS, String[] rName, int[] rNo, String[] pS, String img, String nameC) {
         name = nameC;
-        image = new Image(img);
-        iv = new javafx.scene.image.ImageView();
-        iv.setImage(image);
-        iv.setFitHeight(100);
-        iv.setFitWidth(65);
+//        image = new Image(img);
+//        iv = new javafx.scene.image.ImageView();
+//        iv.setImage(image);
+//        iv.setFitHeight(100);
+//        iv.setFitWidth(65);
         if (rS != null)
             requiredS = new Structure(rS);
         if (t != null) {
@@ -54,13 +52,13 @@ public class ScientificStructure extends Card {
     void constructCard() {
         ModelService modelService = ModelService.getInstance();
         Player currentPlayer = modelService.getCurrentPlayer();
-        if (currentPlayer.isFree(this) == true) {
+        if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedS);
             currentPlayer.updateScientifictType(scType);
             ModelService.getInstance().removeFromRotatingCardList();
         } else {
-            if (currentPlayer.checkRequirements(requiredS, requiredP, null) == true) {
+            if (currentPlayer.checkRequirements(requiredS, requiredP, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateFreeStructures(providedS);
                 currentPlayer.updateScientifictType(scType);
@@ -71,3 +69,5 @@ public class ScientificStructure extends Card {
         }
     }
 }
+
+

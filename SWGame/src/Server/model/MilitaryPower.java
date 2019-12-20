@@ -3,7 +3,13 @@ package Server.model;
 public class MilitaryPower extends Item {
 
     public MilitaryPower(int military) {
+        name = "militaryPower.png";
         noOfItems = military;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     public int getNoOfItems() {

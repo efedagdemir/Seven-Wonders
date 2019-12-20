@@ -1,9 +1,7 @@
 package Client.view;
 
-import Server.model.Card;
-import Server.model.ModelService;
-import Server.model.Resource;
-import Server.model.WonderStage;
+import Client.ClientController.ClientControllerFacade;
+import Server.model.*;
 import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -20,19 +18,21 @@ import java.util.ArrayList;
 
 public class CardActionPane extends BorderPane {
     ArrayList<ImageView> imageViews;
-    ModelService modelService;
     private FlowPane cardFlowPane;
     private HBox imageBox;
+    private Player player;
     private SellCardDropBoard sellCard;
 
     private BuildWonderDropBoard wonder1;
     private BuildWonderDropBoard wonder2;
     private BuildWonderDropBoard wonder3;
+    private Card[] cards;
 
-    public CardActionPane() {
+    public CardActionPane(Card[] cards) {
+        this.cards = cards;
         ControllerFacade controllerFacade = ControllerFacade.getInstance();
-        modelService = ModelService.getInstance();
-        Image image = new Image(modelService.getCurrentPlayer().getWonder().getWonderName().toLowerCase() + "A.png");
+        player = ClientControllerFacade.getInstance().getClientManager().getPlayer();
+        Image image = new Image(player.getWonder().getWonderName().toLowerCase() + "A.png");
         setBackground(new Background(new BackgroundImage(image,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 //        Effect effect = new BoxBlur(10,10,3);
@@ -74,24 +74,24 @@ public class CardActionPane extends BorderPane {
         wonder3.setPrefSize(200, 80);
         wonder.setAlignment(Pos.BOTTOM_CENTER);
         setBottom(wonder);
-
-        if (modelService != null) {
-            Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
-            for (int i = 0; i < modelService.getCardLength(); i++) {
+        if (player != null) {
+            Card[] cardList = cards;
+            for (int i = 0; i < cards.length; i++) {
                 Card currentCard = cardList[i];
-                ImageView iv = currentCard.getIV();
+                ImageView iv = new ImageView(currentCard.getName() + ".png");
                 imageViews.add(iv);
                 iv.setFitHeight(180);
                 iv.setFitWidth(120);
                 iv.setOnDragDetected(e -> {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
-                    modelService.setSelectedCard(currentCard);
+                    //modelService.setSelectedCard(currentCard);
                     content.putImage(iv.getImage());
                     db.setContent(content);
                     e.consume();
                 });
                 iv.setOnDragDone(e -> {
+//                    update();
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
@@ -103,24 +103,23 @@ public class CardActionPane extends BorderPane {
             cardFlowPane.setAlignment(Pos.CENTER);
         }
 
-
 //        cardFlowPane.setStyle("-fx-background-color: #FFFFFF");
         // setStyle("-fx-background-color: #FFFFFF");
     }
 
     public void update() {
-        if (modelService != null) {
-            Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
-            for (int i = 0; i < modelService.getCardLength() - 1; i++) {
+        if (player != null) {
+            Card[] cardList = cards;
+            for (int i = 0; i < cards.length - 1; i++) {
                 Card currentCard = cardList[i];
-                ImageView iv = currentCard.getIV();
+                ImageView iv = new ImageView(currentCard.getName() + ".png");
                 imageViews.add(iv);
                 iv.setFitHeight(180);
                 iv.setFitWidth(120);
                 iv.setOnDragDetected(e -> {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
-                    modelService.setSelectedCard(currentCard);
+                   // modelService.setSelectedCard(currentCard);
                     content.putImage(iv.getImage());
                     db.setContent(content);
                     e.consume();
@@ -140,36 +139,37 @@ public class CardActionPane extends BorderPane {
     }
 
     private BuildWonderDropBoard wonderStageHBox(int i) {
+        System.out.println("WonderStageBox");
         BuildWonderDropBoard wonderStageBox = new BuildWonderDropBoard();
         VBox requiredBox = new VBox();
         VBox providedBox = new VBox();
-        WonderStage wonderStage = modelService.getCurrentPlayer().getWonder().getWonderStage(i);
-        System.out.println(modelService.getCurrentPlayer().getWonder().getWonderName());
+        WonderStage wonderStage = player.getWonder().getWonderStage(i);
+        System.out.println(player.getWonder().getWonderName());
 
         for (Resource resource : wonderStage.getRequiredResources()) {
             System.out.println("requiredResource " + resource.getResourceName());
         }
         ImageView[] requiredResources = wonderStage.getRequiredResources() != null ? getImages(wonderStage.getRequiredResources()) : null;
         ImageView[] providedResources = wonderStage.getProvidedResources() != null ? getImages(wonderStage.getProvidedResources()) : null;
-        ImageView cp = wonderStage.getProvidedMilitaryPower() != null ? wonderStage.getProvidedMilitaryPower().getIv() : null;
-        ImageView vp = wonderStage.getProvidedVictoryPoint() != null ? wonderStage.getProvidedVictoryPoint().getIv() : null;
+        ImageView cp = wonderStage.getProvidedMilitaryPower() != null ? new ImageView(wonderStage.getProvidedMilitaryPower().getName()) : null;
+        ImageView vp = wonderStage.getProvidedVictoryPoint() != null ? new ImageView(wonderStage.getProvidedVictoryPoint().getName()) : null;
 
         for (ImageView image : requiredResources) {
-            System.out.println("requiredResources  " + modelService.getCurrentPlayer().getName());
+            System.out.println("requiredResources  " + player.getName());
             image.setFitHeight(25);
             image.setFitWidth(25);
             requiredBox.getChildren().addAll(image);
         }
         if (providedResources != null) {
             for (ImageView image : providedResources) {
-                System.out.println("providedResources  " + modelService.getCurrentPlayer().getName());
+                System.out.println("providedResources  " + player.getName());
                 image.setFitHeight(25);
                 image.setFitWidth(25);
                 providedBox.getChildren().addAll(image);
             }
         }
         if (cp != null) {
-            System.out.println("conflictPoints  " + modelService.getCurrentPlayer().getName());
+            System.out.println("conflictPoints  " + player.getName());
             cp.setFitHeight(25);
             cp.setFitWidth(25);
             providedBox.getChildren().addAll(cp);
@@ -195,7 +195,7 @@ public class CardActionPane extends BorderPane {
         ImageView[] images = new ImageView[resources.length];
         int i = 0;
         for (Resource resource : resources) {
-            images[i] = new ImageView(resource.getImage());
+            images[i] = new ImageView(resource.getName());
             i++;
         }
         return images;

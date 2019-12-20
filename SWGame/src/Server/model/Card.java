@@ -1,13 +1,10 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public abstract class Card {
 
     String name;
-    Image image;
-    ImageView iv;
+//    Image image;
+//    ImageView iv;
 
     abstract void constructCard();
 
@@ -15,7 +12,7 @@ public abstract class Card {
         return name;
     }
 
-    public ImageView getIV() {
-        return iv;
-    }
+//    public ImageView getIV() {
+//        return iv;
+//    }
 }

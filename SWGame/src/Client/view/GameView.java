@@ -1,12 +1,15 @@
 package Client.view;
 
-import Server.model.ModelService;
+import Server.model.Card;
 import Server.model.Player;
 import Server.model.WonderBoard;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameView {
@@ -16,6 +19,7 @@ public class GameView {
     Stage creditsPopUp = new Stage();
     Stage primaryStage;
     Scene scene;
+    MediaPlayer mediaPlayer;
 
     private GameView() {
         System.out.println("Game View");
@@ -80,9 +84,31 @@ public class GameView {
     public void showGameOverPane(ArrayList<Player> playerList) {
     }
 
-    public void showGamePane(Player player) {
-        GamePane gamePane = new GamePane(player);
-        Scene sc = new Scene(gamePane);
+    public void showGamePane(Player player, Card[] cards, Player left, Player right) throws IllegalStateException {
+        try {
+            System.out.println("showGamePane in GameView");
+            //amePane gamePane = new GamePane(player);
+
+            System.out.println("after creation of GamePane");
+            //Scene sc = new Scene(gamePane);
+            System.out.println("sout1");
+            Platform.runLater(() -> primaryStage.setScene(new Scene(new GamePane(player, cards, left, right))));
+            System.out.println("sout2");
+            Platform.runLater(() -> primaryStage.show());
+            System.out.println("sout3");
+        } catch (IllegalStateException ex) {
+            System.out.println("exception");
+        }
+    }
+    public void showCreateGameScreen() throws IOException, ClassNotFoundException {
+        CreateGamePane createGamePane = new CreateGamePane();
+        Scene sc = new Scene(createGamePane, 1300, 750);
+        primaryStage.setScene(sc);
+        primaryStage.show();
+    }
+    public void showJoinGameScreen(){
+        JoinGamePane joinGamePane = new JoinGamePane();
+        Scene sc = new Scene(joinGamePane, 1300, 750);
         primaryStage.setScene(sc);
         primaryStage.show();
     }

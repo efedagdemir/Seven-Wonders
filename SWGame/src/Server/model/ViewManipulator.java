@@ -2,6 +2,7 @@ package Server.model;
 
 import Client.view.GameView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ViewManipulator {
@@ -51,6 +52,10 @@ public class ViewManipulator {
     }
 
     void notifyGameBorderPane(Player player) {
-        gameView.showGamePane(player);
+        //gameView.showGamePane(player);
     }
+
+    //void notifyCreateGameScreen() throws IOException, ClassNotFoundException { gameView.showCreateGameScreen();}
+
+    //void notifyJoinGameScreen(){ gameView.showJoinGameScreen();}
 }
