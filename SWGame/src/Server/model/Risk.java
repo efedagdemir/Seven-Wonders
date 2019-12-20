@@ -1,5 +1,4 @@
 package Server.model;
-import javafx.scene.image.Image;
 
 public class Risk extends Card {
 
@@ -7,16 +6,15 @@ public class Risk extends Card {
     RiskEnum riskEnum;
     public Risk(String image, RiskEnum riskEnum){
         this.name = name;
-        this.image = new Image(image);
-        iv = new javafx.scene.image.ImageView();
-        iv.setImage(this.image);
+//        this.image = new Image(image);
+//        iv = new javafx.scene.image.ImageView();
+//        iv.setImage(this.image);
         this.riskEnum = riskEnum;
     }
 
     @Override
-    void constructCard() {
+    void constructCard(Player chosenPlayer) {
         Player swapped = ModelService.getInstance().getSwappedPlayer();
-        Player chosenPlayer = ModelService.getInstance().getChosenPlayer();
         switch(riskEnum){
             case BLOCK:
                 riskEnum.constructRisk(chosenPlayer);
