@@ -26,7 +26,7 @@ public class SevenWonders extends Application {
     @Override
     public void start(Stage primaryStage) {
         //  ModelService.getInstance();
-        music();
+        //music();
         ControllerFacade controllerFacade = ControllerFacade.getInstance();
         GameView gameView = GameView.getInstance();
 

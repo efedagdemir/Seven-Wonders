@@ -30,25 +30,16 @@ public class WonderStage {
         built = false;
     }
 
-    boolean buildWonderStage() {
+    void buildWonderStage(Player player) {
         System.out.println("GELDİM");
         ModelService ms = ModelService.getInstance();
-        for (int i = 0; i < requiredResources.length; i++)
-            System.out.println("Required resource:" + requiredResources[i].resourceName);
-        for (int i = 0; i < ms.getCurrentPlayer().getCurrentResources().size(); i++)
-            System.out.println("Player'ın resourceları: " + ms.getCurrentPlayer().getCurrentResources().get(i).resourceName);
-        if (ms.getCurrentPlayer().checkRequirements(null, requiredResources, null)) {
-            System.out.println("CHECK REQuirements true");
-            ms.getCurrentPlayer().updateVictoryPoints(providedVictoryPoint);
-            ms.getCurrentPlayer().updateResources(providedResources);
-            ms.getCurrentPlayer().updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
+        if (player.checkRequirements(null, requiredResources, null)) {
+            player.updateVictoryPoints(providedVictoryPoint);
+            player.updateResources(providedResources);
+            player.updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
             built = true;
-            System.out.println("built true olmalı");
-            return true;
         }
         System.out.println("CANT AFFORD");
-        return false;
-
     }
 
     void riskBuildWonderStage(){

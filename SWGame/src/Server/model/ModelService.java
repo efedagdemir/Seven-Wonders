@@ -53,9 +53,9 @@ public class ModelService {
         return cardLength;
     }
 
-    public void constructCard() {
+    public void constructCard(Player player) {
         if (selectedCard != null)
-            selectedCard.constructCard();
+            selectedCard.constructCard(player);
     }
 
     public void updateCurrentAge() {
@@ -229,12 +229,12 @@ public class ModelService {
     /*
      Will call the notifyWonderPane() method from the ViewManipulator.
     */
-    public void buildWonder() {
-        currentPlayer.wonder.buildWonderStage();
-    }
 
-    public void riskBuildWonder(Player p){
+    public void riskBuildWonder(Player p) {
         p.wonder.riskBuildWonderStage();
+    }
+    public void buildWonder(Player player) {
+        currentPlayer.wonder.buildWonderStage(player);
         viewManipulator.notifyWonderPane(wonderList);
     }
 

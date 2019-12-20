@@ -44,6 +44,7 @@ public class GamePane extends BorderPane {
     }
 
     public void update() {
+        System.out.println("update in GamePane");
         playerInfoPane.update();
         allOpponentsPane.update();
         WonderStage[] wonderStages = ModelService.getInstance().getCurrentPlayer().getWonder().getWonderStages();

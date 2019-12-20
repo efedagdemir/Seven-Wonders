@@ -6,7 +6,7 @@ public abstract class Card {
 //    Image image;
 //    ImageView iv;
 
-    abstract void constructCard();
+    abstract void constructCard(Player player);
 
     public String getName() {
         return name;

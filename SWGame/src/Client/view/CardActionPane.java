@@ -1,7 +1,10 @@
 package Client.view;
 
 import Client.ClientController.ClientControllerFacade;
-import Server.model.*;
+import Server.model.Card;
+import Server.model.Player;
+import Server.model.Resource;
+import Server.model.WonderStage;
 import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -85,7 +88,7 @@ public class CardActionPane extends BorderPane {
                 iv.setOnDragDetected(e -> {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
-                    //modelService.setSelectedCard(currentCard);
+                    ClientControllerFacade.getInstance().setSelectedCard(currentCard);
                     content.putImage(iv.getImage());
                     db.setContent(content);
                     e.consume();

@@ -61,7 +61,7 @@ public class MainMenuPane extends BorderPane {
         creditsButton.setPrefSize(100, 50);
         menuButtons.setSpacing(10);
 //        startButton.setPadding(Insets.EMPTY);
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("backgroundMain.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("swBackground.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         setBackground(new Background(backgroundImage));
         menuButtons.getChildren().addAll(gameName, createGameButton, joinGameButton, howToPlayButton, creditsButton);
         menuButtons.setAlignment(Pos.CENTER);

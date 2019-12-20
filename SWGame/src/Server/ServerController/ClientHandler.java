@@ -1,6 +1,15 @@
 package Server.ServerController;
 
+import Client.ClientController.ClientRequest;
 import Client.ClientManager;
+import Client.view.BuildWonderDropBoard;
+import Client.view.ConstructCardDropBoard;
+import Client.view.DropBoard;
+import Client.view.SellCardDropBoard;
+import Server.model.Card;
+import Server.model.ModelService;
+import com.google.gson.Gson;
+import javafx.application.Platform;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -29,6 +38,15 @@ public class ClientHandler extends Thread {
         this.playerIndex = playerIndex;
     }
 
+    public ClientRequest getRequest() throws IOException {
+        Gson gson = ClientManager.setGsonTypes();
+        String s;
+        if ((s = input.readUTF()) != null) {
+            return gson.fromJson(s, ClientRequest.class);
+        }
+        return null;
+    }
+
     public void update() throws IOException {
         ServerReply serverReply = new ServerReply(playerIndex);
         output.writeUTF(ClientManager.setGsonTypes().toJson(serverReply));
@@ -42,6 +60,29 @@ public class ClientHandler extends Thread {
 
     @Override
     public void run() {
+        try {
+            while (true) {
+                ClientRequest request = getRequest();
+                if (request != null) {
+                    String boardClass = request.getOperation();
+                    DropBoard board = null;
+                    if (boardClass.equals("BuildWonderDropBoard")) {
+                        board = new BuildWonderDropBoard();
+                    } else if (boardClass.equals("ConstructCardDropBoard")) {
+                        board = new ConstructCardDropBoard();
+                    } else if (boardClass.equals("SellCardDropBoard")) {
+                        board = new SellCardDropBoard();
+                    }
+                    Card selectedCard = request.getCard();
+                    ModelService.getInstance().setSelectedCard(selectedCard);
+                    DropBoard finalBoard = board;
+                    Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)));
+                }
+            }
+        } catch (IOException e) {
+
+        }
+
 //        try {
 //            ClientRequest request = (ClientRequest) inputObject.readObject();
 //            int operation = request.getOperation();

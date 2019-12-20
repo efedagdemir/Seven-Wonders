@@ -1,7 +1,9 @@
 package controller;
 
+import Client.ClientController.ClientControllerFacade;
 import Client.view.DropBoard;
 import Server.model.Resource;
+import javafx.application.Platform;
 
 /* A singleton controller class which is responsible for the actions of the game */
 public class ActionManager {
@@ -21,6 +23,7 @@ public class ActionManager {
 
 
     public void determineCardAction(DropBoard db) {
-        db.takeCardAction();
+
+        Platform.runLater(() -> db.takeCardAction(ClientControllerFacade.getInstance().getClientManager().getPlayer()));
     }
 }

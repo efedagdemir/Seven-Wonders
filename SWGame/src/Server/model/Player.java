@@ -286,14 +286,11 @@ public class Player {
             for (int i = 0; i < requiredResource.length; i++) {
                 for (int j = 0; j < currentResources.size(); j++) {
                     if (requiredResource[i].getResourceName().equals(currentResources.get(j).getResourceName())) {
-                        System.out.println("check requirements " + currentResources.get(j).getResourceName());
                         count++;
                     }
                 }
             }
             if (count == requiredResource.length) {
-                System.out.println("count equals " + count);
-                System.out.println("requiredlength " + requiredResource.length);
                 affordR = true;
             }
         }

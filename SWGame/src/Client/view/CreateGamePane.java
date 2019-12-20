@@ -59,7 +59,7 @@ public class CreateGamePane extends BorderPane {
         dropShadow2.setOffsetX(3.0);
         dropShadow2.setOffsetY(3.0);
 
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("backgroundMain.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("swBackground.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         setBackground(new Background(backgroundImage));
 
         loungeKeyLabel.setTextAlignment(TextAlignment.JUSTIFY);
