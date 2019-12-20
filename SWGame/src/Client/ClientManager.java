@@ -15,6 +15,7 @@ import java.util.List;
 public class ClientManager {
     private final String KEY;
     private final int PORT = 5346;
+
     private Player player;
     private ObjectInputStream inputObject;
     private ObjectOutputStream outputObject;
@@ -54,6 +55,8 @@ public class ClientManager {
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
                     ServerReply s = getReply();
+                    if( player == null)
+                        this.player = s.getPlayer();
                     Player player = s.getPlayer();
                     Player leftNeighbor = s.getLeftNeighbor();
                     Player rightNeighbor = s.getRightNeighbor();
@@ -118,4 +121,10 @@ public class ClientManager {
 
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
 }
+
+
