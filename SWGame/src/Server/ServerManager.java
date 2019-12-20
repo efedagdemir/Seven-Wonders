@@ -32,8 +32,9 @@ public class ServerManager {
         while (clientHandlers.size() < NUM_OF_PLAYERS) {
             Socket socket = null;
             try {
-                CreateGamePane.getInstance().update(clientHandlers.size());
+
                 socket = serverSocket.accept();
+                CreateGamePane.getInstance().update(clientHandlers.size());
 
                 System.out.println("New Client Is Connected");
 
