@@ -1,6 +1,7 @@
 package Client.ClientController;
 
 import Server.model.Card;
+import com.google.gson.Gson;
 
 public class ClientRequest {
     private Card card;

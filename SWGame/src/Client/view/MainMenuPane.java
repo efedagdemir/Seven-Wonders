@@ -102,17 +102,18 @@ public class MainMenuPane extends BorderPane {
             System.out.println("random");
             cgp = CreateGamePane.getInstance();
 //                cgp.acceptConnections();
-            System.out.println("hhhhhhhhh");
-            System.out.println("random2");
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
-            System.out.println("lay");
+
             synchronized (this) {
                 Thread server = new Thread(new ServerThread());
                 server.start();
             }
             synchronized (this) {
                 try {
+                    System.out.println("client thread sleeps");
                     Thread.sleep(100);
+                    System.out.println("client threada uyandı");
+
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -120,6 +121,9 @@ public class MainMenuPane extends BorderPane {
                 try {
                     client = new Thread(new MainMenuPane.ClientThread());
                     System.out.println("host is connected === MainMenuPane");
+                    if(client == null){
+                        System.out.println("client thread is null");
+                    }
                 } catch (UnknownHostException ex) {
                     ex.printStackTrace();
                 }
@@ -158,9 +162,15 @@ public class MainMenuPane extends BorderPane {
 
         @Override
         public synchronized void run() {
+            System.out.println("selamm");
             ClientManager client = null;
             try {
+                System.out.println(ipAddress);
                 client = new ClientManager(ipAddress);
+                System.out.println("this is in run client thread "+client);
+                if(client == null){
+                    System.out.println("client manager is null");
+                }
                 ClientControllerFacade.getInstance().setClientManager(client);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -186,7 +196,7 @@ public class MainMenuPane extends BorderPane {
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("started");
+            System.out.println("Server started");
         }
     }
 

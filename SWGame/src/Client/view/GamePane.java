@@ -61,6 +61,7 @@ public class GamePane extends BorderPane {
                     cardActionPane.getWonder3().setStyle("-fx-background-color: #800606");
                 }
          }
+
     }
 
 }
