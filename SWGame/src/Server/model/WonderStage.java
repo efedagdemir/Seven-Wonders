@@ -25,17 +25,15 @@ public class WonderStage {
         setProvidedMilitaryPower(ws.providedMilitaryPower);
     }
 
-    boolean buildWonderStage() {
+    void buildWonderStage(Player player) {
         System.out.println("GELDİM");
         ModelService ms = ModelService.getInstance();
-        if (ms.getCurrentPlayer().checkRequirements(null, requiredResources, null)) {
-            ms.getCurrentPlayer().updateVictoryPoints(providedVictoryPoint);
-            ms.getCurrentPlayer().updateResources(providedResources);
-            ms.getCurrentPlayer().updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
-            return true;
+        if (player.checkRequirements(null, requiredResources, null)) {
+            player.updateVictoryPoints(providedVictoryPoint);
+            player.updateResources(providedResources);
+            player.updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
         }
         System.out.println("CANT AFFORD");
-        return false;
 
     }
 

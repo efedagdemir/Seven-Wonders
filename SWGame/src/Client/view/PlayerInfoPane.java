@@ -1,5 +1,6 @@
 package Client.view;
 
+import Client.ClientController.ClientControllerFacade;
 import Server.model.ModelService;
 import Server.model.Player;
 import Server.model.Resource;
@@ -302,8 +303,20 @@ public class PlayerInfoPane extends BorderPane {
         setStyle("-fx-background-color: #ffcc99");
         setPrefHeight(120);
         //getChildren().addAll(bottomBorder, rightButtons);
-        readyButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
-        howToPlayButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
+        readyButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        howToPlayButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
     }
 

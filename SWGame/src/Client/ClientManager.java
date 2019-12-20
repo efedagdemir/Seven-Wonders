@@ -30,14 +30,8 @@ public class ClientManager {
         KEY = decryptKey(key);
         System.out.println(KEY);
         socket = new Socket(KEY, PORT);
-
-        /*TODO() make it logical, it is just temporary*/
-//        inputObject = new ObjectInputStream(socket.getInputStream());
-//        outputObject = new ObjectOutputStream(socket.getOutputStream());
-
         input = new DataInputStream(socket.getInputStream());
         output = new DataOutputStream(socket.getOutputStream());
-//        setPlayer();
         System.out.println("Bu sout client managerda");
 
     }
@@ -62,7 +56,6 @@ public class ClientManager {
                     Player rightNeighbor = s.getRightNeighbor();
                     Card[] cards = s.getRotatingCardList();
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
-                    tosend = -1;
                 }
             }
         } catch (Exception e) {
@@ -87,7 +80,7 @@ public class ClientManager {
     }
 
     public static Gson setGsonTypes() {
-        RuntimeTypeAdapterFactory<Item> itemAdapterFactory = RuntimeTypeAdapterFactory.of(Item.class, "type1")
+        RuntimeTypeAdapterFactory<Item> itemAdapterFactory = RuntimeTypeAdapterFactory.of(Item.class, "Item")
                 .registerSubtype(Coin.class, "Coin")
                 .registerSubtype(MilitaryPower.class, "MilitaryPower")
                 .registerSubtype(Resource.class, "Resource")
@@ -96,7 +89,7 @@ public class ClientManager {
                 .registerSubtype(Structure.class, "Structure")
                 .registerSubtype(VictoryPoint.class, "VictoryPoint");
 
-        RuntimeTypeAdapterFactory<Card> cardAdapterFactory = RuntimeTypeAdapterFactory.of(Card.class, "type2")
+        RuntimeTypeAdapterFactory<Card> cardAdapterFactory = RuntimeTypeAdapterFactory.of(Card.class, "Card")
                 .registerSubtype(ManufacturedGood.class, "ManufacturedGood")
                 .registerSubtype(RawMaterial.class, "RawMaterial")
                 .registerSubtype(CommercialStructure.class, "CommercialStructure")
@@ -116,7 +109,7 @@ public class ClientManager {
     }
 
     public void sendRequest(ClientRequest request) throws IOException {
-        Gson gson = new Gson();
+        Gson gson = setGsonTypes();
         output.writeUTF(gson.toJson(request));
 
     }

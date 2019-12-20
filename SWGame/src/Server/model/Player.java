@@ -173,6 +173,8 @@ public class Player {
     //Updates the current victory points of the player according to the cards taken
     // and according to the wonders built
     void updateVictoryPoints(VictoryPoint vc) {
+        if (vc == null)
+            return;
         victoryPoints.setNoOfItems(vc.getNoOfItems());
         updateItemList(victoryPoints);
     }
@@ -183,6 +185,8 @@ public class Player {
 
     //Updates the current scientific structures of the player according to the cards taken.
     void updateScientifictType(ScientificType scType) {
+        if (scType == null)
+            return;
         boolean exists = false;
         int k = 0;
         for (int i = 0; i < scientificTypes.size(); i++) {
@@ -198,17 +202,23 @@ public class Player {
     }
 
     void updateMilitaryPower(int military) {
+        if (military == 0)
+            return;
         militaryP.setNoOfItems(military);
         updateItemList(militaryP);
     }
 
     //Updates the current free structures of the player according to the cards taken.
     void updateFreeStructures(Structure s) {
+        if (s == null)
+            return;
         freeStructures.add(s);
         itemList.add(s);
     }
 
     void updateFreeStructures(Structure[] s) {
+        if (s == null)
+            return;
         for (int i = 0; i < s.length; i++) {
             freeStructures.add(s[i]);
             itemList.add(s[i]);

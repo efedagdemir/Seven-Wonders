@@ -28,9 +28,7 @@ public class RawMaterial extends Card {
     }
 
     @Override
-    void constructCard() {
-        ModelService modelService = ModelService.getInstance();
-        Player currentPlayer = modelService.getCurrentPlayer();
+    void constructCard(Player currentPlayer) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(products);

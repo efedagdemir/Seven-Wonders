@@ -31,9 +31,7 @@ public class MilitaryStructure extends Card {
     }
 
     @Override
-    void constructCard() {
-        ModelService modelService = ModelService.getInstance();
-        Player currentPlayer = modelService.getCurrentPlayer();
+    void constructCard(Player currentPlayer) {
         if (currentPlayer.isFree(this) == true) {
             currentPlayer.updateHand(this);
             currentPlayer.updateMilitaryPower(militaryItem.getNoOfItems());
