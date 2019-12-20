@@ -1,5 +1,6 @@
 package Server;
 
+import Client.view.CreateGamePane;
 import Server.ServerController.ClientHandler;
 import controller.ControllerFacade;
 
@@ -31,6 +32,7 @@ public class ServerManager {
         while (clientHandlers.size() < NUM_OF_PLAYERS) {
             Socket socket = null;
             try {
+                CreateGamePane.getInstance().update(clientHandlers.size());
                 socket = serverSocket.accept();
 
                 System.out.println("New Client Is Connected");
@@ -43,6 +45,7 @@ public class ServerManager {
                 ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size());
                 clientHandlers.add(c);
                 c.start();
+
             } catch (Exception e) {
                 assert socket != null;
                 System.out.println("connection failed");
