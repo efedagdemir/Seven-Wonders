@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerManager {
-    private final int NUM_OF_PLAYERS = 3;
+
+
+    private final int NUM_OF_PLAYERS = 1;
     private final int PORT = 5346;
 
     private ServerSocket serverSocket;
@@ -24,11 +26,14 @@ public class ServerManager {
 
     public ServerManager() throws IOException {
         ipAddress = InetAddress.getLocalHost().getHostAddress();
+        System.out.println(ipAddress);
         clientHandlers = new ArrayList<>();
         serverSocket = new ServerSocket(PORT);
+
     }
 
     public void acceptConnections() throws IOException, InterruptedException {
+
         while (clientHandlers.size() < NUM_OF_PLAYERS) {
             Socket socket = null;
             try {
@@ -54,12 +59,40 @@ public class ServerManager {
                 e.printStackTrace();
             }
         }
+
         ControllerFacade.getInstance().startGame();
         System.out.println("acceptConnections in ServerManager -- before openGamePane");
         openGamePage();
         System.out.println("acceptConnections in ServerManager -- before update");
         update();
+
     }
+
+  /* public void acceptConnections() throws IOException {
+        while (clientHandlers.size() < NUM_OF_PLAYERS) {
+            Socket socket = null;
+            try {
+                socket = serverSocket.accept();
+
+                System.out.println("New Client Is Connected");
+
+                DataInputStream input = new DataInputStream(socket.getInputStream());
+                DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+                // ObjectInputStream inputObject = new ObjectInputStream(socket.getInputStream());
+                //ObjectOutputStream outputObject = new ObjectOutputStream(socket.getOutputStream());
+                System.out.println("HHHHHHHH");
+                ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ /*socket, clientHandlers.size() - 1);
+                clientHandlers.add(c);
+                c.start();
+            } catch (Exception e) {
+                assert socket != null;
+                System.out.println("connection failed");
+                socket.close();
+                e.printStackTrace();
+            }
+        }
+        openGamePage();
+    }*/
 
     public String getIpAddress() {
         return ipAddress;

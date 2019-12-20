@@ -6,6 +6,7 @@ import Client.view.MainMenuPane;
 import Client.view.PlayerInfoPane;
 import Server.ServerController.GameInitializer;
 import Server.model.ModelService;
+import Server.model.Player;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
@@ -75,7 +76,11 @@ public class ControllerFacade {
         }*/
     }
 
-    public void initializeDADListeners(Node node, String backgroundColor, String hoveredColor) {
+    public void initializeDADListeners(Node node, String backgroundColor, String hoveredColor){
         GameInitializer.getInstance().initializeDADListeners(node, backgroundColor, hoveredColor);
+    }
+
+    public void initializeDADListeners(Node node, String backgroundColor, String hoveredColor, Player chosenP, Player currentP) {
+        GameInitializer.getInstance().initializeDADListeners(node, backgroundColor, hoveredColor, chosenP, currentP);
     }
 }

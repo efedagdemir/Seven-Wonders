@@ -21,7 +21,6 @@ public class ActionManager {
 
 
     public void determineCardAction(DropBoard db) {
-
         db.takeCardAction();
     }
 }
