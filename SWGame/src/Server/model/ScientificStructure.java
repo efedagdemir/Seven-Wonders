@@ -52,13 +52,13 @@ public class ScientificStructure extends Card {
     void constructCard() {
         ModelService modelService = ModelService.getInstance();
         Player currentPlayer = modelService.getCurrentPlayer();
-        if (currentPlayer.isFree(this) == true) {
+        if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedS);
             currentPlayer.updateScientifictType(scType);
             ModelService.getInstance().removeFromRotatingCardList();
         } else {
-            if (currentPlayer.checkRequirements(requiredS, requiredP, null) == true) {
+            if (currentPlayer.checkRequirements(requiredS, requiredP, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateFreeStructures(providedS);
                 currentPlayer.updateScientifictType(scType);
@@ -69,3 +69,5 @@ public class ScientificStructure extends Card {
         }
     }
 }
+
+

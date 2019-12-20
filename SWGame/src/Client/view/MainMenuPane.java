@@ -1,6 +1,8 @@
 package Client.view;
 
+import Client.ClientController.ClientControllerFacade;
 import Client.ClientManager;
+import Server.ServerController.ServerControllerFacade;
 import Server.ServerManager;
 import controller.ControllerFacade;
 import javafx.geometry.Pos;
@@ -28,7 +30,7 @@ public class MainMenuPane extends BorderPane {
     public static Button joinGameButton;
     //private static MainMenuPane mainMenu = new MainMenuPane();
     private static MainMenuPane mainMenuPane;
-    public Button startButton;
+    //public Button startButton;
     public VBox menuButtons;
     public Label gameName;
     //end of new features
@@ -44,7 +46,7 @@ public class MainMenuPane extends BorderPane {
         joinGameButton.setStyle("-fx-font-weight: bold");
         //end of new features
 
-        startButton = new Button("Start Game");
+        //startButton = new Button("Start Game");
         howToPlayButton = new Button("How to Play");
         creditsButton = new Button("Credits");
         menuButtons = new VBox();
@@ -54,19 +56,19 @@ public class MainMenuPane extends BorderPane {
         setCenter(menuButtons);
         //menuButtons.setLayoutX(400);
         //menuButtons.setLayoutY(200);
-        startButton.setPrefSize(100, 50);
+        //startButton.setPrefSize(100, 50);
         howToPlayButton.setPrefSize(100, 50);
         creditsButton.setPrefSize(100, 50);
         menuButtons.setSpacing(10);
 //        startButton.setPadding(Insets.EMPTY);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("backgroundMain.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         setBackground(new Background(backgroundImage));
-        menuButtons.getChildren().addAll(gameName, startButton, createGameButton, joinGameButton, howToPlayButton, creditsButton);
+        menuButtons.getChildren().addAll(gameName, createGameButton, joinGameButton, howToPlayButton, creditsButton);
         menuButtons.setAlignment(Pos.CENTER);
         gameName.setTextAlignment(TextAlignment.CENTER);
         gameName.setFont(new Font(100));
         gameName.setStyle("-fx-text-fill: #e0bf16;");
-        startButton.setStyle("-fx-font-weight: bold");
+        //startButton.setStyle("-fx-font-weight: bold");
         howToPlayButton.setStyle("-fx-font-weight: bold");
         creditsButton.setStyle("-fx-font-weight: bold");
         Glow glow = new Glow();
@@ -83,12 +85,12 @@ public class MainMenuPane extends BorderPane {
         dropShadow2.setRadius(5.0);
         dropShadow2.setOffsetX(3.0);
         dropShadow2.setOffsetY(3.0);
-        startButton.setEffect(dropShadow);
+       // startButton.setEffect(dropShadow);
         howToPlayButton.setEffect(dropShadow);
         creditsButton.setEffect(dropShadow);
         gameName.setEffect(dropShadow2);
 //      setBorder(new Border(new Layout));
-        startButton.setOnAction(e -> controllerFacade.startGame());
+       // startButton.setOnAction(e -> controllerFacade.startGame());
         creditsButton.setOnAction(e -> controllerFacade.commandModel(e));
         howToPlayButton.setOnAction(e -> controllerFacade.commandModel(e));
 
@@ -98,13 +100,9 @@ public class MainMenuPane extends BorderPane {
         createGameButton.setOnAction(e -> {
             CreateGamePane cgp = null;
             System.out.println("random");
-            try {
-                cgp = new CreateGamePane();
+            cgp = CreateGamePane.getInstance();
 //                cgp.acceptConnections();
-                System.out.println("hhhhhhhhh");
-            } catch (IOException | ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
+            System.out.println("hhhhhhhhh");
             System.out.println("random2");
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
             System.out.println("lay");
@@ -163,6 +161,7 @@ public class MainMenuPane extends BorderPane {
             ClientManager client = null;
             try {
                 client = new ClientManager(ipAddress);
+                ClientControllerFacade.getInstance().setClientManager(client);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -181,6 +180,7 @@ public class MainMenuPane extends BorderPane {
             ServerManager s = null;
             try {
                 s = new ServerManager();
+                ServerControllerFacade.getInstance().setServerManager(s);
                 System.out.println("serverThread");
                 s.acceptConnections();
             } catch (IOException | InterruptedException e) {
