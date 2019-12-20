@@ -58,6 +58,9 @@ public class ClientControllerFacade {
         this.clientManager = clientManager;
     }
 
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
 
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;

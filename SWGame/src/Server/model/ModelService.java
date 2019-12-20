@@ -1,7 +1,6 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import Client.ClientController.ClientControllerFacade;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +53,7 @@ public class ModelService {
     }
 
     public void constructCard(Player player) {
+        Card selectedCard = ClientControllerFacade.getInstance().getSelectedCard();
         if (selectedCard != null)
             selectedCard.constructCard(player);
     }
@@ -88,30 +88,30 @@ public class ModelService {
      The parameter of this method will be the card which is chosen by player.
      */
     public void removeFromRotatingCardList() {
-
+        Card[] rotatingCardList = ClientControllerFacade.getInstance().getClientManager().getCards();
         if (selectedCard != null) {
             System.out.println("hi bitches");
-            for (int i = 0; i < rotatingCardList[playerIndex].length; i++) {
-                if (rotatingCardList[playerIndex][i] == selectedCard) {
-                    for (int j = i; j < rotatingCardList[playerIndex].length - 1; j++) {
-                        rotatingCardList[playerIndex][j] = rotatingCardList[playerIndex][j + 1];
+            for (int i = 0; i < rotatingCardList.length; i++) {
+                if (rotatingCardList[i] == selectedCard) {
+                    for (int j = i; j < rotatingCardList.length - 1; j++) {
+                        rotatingCardList[j] = rotatingCardList[j + 1];
                     }
-                    Card[] arr = new Card[rotatingCardList[playerIndex].length - 1];
-                    for (int j = 0; j < rotatingCardList[playerIndex].length - 1; j++) {
-                        arr[j] = rotatingCardList[playerIndex][j];
+                    Card[] arr = new Card[rotatingCardList.length - 1];
+                    for (int j = 0; j < rotatingCardList.length - 1; j++) {
+                        arr[j] = rotatingCardList[j];
                     }
-                    rotatingCardList[playerIndex] = new Card[rotatingCardList[playerIndex].length - 1];
-                    for (int j = 0; j < rotatingCardList[playerIndex].length; j++) {
-                        rotatingCardList[playerIndex][j] = arr[j];
+                    rotatingCardList = new Card[rotatingCardList.length - 1];
+                    for (int j = 0; j < rotatingCardList.length; j++) {
+                        rotatingCardList[j] = arr[j];
                     }
                 }
             }
         }
         System.out.println(rotatingCardList.length);
         System.out.println("removed");
-        ImageView iv = new ImageView();
-        iv.setImage(new Image(selectedCard.getName() + ".png"));
-        iv.setManaged(false);
+//        ImageView iv = new ImageView();
+//        iv.setImage(new Image(selectedCard.getName() + ".png"));
+//        iv.setManaged(false);
         selectedCard = null;
     }
 
