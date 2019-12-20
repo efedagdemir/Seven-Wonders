@@ -86,8 +86,7 @@ public class ClientManager {
         //updateInfoPane(player,);
     }
 
-    public ServerReply getReply() throws IOException {
-
+    public static Gson setGsonTypes() {
         RuntimeTypeAdapterFactory<Item> itemAdapterFactory = RuntimeTypeAdapterFactory.of(Item.class, "type1")
                 .registerSubtype(Coin.class, "Coin")
                 .registerSubtype(MilitaryPower.class, "MilitaryPower")
@@ -106,12 +105,13 @@ public class ClientManager {
                 .registerSubtype(Guild.class, "Guild")
                 .registerSubtype(ScientificStructure.class, "ScientificStructure");
 
-        Gson gson = new GsonBuilder().registerTypeAdapterFactory(itemAdapterFactory)
+        return new GsonBuilder().registerTypeAdapterFactory(itemAdapterFactory)
                 .registerTypeAdapterFactory(cardAdapterFactory)
                 .create();
-//        Gson gson = new GsonBuilder()
-//                .create();
+    }
 
+    public ServerReply getReply() throws IOException {
+        Gson gson = setGsonTypes();
         return gson.fromJson(input.readUTF(), ServerReply.class);
     }
 

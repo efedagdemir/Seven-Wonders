@@ -3,7 +3,7 @@ package Server.model;
 public class MilitaryPower extends Item {
 
     public MilitaryPower(int military) {
-        name = "militaryPower";
+        name = "militaryPower.png";
         noOfItems = military;
     }
 

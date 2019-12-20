@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerManager {
-    private final int NUM_OF_PLAYERS = 2;
+    private final int NUM_OF_PLAYERS = 3;
     private final int PORT = 5346;
 
     private ServerSocket serverSocket;
@@ -32,8 +32,8 @@ public class ServerManager {
         while (clientHandlers.size() < NUM_OF_PLAYERS) {
             Socket socket = null;
             try {
-                CreateGamePane.getInstance().update(clientHandlers.size());
                 socket = serverSocket.accept();
+                CreateGamePane.getInstance().update(clientHandlers.size());
 
                 System.out.println("New Client Is Connected");
 

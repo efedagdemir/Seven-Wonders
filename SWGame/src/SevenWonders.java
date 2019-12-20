@@ -1,4 +1,3 @@
-import Client.ClientManager;
 import Client.view.GameView;
 import controller.ControllerFacade;
 import javafx.application.Application;
@@ -7,7 +6,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.nio.file.Paths;
 
 public class SevenWonders extends Application {
@@ -88,7 +86,7 @@ public class SevenWonders extends Application {
 //        }
 //    }
     public void music(){
-        String s = "bensound-instinct.mp3";
+        String s = "music.mp3";
         Media h = new Media(Paths.get(s).toUri().toString());
         //Media h = new Media("file:///C:/Users/efeda/IdeaProjects/CS319-1E-SW/out/production/SWGam e/bensound-instinct.mp3");
         mediaPlayer = new MediaPlayer(h);
