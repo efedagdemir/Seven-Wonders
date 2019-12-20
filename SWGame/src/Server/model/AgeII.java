@@ -6,7 +6,7 @@ class AgeII extends Age {
     @Override
     void createDeck(int numOfPlayers) {
         cardDeck.clear();
-        //Civilian Structures
+        //Civilian Structuress
         String [] rTemple = { "Timber", "Clay", "Glass"};
         int [] nTemple = {1,1,1};
         CivilianStructure Temple = new CivilianStructure( 3, null, "Pantheon", rTemple, nTemple,"temple.png", "Temple");
