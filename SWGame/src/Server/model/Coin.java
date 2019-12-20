@@ -16,6 +16,9 @@ public class Coin extends Item {
         return name;
     }
 
+
+
+
     public int getNoOfItems() {
         return noOfItems;
     }

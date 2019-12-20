@@ -31,4 +31,8 @@ public class AllOpponentsPane extends BorderPane {
 
 
     }
+    void update(){
+        leftNeighbor.update();
+        rightNeighbor.update();
+    }
 }

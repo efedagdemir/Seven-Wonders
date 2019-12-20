@@ -16,7 +16,7 @@ public class CreditsPane extends BorderPane {
     public Label groupName = new Label("Group 1E");
     public Label creators = new Label("Efe Dağdemir\nAysegül Gökçe\nTuana Türkmen\nSezin Zeydan\nFirat Yonak");
     //public Button okayButton = new Button( "Okay");
-    public Image menuBackground = new Image("leaf.jpeg");
+    public Image menuBackground = new Image("leaf.png");
     public BackgroundImage backgroundImage = new BackgroundImage(menuBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
     ControllerFacade controllerFacade = ControllerFacade.getInstance();

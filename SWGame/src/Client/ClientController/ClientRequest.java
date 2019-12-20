@@ -4,9 +4,9 @@ import Server.model.Card;
 
 public class ClientRequest {
     private Card card;
-    private int operation;
+    private String operation;
 
-    public ClientRequest(Card card, int operation) {
+    public ClientRequest(Card card, String operation) {
         this.card = card;
         this.operation = operation;
     }
@@ -20,11 +20,11 @@ public class ClientRequest {
         this.card = card;
     }
 
-    public int getOperation() {
+    public String getOperation() {
         return operation;
     }
 
-    public void setOperation(int operation) {
+    public void setDropBoard(String operation) {
         this.operation = operation;
     }
 

@@ -4,6 +4,7 @@ import Server.model.ModelService;
 import Server.model.Player;
 import Server.model.Resource;
 import Server.model.ScientificType;
+import controller.ControllerFacade;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -15,8 +16,24 @@ import javafx.scene.text.Font;
 
 
 public class OpponentInfoPane extends BorderPane {
-    public Label playerNameLabel = new Label("xyz");
-    ModelService modelService = ModelService.getInstance();
+
+
+    private Label coinAmountLabel;
+    private Label victoryPointAmountLabel;
+    private Label militaryPowerAmountLabel;
+    private Label cogStructAmountLabel;
+    private Label rulerStructAmountLabel;
+    private Label tombStructAmountLabel;
+    private Label clayAmountLabel;
+    private Label glassAmountLabel;
+    private Label oreAmountLabel;
+    private Label papyrusAmountLabel;
+    private Label stoneAmountLabel;
+    private Label textileAmountLabel;
+    private Label timberAmountLabel;
+    public Label playerNameLabel = new Label("PLAYER");
+    private Player chosen;
+
 
     public OpponentInfoPane(Player neighbor) {
         //Images
@@ -34,13 +51,15 @@ public class OpponentInfoPane extends BorderPane {
         Image textileImg = new Image("textile.png");
         Image timberImg = new Image("timber.png");
         Image background = new Image("papyrusbg2.jpg");
+        //Player
+        chosen = neighbor;
         //Labels
-        Label coinAmountLabel = new Label("x " + neighbor.getCurrentCoin().getNoOfItems());
-        Label victoryPointAmountLabel = new Label("x " + neighbor.getVictoryPoints().getNoOfItems());
-        Label militaryPowerAmountLabel = new Label("x " + neighbor.getMilitaryPower().getNoOfItems());
-        Label cogStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Cog", neighbor));
-        Label rulerStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Ruler", neighbor));
-        Label tombStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Tomb", neighbor));
+        coinAmountLabel = new Label("x " + neighbor.getCurrentCoin().getNoOfItems());
+        victoryPointAmountLabel = new Label("x " + neighbor.getVictoryPoints().getNoOfItems());
+        militaryPowerAmountLabel = new Label("x " + neighbor.getMilitaryPower().getNoOfItems());
+        cogStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Cog", neighbor));
+        rulerStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Ruler", neighbor));
+        tombStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Tomb", neighbor));
         Label freeLabel = new Label("Free Structures");
         Label temple = new Label("- Temple");
         Label stables = new Label("Stables");
@@ -54,13 +73,13 @@ public class OpponentInfoPane extends BorderPane {
         Label laboratory = new Label("- Laboratory");
         Label archeryRange = new Label("- Archery Range");
         Label resourceLabel = new Label("Resources");
-        Label clayAmountLabel = new Label("x " + getNumOfResource("Clay", neighbor));
-        Label glassAmountLabel = new Label("x " + getNumOfResource("Glass", neighbor));
-        Label oreAmountLabel = new Label("x " + getNumOfResource("Ore", neighbor));
-        Label papyrusAmountLabel = new Label("x " + getNumOfResource("Papyrus", neighbor));
-        Label stoneAmountLabel = new Label("x " + getNumOfResource("Stone", neighbor));
-        Label textileAmountLabel = new Label("x " + getNumOfResource("Textile", neighbor));
-        Label timberAmountLabel = new Label("x " + getNumOfResource("Timber", neighbor));
+        clayAmountLabel = new Label("x " + getNumOfResource("Clay", neighbor));
+        glassAmountLabel = new Label("x " + getNumOfResource("Glass", neighbor));
+        oreAmountLabel = new Label("x " + getNumOfResource("Ore", neighbor));
+        papyrusAmountLabel = new Label("x " + getNumOfResource("Papyrus", neighbor));
+        stoneAmountLabel = new Label("x " + getNumOfResource("Stone", neighbor));
+        textileAmountLabel = new Label("x " + getNumOfResource("Textile", neighbor));
+        timberAmountLabel = new Label("x " + getNumOfResource("Timber", neighbor));
         //Image Views
         ImageView coinImgView = new ImageView(coinImg);
         ImageView victoryPointImgView = new ImageView(victoryPointImg);
@@ -257,6 +276,15 @@ public class OpponentInfoPane extends BorderPane {
         //OpponentInfoPane preferred size
         setPrefHeight(120);
         setPrefWidth(750);
+
+        //Adding dropboard
+        PlayRiskDropBoard dropBoard = new PlayRiskDropBoard();
+        ControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null, neighbor, ModelService.getInstance().getCurrentPlayer());
+        dropBoard.setPrefSize(100, 100);
+        dropBoard.setBackground(new Background(backgroundImage));
+        dropBoard.getChildren().add(bottomBorder);
+        setCenter(dropBoard);
+
     }
 
     private int getNumOfThisTypeOfStructure(String str, Player neighbor) {
@@ -280,4 +308,22 @@ public class OpponentInfoPane extends BorderPane {
         }
         return 0;
     }
+
+    public void update(){
+        coinAmountLabel.setText("x " + chosen.getCurrentCoin().getNoOfItems());
+        victoryPointAmountLabel.setText("x " + chosen.getVictoryPoints().getNoOfItems());
+        militaryPowerAmountLabel.setText("x " + chosen.getMilitaryPower().getNoOfItems());
+        cogStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Cog", chosen));
+        rulerStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Ruler", chosen));
+        tombStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Tomb", chosen));
+        clayAmountLabel.setText("x " + getNumOfResource("Clay", chosen));
+        glassAmountLabel.setText("x " + getNumOfResource("Glass", chosen));
+        oreAmountLabel.setText("x " + getNumOfResource("Ore", chosen));
+        papyrusAmountLabel.setText("x " + getNumOfResource("Papyrus", chosen));
+        stoneAmountLabel.setText("x " + getNumOfResource("Stone", chosen));
+        textileAmountLabel.setText("x " + getNumOfResource("Textile", chosen));
+        timberAmountLabel.setText("x " + getNumOfResource("Timber",chosen));
+
+    }
+
 }

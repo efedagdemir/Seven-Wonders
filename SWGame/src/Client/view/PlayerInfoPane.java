@@ -1,9 +1,11 @@
 package Client.view;
 
+import Client.ClientController.ClientControllerFacade;
 import Server.model.ModelService;
 import Server.model.Player;
 import Server.model.Resource;
 import Server.model.ScientificType;
+
 import controller.ControllerFacade;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,7 +26,7 @@ public class PlayerInfoPane extends BorderPane {
     //Buttons
     public static Button readyButton = new Button("Ready");
     public VBox freeStBox = new VBox();
-    Player player;
+    private Player player;
     //Labels
     private Label playerNameLabel;
     private Image background = new Image("papyrusbg2.jpg");
@@ -43,6 +45,7 @@ public class PlayerInfoPane extends BorderPane {
     private Label stoneAmountLabel;
     private Label textileAmountLabel;
     private Label timberAmountLabel;
+    private Label freeLabel;
 
 
     public PlayerInfoPane(Player player) {
@@ -127,7 +130,7 @@ public class PlayerInfoPane extends BorderPane {
         freeStGrid.setVgap(2);
         freeStGrid.setHgap(2);
 
-        Label freeLabel = new Label("Free Structures");
+        freeLabel = new Label("Free Structures");
         freeStGrid.add(freeLabel, 0, 0);
         Label temple = new Label("- Temple");
         freeStGrid.add(temple, 0, 1);
@@ -235,7 +238,7 @@ public class PlayerInfoPane extends BorderPane {
         BorderPane bottomBorder = new BorderPane();
 
         ConstructCardDropBoard dropBoard = new ConstructCardDropBoard();
-        ControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null);
+        ControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null, player, ModelService.getInstance().getCurrentPlayer());
         dropBoard.getChildren().add(bottomBorder);
         dropBoard.setPrefSize(1100, 140);
         dropBoard.setBackground(new Background(backgroundImage));
@@ -302,8 +305,20 @@ public class PlayerInfoPane extends BorderPane {
         setStyle("-fx-background-color: #ffcc99");
         setPrefHeight(120);
         //getChildren().addAll(bottomBorder, rightButtons);
-        readyButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
-        howToPlayButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
+        readyButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        howToPlayButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
     }
 
@@ -343,5 +358,9 @@ public class PlayerInfoPane extends BorderPane {
             }
         }
         return 0;
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 }

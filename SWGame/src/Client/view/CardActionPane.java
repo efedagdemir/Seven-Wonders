@@ -1,7 +1,10 @@
 package Client.view;
 
 import Client.ClientController.ClientControllerFacade;
-import Server.model.*;
+import Server.model.Card;
+import Server.model.Player;
+import Server.model.Resource;
+import Server.model.WonderStage;
 import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -22,6 +25,7 @@ public class CardActionPane extends BorderPane {
     private HBox imageBox;
     private Player player;
     private SellCardDropBoard sellCard;
+
     private BuildWonderDropBoard wonder1;
     private BuildWonderDropBoard wonder2;
     private BuildWonderDropBoard wonder3;
@@ -84,7 +88,7 @@ public class CardActionPane extends BorderPane {
                 iv.setOnDragDetected(e -> {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
-                    //modelService.setSelectedCard(currentCard);
+                    ClientControllerFacade.getInstance().setSelectedCard(currentCard);
                     content.putImage(iv.getImage());
                     db.setContent(content);
                     e.consume();
@@ -199,4 +203,17 @@ public class CardActionPane extends BorderPane {
         }
         return images;
     }
+
+    public BuildWonderDropBoard getWonder1() {
+        return wonder1;
+    }
+
+    public BuildWonderDropBoard getWonder2() {
+        return wonder2;
+    }
+
+    public BuildWonderDropBoard getWonder3() {
+        return wonder3;
+    }
+
 }

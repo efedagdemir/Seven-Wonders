@@ -1,11 +1,14 @@
 package Server.model;
 
 
+import java.sql.SQLOutput;
+
 public class WonderStage {
     private Resource[] providedResources;
     private Resource[] requiredResources;
     private VictoryPoint providedVictoryPoint;
     private MilitaryPower providedMilitaryPower;
+    private boolean built;
 
     WonderStage(Resource[] providedResources,
                 Resource[] requiredResources,
@@ -16,6 +19,7 @@ public class WonderStage {
         setRequiredResources(requiredResources);
         setProvidedVictoryPoint(victoryPoint);
         setProvidedMilitaryPower(militaryPower);
+        built = false;
     }
 
     WonderStage(WonderStage ws) {
@@ -23,20 +27,27 @@ public class WonderStage {
         setRequiredResources(ws.requiredResources);
         setProvidedVictoryPoint(ws.providedVictoryPoint);
         setProvidedMilitaryPower(ws.providedMilitaryPower);
+        built = false;
     }
 
-    boolean buildWonderStage() {
+    void buildWonderStage(Player player) {
         System.out.println("GELDİM");
         ModelService ms = ModelService.getInstance();
-        if (ms.getCurrentPlayer().checkRequirements(null, requiredResources, null)) {
-            ms.getCurrentPlayer().updateVictoryPoints(providedVictoryPoint);
-            ms.getCurrentPlayer().updateResources(providedResources);
-            ms.getCurrentPlayer().updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
-            return true;
+        if (player.checkRequirements(null, requiredResources, null)) {
+            player.updateVictoryPoints(providedVictoryPoint);
+            player.updateResources(providedResources);
+            player.updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
+            built = true;
         }
         System.out.println("CANT AFFORD");
-        return false;
+    }
 
+    void riskBuildWonderStage(){
+        ModelService ms = ModelService.getInstance();
+        ms.getChosenPlayer().updateVictoryPoints(providedVictoryPoint);
+        ms.getChosenPlayer().updateResources(providedResources);
+        ms.getChosenPlayer().updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
+        built = true;
     }
 
     public Resource[] getProvidedResources() {
@@ -79,5 +90,9 @@ public class WonderStage {
 
     public void setProvidedMilitaryPower(MilitaryPower providedMilitaryPower) {
         this.providedMilitaryPower = providedMilitaryPower;
+    }
+
+    public boolean isBuilt() {
+        return built;
     }
 }

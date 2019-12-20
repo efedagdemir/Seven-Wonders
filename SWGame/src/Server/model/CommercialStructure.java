@@ -18,7 +18,6 @@ public class CommercialStructure extends Card {
 //        iv.setImage(image);
         name = nameC;
         path = img;
-        System.out.println(img);
         victoryPoints = new VictoryPoint(vp);
         givenCoins = new Coin(coins, "coin.png");
         if (rStructure != null)
@@ -42,9 +41,7 @@ public class CommercialStructure extends Card {
     }
 
     @Override
-    void constructCard() {
-        ModelService modelService = ModelService.getInstance();
-        Player currentPlayer = modelService.getCurrentPlayer();
+    void constructCard(Player currentPlayer) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedStructure);

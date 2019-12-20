@@ -1,7 +1,9 @@
 package Client.view;
 
+import Server.model.ModelService;
 import Server.model.Card;
 import Server.model.Player;
+import Server.model.WonderStage;
 import javafx.scene.layout.BorderPane;
 //import javafx.scene.layout.VBox;
 
@@ -42,7 +44,22 @@ public class GamePane extends BorderPane {
     }
 
     public void update() {
+        System.out.println("update in GamePane");
         playerInfoPane.update();
+        allOpponentsPane.update();
+        WonderStage[] wonderStages = ModelService.getInstance().getCurrentPlayer().getWonder().getWonderStages();
+        for ( int i = 0; i < wonderStages.length; i++){
+                if (i == 0 && wonderStages[i].isBuilt()){
+                    cardActionPane.getWonder1().setStyle("-fx-background-color: #" +
+                            "800606");
+                }
+                if (i == 1 && wonderStages[i].isBuilt()){
+                    cardActionPane.getWonder2().setStyle("-fx-background-color: #800606");
+                }
+                if (i == 2 && wonderStages[i].isBuilt()){
+                    cardActionPane.getWonder3().setStyle("-fx-background-color: #800606");
+                }
+         }
     }
 
 }
