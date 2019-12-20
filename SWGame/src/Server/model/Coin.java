@@ -13,6 +13,9 @@ public class Coin extends Item {
         iv.setImage(image);
     }
 
+
+
+
     public int getNoOfItems() {
         return noOfItems;
     }

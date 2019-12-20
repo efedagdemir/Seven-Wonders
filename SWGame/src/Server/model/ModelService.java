@@ -18,6 +18,8 @@ public class ModelService {
     ArrayList<WonderBoard> wonderList;
     int directionFactor;
     int cardLength;
+    private Player chosenPlayer;
+    private Player swappedPlayer;
 
 
     private ModelService() {
@@ -224,6 +226,10 @@ public class ModelService {
     */
     public void buildWonder() {
         currentPlayer.wonder.buildWonderStage();
+    }
+
+    public void riskBuildWonder(Player p){
+        p.wonder.riskBuildWonderStage();
         viewManipulator.notifyWonderPane(wonderList);
     }
 
@@ -310,7 +316,7 @@ public class ModelService {
     */
     Card[][] createRotatingCardList() {
 
-        System.out.println("girdi");
+
         if (numberOfPlayers == 3) {
             int rotNo = 7;
             shuffle(currentAge.getCardDeck());
@@ -481,6 +487,9 @@ public class ModelService {
         return wonderList;
 
     }
+    public void setChosenPlayer(Player p){ chosenPlayer = p;}
+
+    public void setSwappedPlayer(Player p) {swappedPlayer = p;}
 
     public ArrayList<Player> getPlayerList() {
         return playerList;
@@ -501,4 +510,10 @@ public class ModelService {
     public Card[][] getRotatingCardList() {
         return rotatingCardList;
     }
+
+    public Player getChosenPlayer() {
+        return chosenPlayer;
+    }
+
+    public Player getSwappedPlayer(){return swappedPlayer;}
 }

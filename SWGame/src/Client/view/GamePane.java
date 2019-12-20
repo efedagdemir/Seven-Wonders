@@ -1,6 +1,8 @@
 package Client.view;
 
+import Server.model.ModelService;
 import Server.model.Player;
+import Server.model.WonderStage;
 import javafx.scene.layout.BorderPane;
 //import javafx.scene.layout.VBox;
 
@@ -24,24 +26,39 @@ public class GamePane extends BorderPane {
     public GamePane(Player player) {
         /* TODO() remove player by implementing a way to read it from client itself */
 
-//        allOpponentsPane = new AllOpponentsPane(player);
-//        playerInfoPane = new PlayerInfoPane(player);
+        allOpponentsPane = new AllOpponentsPane(player);
+        playerInfoPane = new PlayerInfoPane(player);
         System.out.println("GAME");
-//        cardActionPane = new CardActionPane();
+        cardActionPane = new CardActionPane();
         resourcePaneLeft = new ResourcePane();
         resourcePaneRight = new ResourcePane();
         setPrefSize(1300, 750);
-//        setTop(allOpponentsPane);
-//        setBottom(playerInfoPane);
+        setTop(allOpponentsPane);
+        setBottom(playerInfoPane);
         setLeft(resourcePaneLeft);
         setRight(resourcePaneRight);
-//        setCenter(cardActionPane);
-        System.out.println("GAMNEPANE SON");
+        setCenter(cardActionPane);
+
 
     }
 
     public void update() {
         playerInfoPane.update();
+        allOpponentsPane.update();
+        WonderStage[] wonderStages = ModelService.getInstance().getCurrentPlayer().getWonder().getWonderStages();
+        for ( int i = 0; i < wonderStages.length; i++){
+                if (i == 0 && wonderStages[i].isBuilt()){
+                    cardActionPane.getWonder1().setStyle("-fx-background-color: #" +
+                            "800606");
+                }
+                if (i == 1 && wonderStages[i].isBuilt()){
+                    cardActionPane.getWonder2().setStyle("-fx-background-color: #800606");
+                }
+                if (i == 2 && wonderStages[i].isBuilt()){
+                    cardActionPane.getWonder3().setStyle("-fx-background-color: #800606");
+                }
+         }
     }
+
 
 }

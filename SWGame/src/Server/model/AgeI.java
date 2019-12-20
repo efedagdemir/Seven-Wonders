@@ -33,9 +33,9 @@ public class AgeI extends Age {
         CommercialStructure EastTradingPost = new CommercialStructure(0, 0, null, "Forum", false, true, tpResNames, "easttradingpost.png", "EastTradingPost");
         CommercialStructure WestTradingPost = new CommercialStructure(0, 0, null, "Forum", true, false, tpResNames, "westtradingpost.png", "WestTradingPost");
         cardDeck.add(Marketplace);
-
         cardDeck.add(EastTradingPost);
         cardDeck.add(WestTradingPost);
+
         //Manufactured Goods
         String[] lGivenP = {"Textile"};
         int[] lGivenNo = {1};

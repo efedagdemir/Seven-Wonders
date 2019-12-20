@@ -1,5 +1,4 @@
 package Server.model;
-
 import javafx.scene.image.Image;
 
 public class MilitaryStructure extends Card {
@@ -40,6 +39,7 @@ public class MilitaryStructure extends Card {
             currentPlayer.updateHand(this);
             currentPlayer.updateMilitaryPower(militaryItem.getNoOfItems());
             currentPlayer.updateFreeStructures(providedStructure);
+            ModelService.getInstance().removeFromRotatingCardList();
 
         } else {
             if (currentPlayer.checkRequirements(requiredStructure, requiredProducts, null) == true) {

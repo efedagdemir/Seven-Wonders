@@ -21,7 +21,6 @@ public class CommercialStructure extends Card {
         iv.setImage(image);
         name = nameC;
         path = img;
-        System.out.println(img);
         victoryPoints = new VictoryPoint(vp);
         givenCoins = new Coin(coins, "coin.png");
         if (rStructure != null)

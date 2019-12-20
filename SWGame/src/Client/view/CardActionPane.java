@@ -24,6 +24,7 @@ public class CardActionPane extends BorderPane {
     private FlowPane cardFlowPane;
     private HBox imageBox;
     private SellCardDropBoard sellCard;
+
     private BuildWonderDropBoard wonder1;
     private BuildWonderDropBoard wonder2;
     private BuildWonderDropBoard wonder3;
@@ -73,6 +74,7 @@ public class CardActionPane extends BorderPane {
         wonder3.setPrefSize(200, 80);
         wonder.setAlignment(Pos.BOTTOM_CENTER);
         setBottom(wonder);
+
         if (modelService != null) {
             Card[] cardList = modelService.getRotatingCardList()[modelService.getPlayerIndex()];
             for (int i = 0; i < modelService.getCardLength(); i++) {
@@ -90,7 +92,6 @@ public class CardActionPane extends BorderPane {
                     e.consume();
                 });
                 iv.setOnDragDone(e -> {
-//                    update();
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
@@ -101,6 +102,7 @@ public class CardActionPane extends BorderPane {
             cardFlowPane.getChildren().add(imageBox);
             cardFlowPane.setAlignment(Pos.CENTER);
         }
+
 
 //        cardFlowPane.setStyle("-fx-background-color: #FFFFFF");
         // setStyle("-fx-background-color: #FFFFFF");
@@ -138,7 +140,6 @@ public class CardActionPane extends BorderPane {
     }
 
     private BuildWonderDropBoard wonderStageHBox(int i) {
-        System.out.println("WonderStageBox");
         BuildWonderDropBoard wonderStageBox = new BuildWonderDropBoard();
         VBox requiredBox = new VBox();
         VBox providedBox = new VBox();
@@ -199,4 +200,17 @@ public class CardActionPane extends BorderPane {
         }
         return images;
     }
+
+    public BuildWonderDropBoard getWonder1() {
+        return wonder1;
+    }
+
+    public BuildWonderDropBoard getWonder2() {
+        return wonder2;
+    }
+
+    public BuildWonderDropBoard getWonder3() {
+        return wonder3;
+    }
+
 }

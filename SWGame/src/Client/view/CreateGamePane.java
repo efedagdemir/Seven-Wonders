@@ -20,11 +20,11 @@ public class CreateGamePane extends BorderPane {
 
     public CreateGamePane() throws IOException {
         labelBox = new VBox();
-        InetAddress a = InetAddress.getByName("Ayseguls-MacBook-Pro-2.local"); //getLocalHost().getHostAddress();
-        loungeKeyLabel = new Label("Lounge key: " + a.getCanonicalHostName());//.toString().substring(1));
+        String address = InetAddress.getLocalHost().getHostAddress();
+        loungeKeyLabel = new Label("Lounge key: " + address);
+        System.out.println("SECOND: " + address);
         p1ConnectedLabel = new Label( "Player 1 has connected!");
         waitingLabel = new Label( "Waiting for other players...");
-        System.out.println(a.getCanonicalHostName());
         labelBox.setSpacing(210);
 
         DropShadow dropShadow2 = new DropShadow();
@@ -57,8 +57,9 @@ public class CreateGamePane extends BorderPane {
 
     void acceptConnections() throws IOException, ClassNotFoundException {
 
-        InetAddress a = InetAddress.getByName("Ayseguls-MacBook-Pro-2.local");
-        ClientManager client = new ClientManager(a.getCanonicalHostName());
+        String address = InetAddress.getLocalHost().getHostAddress();
+        System.out.println("ADDDDDRWAAAAA: " + address );
+        ClientManager client = new ClientManager(address);
         System.out.println("random4");
     }
 }

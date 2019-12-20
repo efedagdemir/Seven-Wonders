@@ -1,5 +1,4 @@
 package Client.view;
-
 import Server.model.ModelService;
 
 public class ConstructCardDropBoard extends DropBoard {

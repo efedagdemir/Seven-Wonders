@@ -1,5 +1,6 @@
 package Client.view;
 
+import Server.model.ModelService;
 import Server.model.Player;
 import Server.model.WonderBoard;
 import javafx.scene.Scene;
@@ -80,15 +81,9 @@ public class GameView {
     }
 
     public void showGamePane(Player player) {
-        System.out.println("showGamePane in GameView");
         GamePane gamePane = new GamePane(player);
-
-        System.out.println("after creation of GamePane");
         Scene sc = new Scene(gamePane);
-        System.out.println("sout1");
         primaryStage.setScene(sc);
-        System.out.println("sout2");
         primaryStage.show();
-        System.out.println("sout3");
     }
 }

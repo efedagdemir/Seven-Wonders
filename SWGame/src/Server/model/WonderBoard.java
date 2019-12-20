@@ -37,6 +37,10 @@ public class WonderBoard {
         getWonderStages()[wonderLevel - 1].buildWonderStage();
         incrementWonderLevel();
     }
+    void riskBuildWonderStage(){
+        getWonderStages()[wonderLevel-1].riskBuildWonderStage();
+        incrementWonderLevel();
+    }
 
     //setters and getters
     public int getWonderLevel() {
