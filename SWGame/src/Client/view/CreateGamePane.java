@@ -48,9 +48,9 @@ public class CreateGamePane extends BorderPane {
         playerConnectedLabels.add(p2ConnectedLabel);
         playerConnectedLabels.add(p3ConnectedLabel);
 
-        p1ConnectedLabel.setVisible(false);
-        p2ConnectedLabel.setVisible(false);
-        p3ConnectedLabel.setVisible(false);
+        p1ConnectedLabel.setManaged(false);
+        p2ConnectedLabel.setManaged(false);
+        p3ConnectedLabel.setManaged(false);
 
         labelBox.setSpacing(50);
 
@@ -93,9 +93,9 @@ public class CreateGamePane extends BorderPane {
     }
 
     public void update(int x){
-        Platform.runLater(() -> playerConnectedLabels.get(x).setVisible(true));
+        Platform.runLater(() -> playerConnectedLabels.get(x).setManaged(true));
         if( x == 3)
-            Platform.runLater(() -> waitingLabel.setVisible(false));
+            Platform.runLater(() -> waitingLabel.setManaged(false));
     }
 
     public static CreateGamePane getInstance(){
