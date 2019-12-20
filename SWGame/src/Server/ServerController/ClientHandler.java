@@ -32,8 +32,8 @@ public class ClientHandler extends Thread {
                          int playerIndex) {
         this.input = input;
         this.output = output;
-//        this.inputObject = inputObject;
-//        this.outputObject = outputObject;
+//      this.inputObject = inputObject;
+//      this.outputObject = outputObject;
         this.socket = socket;
         this.playerIndex = playerIndex;
     }
@@ -82,24 +82,6 @@ public class ClientHandler extends Thread {
         } catch (IOException e) {
 
         }
-
-//        try {
-//            ClientRequest request = (ClientRequest) inputObject.readObject();
-//            int operation = request.getOperation();
-//            switch (operation){
-//                case 0:
-//                    break;
-//                case 1:
-//                    break;
-//                case 2:
-//                    break;
-//                case 3:
-//                    break;
-//                default:
-//            }
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
     }
 }
 

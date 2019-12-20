@@ -1,12 +1,11 @@
 package Client.view;
 
 import Client.ClientController.ClientControllerFacade;
+import Server.ServerController.ServerControllerFacade;
 import Server.model.ModelService;
 import Server.model.Player;
 import Server.model.Resource;
 import Server.model.ScientificType;
-
-import controller.ControllerFacade;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -238,7 +237,7 @@ public class PlayerInfoPane extends BorderPane {
         BorderPane bottomBorder = new BorderPane();
 
         ConstructCardDropBoard dropBoard = new ConstructCardDropBoard();
-        ControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null, player, ModelService.getInstance().getCurrentPlayer());
+        ServerControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null, player, ClientControllerFacade.getInstance().getClientManager().getPlayer());
         dropBoard.getChildren().add(bottomBorder);
         dropBoard.setPrefSize(1100, 140);
         dropBoard.setBackground(new Background(backgroundImage));

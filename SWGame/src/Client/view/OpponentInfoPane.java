@@ -1,10 +1,10 @@
 package Client.view;
 
-import Server.model.ModelService;
+import Client.ClientController.ClientControllerFacade;
+import Server.ServerController.ServerControllerFacade;
 import Server.model.Player;
 import Server.model.Resource;
 import Server.model.ScientificType;
-import controller.ControllerFacade;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -279,7 +279,7 @@ public class OpponentInfoPane extends BorderPane {
 
         //Adding dropboard
         PlayRiskDropBoard dropBoard = new PlayRiskDropBoard();
-        ControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null, neighbor, ModelService.getInstance().getCurrentPlayer());
+        ServerControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null, neighbor, ClientControllerFacade.getInstance().getClientManager().getPlayer());
         dropBoard.setPrefSize(100, 100);
         dropBoard.setBackground(new Background(backgroundImage));
         dropBoard.getChildren().add(bottomBorder);

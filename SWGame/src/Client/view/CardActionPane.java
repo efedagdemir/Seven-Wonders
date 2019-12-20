@@ -1,8 +1,8 @@
 package Client.view;
 
 import Client.ClientController.ClientControllerFacade;
+import Server.ServerController.ServerControllerFacade;
 import Server.model.*;
-import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -30,7 +30,7 @@ public class CardActionPane extends BorderPane {
 
     public CardActionPane(Card[] cardList) {
         this.cards = cardList;
-        ControllerFacade controllerFacade = ControllerFacade.getInstance();
+       ServerControllerFacade serverControllerFacade = ServerControllerFacade.getInstance();
         player = ClientControllerFacade.getInstance().getClientManager().getPlayer();
         Image image = new Image(player.getWonder().getWonderName().toLowerCase() + "A.png");
         setBackground(new Background(new BackgroundImage(image,
@@ -52,16 +52,16 @@ public class CardActionPane extends BorderPane {
         sellCard.getChildren().addAll(sellCardLabel, coinImage);
         sellCard.setSpacing(10);
         sellCard.setAlignment(Pos.CENTER);
-        controllerFacade.initializeDADListeners(sellCard, "#581313", "#471313");
+        serverControllerFacade.initializeDADListeners(sellCard, "#581313", "#471313");
         setTop(sellCard);
         wonder1 = wonderStageHBox(0);
-        controllerFacade.initializeDADListeners(wonder1, "#0A3B16", "#0A2916");
+        serverControllerFacade.initializeDADListeners(wonder1, "#0A3B16", "#0A2916");
 
         wonder2 = wonderStageHBox(1);
-        controllerFacade.initializeDADListeners(wonder2, "#0A3B16", "#0A2916");
+        serverControllerFacade.initializeDADListeners(wonder2, "#0A3B16", "#0A2916");
 
         wonder3 = wonderStageHBox(2);
-        controllerFacade.initializeDADListeners(wonder3, "#0A3B16", "#0A2916");
+        serverControllerFacade.initializeDADListeners(wonder3, "#0A3B16", "#0A2916");
 
         HBox wonder = new HBox();
         wonder.getChildren().addAll(wonder1, wonder2, wonder3);
@@ -93,6 +93,7 @@ public class CardActionPane extends BorderPane {
                 iv.setOnDragDone(e -> {
 //                    update();
                     ModelService.getInstance().removeFromRotatingCardList();
+                    System.out.println("***E card constructlandı");
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });

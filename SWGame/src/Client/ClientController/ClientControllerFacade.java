@@ -4,9 +4,12 @@ import Client.ClientManager;
 import Client.view.DropBoard;
 import Client.view.MainMenuPane;
 import Client.view.PlayerInfoPane;
+import Server.ServerController.ServerControllerFacade;
 import Server.model.Card;
 import Server.model.Player;
 import javafx.event.ActionEvent;
+import javafx.scene.input.DragEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -15,6 +18,7 @@ public class ClientControllerFacade {
     ClientManager clientManager;
     private Card selectedCard;
     private String dropBoard;
+    Stage primaryStage;
     /*TODO() include player as well*/
     private Player selectedPlayer;
     private static ClientControllerFacade facade = new ClientControllerFacade();
@@ -45,6 +49,12 @@ public class ClientControllerFacade {
         }
 
     }
+    public void takeAction(DragEvent e) {
+
+          ServerControllerFacade.getInstance().determineCardAction((DropBoard) e.getGestureTarget());
+//        ModelService.getInstance().removeFromRotatingCardList();
+
+    }
 
     public void initializeView(DropBoard dropBoard, String backgroundColor, String hoveredColor) {
         ViewInitializer.initializeDropListener(dropBoard, backgroundColor, hoveredColor);
@@ -68,6 +78,12 @@ public class ClientControllerFacade {
 
     public void setDropBoard(String dropBoard) {
         this.dropBoard = dropBoard;
+    }
+    public Stage getStage() {
+        return primaryStage;
+    }
+    public void setStage(Stage stage) {
+        primaryStage = stage;
     }
 
 }
