@@ -17,6 +17,7 @@ public class ClientManager {
     private final int PORT = 5346;
 
     private Player player;
+    private Card[] cards;
     private ObjectInputStream inputObject;
     private ObjectOutputStream outputObject;
     private DataInputStream input;
@@ -54,7 +55,7 @@ public class ClientManager {
                     Player player = s.getPlayer();
                     Player leftNeighbor = s.getLeftNeighbor();
                     Player rightNeighbor = s.getRightNeighbor();
-                    Card[] cards = s.getRotatingCardList();
+                    cards = s.getRotatingCardList();
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                 }
             }
@@ -112,6 +113,10 @@ public class ClientManager {
         Gson gson = setGsonTypes();
         output.writeUTF(gson.toJson(request));
 
+    }
+
+    public Card[] getCards() {
+        return cards;
     }
 
     public Player getPlayer() {

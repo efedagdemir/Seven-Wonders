@@ -1,10 +1,7 @@
 package Client.view;
 
 import Client.ClientController.ClientControllerFacade;
-import Server.model.Card;
-import Server.model.Player;
-import Server.model.Resource;
-import Server.model.WonderStage;
+import Server.model.*;
 import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -31,8 +28,8 @@ public class CardActionPane extends BorderPane {
     private BuildWonderDropBoard wonder3;
     private Card[] cards;
 
-    public CardActionPane(Card[] cards) {
-        this.cards = cards;
+    public CardActionPane(Card[] cardList) {
+        this.cards = cardList;
         ControllerFacade controllerFacade = ControllerFacade.getInstance();
         player = ClientControllerFacade.getInstance().getClientManager().getPlayer();
         Image image = new Image(player.getWonder().getWonderName().toLowerCase() + "A.png");
@@ -78,7 +75,6 @@ public class CardActionPane extends BorderPane {
         wonder.setAlignment(Pos.BOTTOM_CENTER);
         setBottom(wonder);
         if (player != null) {
-            Card[] cardList = cards;
             for (int i = 0; i < cards.length; i++) {
                 Card currentCard = cardList[i];
                 ImageView iv = new ImageView(currentCard.getName() + ".png");
@@ -89,17 +85,20 @@ public class CardActionPane extends BorderPane {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     ClientControllerFacade.getInstance().setSelectedCard(currentCard);
+                    ModelService.getInstance().setSelectedCard(currentCard);
                     content.putImage(iv.getImage());
                     db.setContent(content);
                     e.consume();
                 });
                 iv.setOnDragDone(e -> {
 //                    update();
+                    ModelService.getInstance().removeFromRotatingCardList();
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
 
             }
+            imageBox.getChildren().clear();
             imageBox.getChildren().addAll(imageViews);
             imageBox.setSpacing(20);
             cardFlowPane.getChildren().add(imageBox);
@@ -110,9 +109,9 @@ public class CardActionPane extends BorderPane {
         // setStyle("-fx-background-color: #FFFFFF");
     }
 
-    public void update() {
+    public void update(Card[] cardList) {
+        imageViews.clear();
         if (player != null) {
-            Card[] cardList = cards;
             for (int i = 0; i < cards.length - 1; i++) {
                 Card currentCard = cardList[i];
                 ImageView iv = new ImageView(currentCard.getName() + ".png");
@@ -128,14 +127,15 @@ public class CardActionPane extends BorderPane {
                     e.consume();
                 });
                 iv.setOnDragDone(e -> {
+                    ModelService.getInstance().removeFromRotatingCardList();
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
 
             }
+            imageBox.getChildren().clear();
             imageBox.getChildren().addAll(imageViews);
             imageBox.setSpacing(20);
-            cardFlowPane.getChildren().add(imageBox);
             cardFlowPane.setAlignment(Pos.CENTER);
             setCenter(cardFlowPane);
         }

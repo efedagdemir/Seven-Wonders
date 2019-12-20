@@ -1,6 +1,6 @@
 package Client.view;
 
-import Server.model.ModelService;
+import Client.ClientController.ClientControllerFacade;
 import Server.model.Card;
 import Server.model.Player;
 import Server.model.WonderStage;
@@ -47,7 +47,8 @@ public class GamePane extends BorderPane {
         System.out.println("update in GamePane");
         playerInfoPane.update();
         allOpponentsPane.update();
-        WonderStage[] wonderStages = ModelService.getInstance().getCurrentPlayer().getWonder().getWonderStages();
+        cardActionPane.update(ClientControllerFacade.getInstance().getClientManager().getCards());
+        WonderStage[] wonderStages = ClientControllerFacade.getInstance().getClientManager().getPlayer().getWonder().getWonderStages();
         for ( int i = 0; i < wonderStages.length; i++){
                 if (i == 0 && wonderStages[i].isBuilt()){
                     cardActionPane.getWonder1().setStyle("-fx-background-color: #" +
