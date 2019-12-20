@@ -6,6 +6,7 @@ import Client.view.BuildWonderDropBoard;
 import Client.view.ConstructCardDropBoard;
 import Client.view.DropBoard;
 import Client.view.SellCardDropBoard;
+import Server.ServerManager;
 import Server.model.Card;
 import Server.model.ModelService;
 import com.google.gson.Gson;
@@ -23,19 +24,21 @@ public class ClientHandler extends Thread {
     int playerIndex;
     private DataInputStream input;
     private DataOutputStream output;
+    int numOfPlayers;
 
     public ClientHandler(DataInputStream input,
                          DataOutputStream output,
 //                         ObjectInputStream inputObject,
 //                         ObjectOutputStream outputObject,
                          Socket socket,
-                         int playerIndex) {
+                         int playerIndex, int numOfPlayers) {
         this.input = input;
         this.output = output;
 //      this.inputObject = inputObject;
 //      this.outputObject = outputObject;
         this.socket = socket;
         this.playerIndex = playerIndex;
+        this.numOfPlayers = numOfPlayers;
     }
 
     public ClientRequest getRequest() throws IOException {
@@ -60,10 +63,12 @@ public class ClientHandler extends Thread {
 
     @Override
     public void run() {
+        int counter = 0;
         try {
             while (true) {
                 ClientRequest request = getRequest();
                 if (request != null) {
+                    counter++;
                     String boardClass = request.getOperation();
                     DropBoard board = null;
                     if (boardClass.equals("BuildWonderDropBoard")) {
@@ -77,9 +82,16 @@ public class ClientHandler extends Thread {
                     ModelService.getInstance().setSelectedCard(selectedCard);
                     DropBoard finalBoard = board;
                     Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)));
+                    if(counter == numOfPlayers){
+                        System.out.println("acceptConnections in ServerManager -- before openGamePane");
+                        openGamePage();
+                        System.out.println("acceptConnections in ServerManager -- before update");
+                        update();
+                        counter = 0;
+                    }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
 
         }
     }

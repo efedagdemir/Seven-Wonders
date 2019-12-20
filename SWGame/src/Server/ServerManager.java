@@ -17,8 +17,7 @@ import java.util.List;
 
 public class ServerManager {
 
-
-    private final int NUM_OF_PLAYERS = 1;
+    private final int NUM_OF_PLAYERS = 3;
     private final int PORT = 5346;
 
     private ServerSocket serverSocket;
@@ -47,7 +46,7 @@ public class ServerManager {
                 // ObjectInputStream inputObject = new ObjectInputStream(socket.getInputStream());
                 //ObjectOutputStream outputObject = new ObjectOutputStream(socket.getOutputStream());
                 System.out.println("in ServerManager: method: acceptConnections");
-                ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size());
+                ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size(), NUM_OF_PLAYERS);
                 clientHandlers.add(c);
                 c.start();
 

@@ -52,6 +52,7 @@ public class ScientificStructure extends Card {
     void constructCard(Player currentPlayer) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
+
             currentPlayer.updateFreeStructures(providedS);
             currentPlayer.updateScientifictType(scType);
             ModelService.getInstance().removeFromRotatingCardList();

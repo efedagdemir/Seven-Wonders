@@ -8,5 +8,6 @@ public class SellCardDropBoard extends DropBoard {
         //ModelService.getInstance().getCurrentPlayer().addCoin(3);
         ClientControllerFacade.getInstance().setDropBoard("SellCardDropBoard");
         player.sellCard();
+
     }
 }

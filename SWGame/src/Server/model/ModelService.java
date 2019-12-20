@@ -60,13 +60,16 @@ public class ModelService {
 
     public void updateCurrentAge() {
         if (currentAge instanceof AgeI) {
+            initiateAndShowConflict();
             currentAge = new AgeII();
         }
         if (currentAge instanceof AgeII) {
+            initiateAndShowConflict();
             currentAge = new AgeII();
         }
         if (currentAge instanceof AgeIII) {
-
+            initiateAndShowConflict();
+            calculateFinalPoints();
         }
     }
 
@@ -186,7 +189,7 @@ public class ModelService {
         for (int i = 0; i < playerList.size(); i++) {
             playerList.get(i).updateConflictPoints(currentAge);
         }
-        viewManipulator.notifyConflictScreen(playerList);
+
     }
 
     /*
@@ -235,7 +238,6 @@ public class ModelService {
     }
     public void buildWonder(Player player) {
         currentPlayer.wonder.buildWonderStage(player);
-        viewManipulator.notifyWonderPane(wonderList);
     }
 
     /*
