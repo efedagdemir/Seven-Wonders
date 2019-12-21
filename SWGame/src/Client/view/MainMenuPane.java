@@ -4,7 +4,6 @@ import Client.ClientController.ClientControllerFacade;
 import Client.ClientManager;
 import Server.ServerController.ServerControllerFacade;
 import Server.ServerManager;
-import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,11 +15,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-//import javafx.event.ActionEvent;
+
 
 public class MainMenuPane extends BorderPane {
     public static Button howToPlayButton;
@@ -34,7 +32,7 @@ public class MainMenuPane extends BorderPane {
     public VBox menuButtons;
     public Label gameName;
     //end of new features
-    ControllerFacade controllerFacade = ControllerFacade.getInstance();
+
 
     private MainMenuPane() {
         // new features
@@ -61,7 +59,7 @@ public class MainMenuPane extends BorderPane {
         creditsButton.setPrefSize(100, 50);
         menuButtons.setSpacing(10);
 //        startButton.setPadding(Insets.EMPTY);
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("backgroundMain.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("swBackground.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         setBackground(new Background(backgroundImage));
         menuButtons.getChildren().addAll(gameName, createGameButton, joinGameButton, howToPlayButton, creditsButton);
         menuButtons.setAlignment(Pos.CENTER);
@@ -91,8 +89,20 @@ public class MainMenuPane extends BorderPane {
         gameName.setEffect(dropShadow2);
 //      setBorder(new Border(new Layout));
        // startButton.setOnAction(e -> controllerFacade.startGame());
-        creditsButton.setOnAction(e -> controllerFacade.commandModel(e));
-        howToPlayButton.setOnAction(e -> controllerFacade.commandModel(e));
+        creditsButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        howToPlayButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         //new features
         createGameButton.setEffect(dropShadow);
@@ -102,17 +112,18 @@ public class MainMenuPane extends BorderPane {
             System.out.println("random");
             cgp = CreateGamePane.getInstance();
 //                cgp.acceptConnections();
-            System.out.println("hhhhhhhhh");
-            System.out.println("random2");
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
-            System.out.println("lay");
+
             synchronized (this) {
                 Thread server = new Thread(new ServerThread());
                 server.start();
             }
             synchronized (this) {
                 try {
+                    System.out.println("client thread sleeps");
                     Thread.sleep(100);
+                    System.out.println("client threada uyandı");
+
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -120,6 +131,9 @@ public class MainMenuPane extends BorderPane {
                 try {
                     client = new Thread(new MainMenuPane.ClientThread());
                     System.out.println("host is connected === MainMenuPane");
+                    if(client == null){
+                        System.out.println("client thread is null");
+                    }
                 } catch (UnknownHostException ex) {
                     ex.printStackTrace();
                 }
@@ -158,9 +172,15 @@ public class MainMenuPane extends BorderPane {
 
         @Override
         public synchronized void run() {
+            System.out.println("selamm");
             ClientManager client = null;
             try {
+                System.out.println(ipAddress);
                 client = new ClientManager(ipAddress);
+                System.out.println("this is in run client thread "+client);
+                if(client == null){
+                    System.out.println("client manager is null");
+                }
                 ClientControllerFacade.getInstance().setClientManager(client);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -186,11 +206,8 @@ public class MainMenuPane extends BorderPane {
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("started");
+            System.out.println("Server started");
         }
     }
 
-    /*public static MainMenuPane getInstance() {
-        return mainMenu;
-    }*/
 }

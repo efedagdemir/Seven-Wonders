@@ -1,5 +1,5 @@
+import Client.ClientController.ClientControllerFacade;
 import Client.view.GameView;
-import controller.ControllerFacade;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -26,8 +26,9 @@ public class SevenWonders extends Application {
     @Override
     public void start(Stage primaryStage) {
         //  ModelService.getInstance();
-        music();
-        ControllerFacade controllerFacade = ControllerFacade.getInstance();
+        //music();
+      //  ControllerFacade controllerFacade = ControllerFacade.getInstance();
+        ClientControllerFacade controllerFacade = ClientControllerFacade.getInstance();
         GameView gameView = GameView.getInstance();
 
         controllerFacade.setStage(primaryStage);
@@ -72,7 +73,7 @@ public class SevenWonders extends Application {
         System.out.println("random4");
     }*/
 
-//    static class ServerThread extends Thread implements Runnable {
+    //    static class ServerThread extends Thread implements Runnable {
 //        @Override
 //        public void run() {
 //            ServerManager s = null;
@@ -86,11 +87,11 @@ public class SevenWonders extends Application {
 //        }
 //    }
     public void music(){
-        String s = "music.mp3";
-        Media h = new Media(Paths.get(s).toUri().toString());
+        String s = "bensound-instinct.mp3";
+        //Media h = new Media(Paths.get(s).toUri().toString());
         //Media h = new Media("file:///C:/Users/efeda/IdeaProjects/CS319-1E-SW/out/production/SWGam e/bensound-instinct.mp3");
-        mediaPlayer = new MediaPlayer(h);
-        mediaPlayer.play();
+        //mediaPlayer = new MediaPlayer(h);
+        //mediaPlayer.play();
     }
 
 }

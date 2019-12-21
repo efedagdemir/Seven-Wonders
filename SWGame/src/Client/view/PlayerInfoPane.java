@@ -1,10 +1,12 @@
 package Client.view;
 
+import Client.ClientController.ClientControllerFacade;
+import Server.ServerController.ServerControllerFacade;
 import Server.model.ModelService;
 import Server.model.Player;
 import Server.model.Resource;
 import Server.model.ScientificType;
-import controller.ControllerFacade;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
 import java.io.IOException;
 
 public class PlayerInfoPane extends BorderPane {
@@ -24,7 +25,7 @@ public class PlayerInfoPane extends BorderPane {
     //Buttons
     public static Button readyButton = new Button("Ready");
     public VBox freeStBox = new VBox();
-    Player player;
+    private Player player;
     //Labels
     private Label playerNameLabel;
     private Image background = new Image("papyrusbg2.jpg");
@@ -43,6 +44,7 @@ public class PlayerInfoPane extends BorderPane {
     private Label stoneAmountLabel;
     private Label textileAmountLabel;
     private Label timberAmountLabel;
+    private Label freeLabel;
 
 
     public PlayerInfoPane(Player player) {
@@ -51,18 +53,18 @@ public class PlayerInfoPane extends BorderPane {
         coinAmountLabel = new Label("x " + player.getCurrentCoin().getNoOfItems());
         victoryPointAmountLabel = new Label("x " + player.getVictoryPoints().getNoOfItems());
         militaryPowerAmountLabel = new Label("x " + player.getMilitaryPower().getNoOfItems());
-        cogStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Cog"));
-        rulerStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Ruler"));
-        tombStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Tomb"));
+        cogStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Cog", player));
+        rulerStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Ruler", player));
+        tombStructAmountLabel = new Label("x " + getNumOfThisTypeOfStructure("Tomb", player));
 
 
-        clayAmountLabel = new Label("x " + getNumOfResource("Clay"));
-        glassAmountLabel = new Label("x " + getNumOfResource("Glass"));
-        oreAmountLabel = new Label("x " + getNumOfResource("Ore"));
-        papyrusAmountLabel = new Label("x " + getNumOfResource("Papyrus"));
-        stoneAmountLabel = new Label("x " + getNumOfResource("Stone"));
-        textileAmountLabel = new Label("x " + getNumOfResource("Textile"));
-        timberAmountLabel = new Label("x " + getNumOfResource("Timber"));
+        clayAmountLabel = new Label("x " + getNumOfResource("Clay", player));
+        glassAmountLabel = new Label("x " + getNumOfResource("Glass", player));
+        oreAmountLabel = new Label("x " + getNumOfResource("Ore", player));
+        papyrusAmountLabel = new Label("x " + getNumOfResource("Papyrus", player));
+        stoneAmountLabel = new Label("x " + getNumOfResource("Stone", player));
+        textileAmountLabel = new Label("x " + getNumOfResource("Textile", player));
+        timberAmountLabel = new Label("x " + getNumOfResource("Timber", player));
 
         GridPane resourcesGrid = new GridPane();
         resourcesGrid.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -127,7 +129,7 @@ public class PlayerInfoPane extends BorderPane {
         freeStGrid.setVgap(2);
         freeStGrid.setHgap(2);
 
-        Label freeLabel = new Label("Free Structures");
+        freeLabel = new Label("Free Structures");
         freeStGrid.add(freeLabel, 0, 0);
         Label temple = new Label("- Temple");
         freeStGrid.add(temple, 0, 1);
@@ -235,7 +237,7 @@ public class PlayerInfoPane extends BorderPane {
         BorderPane bottomBorder = new BorderPane();
 
         ConstructCardDropBoard dropBoard = new ConstructCardDropBoard();
-        ControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null);
+        ServerControllerFacade.getInstance().initializeDADListeners(dropBoard, null, null, player, ClientControllerFacade.getInstance().getClientManager().getPlayer());
         dropBoard.getChildren().add(bottomBorder);
         dropBoard.setPrefSize(1100, 140);
         dropBoard.setBackground(new Background(backgroundImage));
@@ -302,28 +304,44 @@ public class PlayerInfoPane extends BorderPane {
         setStyle("-fx-background-color: #ffcc99");
         setPrefHeight(120);
         //getChildren().addAll(bottomBorder, rightButtons);
-        readyButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
-        howToPlayButton.setOnAction(e -> ControllerFacade.getInstance().commandModel(e));
+        readyButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        howToPlayButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
     }
 
-    public void update() {
-        coinAmountLabel.setText("x " + player.getCurrentCoin().getNoOfItems());
-        victoryPointAmountLabel.setText("x " + player.getVictoryPoints().getNoOfItems());
-        militaryPowerAmountLabel.setText("x " + player.getMilitaryPower().getNoOfItems());
-        cogStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Cog"));
-        rulerStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Ruler"));
-        tombStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Tomb"));
-        clayAmountLabel.setText("x " + getNumOfResource("Clay"));
-        glassAmountLabel.setText("x " + getNumOfResource("Glass"));
-        oreAmountLabel.setText("x " + getNumOfResource("Ore"));
-        papyrusAmountLabel.setText("x " + getNumOfResource("Papyrus"));
-        stoneAmountLabel.setText("x " + getNumOfResource("Stone"));
-        textileAmountLabel.setText("x " + getNumOfResource("Textile"));
-        timberAmountLabel.setText("x " + getNumOfResource("Timber"));
+    public void update(Player player) {
+        for(Resource res : player.getCurrentResources()){
+            System.out.println("player info pane update " + res.getName());
+        }
+
+        Platform.runLater(()->coinAmountLabel.setText("x " + player.getCurrentCoin().getNoOfItems()));
+        Platform.runLater(()->victoryPointAmountLabel.setText("x " + player.getVictoryPoints().getNoOfItems()));
+        Platform.runLater(()->militaryPowerAmountLabel.setText("x " + player.getMilitaryPower().getNoOfItems()));
+        Platform.runLater(()->cogStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Cog", player)));
+        Platform.runLater(()-> rulerStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Ruler", player)));
+        Platform.runLater(()->tombStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Tomb", player)));
+        Platform.runLater(()->clayAmountLabel.setText("x " + getNumOfResource("Clay", player)));
+        Platform.runLater(()->glassAmountLabel.setText("x " + getNumOfResource("Glass", player)));
+        Platform.runLater(()->oreAmountLabel.setText("x " + getNumOfResource("Ore", player)));
+        Platform.runLater(()->papyrusAmountLabel.setText("x " + getNumOfResource("Papyrus", player)));
+        Platform.runLater(()->stoneAmountLabel.setText("x " + getNumOfResource("Stone", player)));
+        Platform.runLater(()->textileAmountLabel.setText("x " + getNumOfResource("Textile", player)));
+        Platform.runLater(()->timberAmountLabel.setText("x " + getNumOfResource("Timber", player)));
     }
 
-    private int getNumOfThisTypeOfStructure(String str) {
+    private int getNumOfThisTypeOfStructure(String str, Player player) {
         if (player != null) {
             for (ScientificType type : player.getScientificTypes()) {
                 if (type.getScientificType().equals(str)) {
@@ -334,7 +352,7 @@ public class PlayerInfoPane extends BorderPane {
         return 0;
     }
 
-    private int getNumOfResource(String str) {
+    private int getNumOfResource(String str, Player player) {
         if (player != null) {
             for (Resource resource : player.getCurrentResources()) {
                 if (resource.getResourceName().equals(str)) {
@@ -343,5 +361,9 @@ public class PlayerInfoPane extends BorderPane {
             }
         }
         return 0;
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 }

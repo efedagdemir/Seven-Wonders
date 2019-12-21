@@ -26,8 +26,8 @@ public class ViewCommander {
         gameView.waitingScreen();
     }
 
-    void showConflictScreen(ArrayList<Player> playerList) {
-        gameView.showConflictScreen(playerList);
+    public void showConflictScreen(Player current, Player left, Player right) {
+        gameView.showConflictScreen(current, left, right);
     }
 
     void showCredits() {

@@ -1,7 +1,6 @@
 package Server.model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import Client.ClientController.ClientControllerFacade;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +20,8 @@ public class ModelService {
     ArrayList<WonderBoard> wonderList;
     int directionFactor;
     int cardLength;
+    private Player chosenPlayer;
+    private Player swappedPlayer;
 
 
     private ModelService() {
@@ -51,20 +52,27 @@ public class ModelService {
         return cardLength;
     }
 
-    public void constructCard() {
-        if (selectedCard != null)
-            selectedCard.constructCard();
+    public boolean constructCard(Player player, Card[] cards, Card selectedCard) {
+        if (selectedCard != null){
+
+            return selectedCard.constructCard(player, cards);
+        }
+        return false;
     }
 
     public void updateCurrentAge() {
         if (currentAge instanceof AgeI) {
+            initiateAndShowConflict();
             currentAge = new AgeII();
+            System.out.println("CURRENT AGE 2 OLDU");
         }
         if (currentAge instanceof AgeII) {
-            currentAge = new AgeII();
+            initiateAndShowConflict();
+            currentAge = new AgeIII();
         }
         if (currentAge instanceof AgeIII) {
-
+            initiateAndShowConflict();
+            calculateFinalPoints();
         }
     }
 
@@ -85,12 +93,40 @@ public class ModelService {
      Will remove the chosen card from the rotating card list.
      The parameter of this method will be the card which is chosen by player.
      */
-    public void removeFromRotatingCardList() {
+    public void removeFromRotatingCardList( Card[] rotatingCardList) {
+        if (selectedCard != null) {
+            System.out.println("hi bitches");
+            for (int i = 0; i < rotatingCardList.length; i++) {
+                if (rotatingCardList[i] == selectedCard) {
+                    for (int j = i; j < rotatingCardList.length - 1; j++) {
+                        rotatingCardList[j] = rotatingCardList[j + 1];
+                    }
+                    Card[] arr = new Card[rotatingCardList.length - 1];
+                    for (int j = 0; j < rotatingCardList.length - 1; j++) {
+                        arr[j] = rotatingCardList[j];
+                    }
+                    rotatingCardList = new Card[rotatingCardList.length - 1];
+                    for (int j = 0; j < rotatingCardList.length; j++) {
+                        rotatingCardList[j] = arr[j];
+                    }
+                }
+            }
+        }
+        ClientControllerFacade.getInstance().getClientManager().setCards(rotatingCardList);
+        System.out.println(rotatingCardList.length);
+        System.out.println("removed");
+//        ImageView iv = new ImageView();
+//        iv.setImage(new Image(selectedCard.getName() + ".png"));
+//        iv.setManaged(false);
+        selectedCard = null;
+    }
 
+    public void removeFromRotatingCardList( int playerIndex, Card selectedCard) {
         if (selectedCard != null) {
             System.out.println("hi bitches");
             for (int i = 0; i < rotatingCardList[playerIndex].length; i++) {
-                if (rotatingCardList[playerIndex][i] == selectedCard) {
+                if (rotatingCardList[playerIndex][i].getName().equals(selectedCard.getName())) {
+                    System.out.println("SELECTED CARD EQUALS GIRDI");
                     for (int j = i; j < rotatingCardList[playerIndex].length - 1; j++) {
                         rotatingCardList[playerIndex][j] = rotatingCardList[playerIndex][j + 1];
                     }
@@ -99,17 +135,18 @@ public class ModelService {
                         arr[j] = rotatingCardList[playerIndex][j];
                     }
                     rotatingCardList[playerIndex] = new Card[rotatingCardList[playerIndex].length - 1];
-                    for (int j = 0; j < rotatingCardList[playerIndex].length; j++) {
+                    for (int j = 0; j < rotatingCardList[playerIndex].length ; j++) {
                         rotatingCardList[playerIndex][j] = arr[j];
                     }
                 }
             }
         }
-        System.out.println(rotatingCardList.length);
+        this.rotatingCardList[playerIndex] = rotatingCardList[playerIndex];
+        System.out.println(rotatingCardList[playerIndex].length);
         System.out.println("removed");
-        ImageView iv = new ImageView();
-        iv.setImage(new Image(selectedCard.getName() + ".png"));
-        iv.setManaged(false);
+//        ImageView iv = new ImageView();
+//        iv.setImage(new Image(selectedCard.getName() + ".png"));
+//        iv.setManaged(false);
         selectedCard = null;
     }
 
@@ -141,28 +178,18 @@ public class ModelService {
         player2.setRightNeighbor(2);
         player3.setLeftNeighbor(1);
         player3.setRightNeighbor(0);
-        if (numberOfPlayers == 4) {
-
-            Player player4 = new Player("Player4", 3);
-            playerList.add(player4);
-        }
         currentPlayer = player1;
         playerIndex = 0;
     }
 
     //Will shift the rotatingCardList when called and will make it turn according to the directionFactor attribute.
-    void rotateDecks() {
+    public void rotateDecks() {
         Card[] temp1 = rotatingCardList[0];
         Card[] temp2 = rotatingCardList[1];
         Card[] temp3 = rotatingCardList[2];
         rotatingCardList[1] = temp1;
         rotatingCardList[2] = temp2;
         rotatingCardList[0] = temp3;
-        if (numberOfPlayers > 3) {
-            rotatingCardList[0] = rotatingCardList[4];
-            rotatingCardList[3] = temp3;
-        }
-
     }
 
     /*
@@ -184,7 +211,7 @@ public class ModelService {
         for (int i = 0; i < playerList.size(); i++) {
             playerList.get(i).updateConflictPoints(currentAge);
         }
-        viewManipulator.notifyConflictScreen(playerList);
+
     }
 
     /*
@@ -227,9 +254,17 @@ public class ModelService {
     /*
      Will call the notifyWonderPane() method from the ViewManipulator.
     */
-    public void buildWonder() {
-        currentPlayer.wonder.buildWonderStage();
-        viewManipulator.notifyWonderPane(wonderList);
+
+    public void riskBuildWonder(Player player) {
+        player.wonder.riskBuildWonderStage();
+    }
+
+    public boolean buildWonder(Player player, Card[] cards, Card selectedCard) {
+        if(player.wonder.buildWonderStage(player)){
+            removeFromRotatingCardList(cards);
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -315,7 +350,7 @@ public class ModelService {
     */
     Card[][] createRotatingCardList() {
 
-        System.out.println("girdi");
+
         if (numberOfPlayers == 3) {
             int rotNo = 7;
             shuffle(currentAge.getCardDeck());
@@ -486,6 +521,9 @@ public class ModelService {
         return wonderList;
 
     }
+    public void setChosenPlayer(Player p){ chosenPlayer = p;}
+
+    public void setSwappedPlayer(Player p) {swappedPlayer = p;}
 
     public ArrayList<Player> getPlayerList() {
         return playerList;
@@ -506,4 +544,10 @@ public class ModelService {
     public Card[][] getRotatingCardList() {
         return rotatingCardList;
     }
+
+    public Player getChosenPlayer() {
+        return chosenPlayer;
+    }
+
+    public Player getSwappedPlayer(){return swappedPlayer;}
 }

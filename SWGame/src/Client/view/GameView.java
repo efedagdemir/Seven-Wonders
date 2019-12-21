@@ -60,18 +60,18 @@ public class GameView {
     }
 
     public void waitingScreen() {
-
         NextTurnPane nextTurn = new NextTurnPane();
-
         scene = new Scene(nextTurn, 1300, 750);
-        System.out.println("before show");
         primaryStage.setScene(scene);
-        System.out.println("before show");
         primaryStage.show();
-        System.out.println("after show");
     }
 
-    public void showConflictScreen(ArrayList<Player> playerList) {
+    public void showConflictScreen(Player current, Player left, Player right) {
+        EndOfAgePane endOfAgePane = new EndOfAgePane(current, left, right);
+        scene = new Scene(endOfAgePane, 1300, 750);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
     }
 
     public void showCredits() {

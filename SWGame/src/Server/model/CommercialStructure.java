@@ -18,7 +18,6 @@ public class CommercialStructure extends Card {
 //        iv.setImage(image);
         name = nameC;
         path = img;
-        System.out.println(img);
         victoryPoints = new VictoryPoint(vp);
         givenCoins = new Coin(coins, "coin.png");
         if (rStructure != null)
@@ -42,15 +41,15 @@ public class CommercialStructure extends Card {
     }
 
     @Override
-    void constructCard() {
-        ModelService modelService = ModelService.getInstance();
-        Player currentPlayer = modelService.getCurrentPlayer();
+    boolean constructCard(Player currentPlayer, Card[] cards) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedStructure);
             currentPlayer.updateDiscountedResources(discountedR);
             currentPlayer.addCoin(givenCoins.getNoOfItems());
             currentPlayer.updateVictoryPoints(victoryPoints);
+            ModelService.getInstance().removeFromRotatingCardList(cards);
+            return true;
         } else {
             if (currentPlayer.checkRequirements(requiredStructure, null, givenCoins)) {
                 currentPlayer.updateHand(this);
@@ -58,9 +57,11 @@ public class CommercialStructure extends Card {
                 currentPlayer.updateDiscountedResources(discountedR);
                 currentPlayer.addCoin(givenCoins.getNoOfItems());
                 currentPlayer.updateVictoryPoints(victoryPoints);
-                ModelService.getInstance().removeFromRotatingCardList();
+                ModelService.getInstance().removeFromRotatingCardList(cards);
+                return true;
             } else {
                 System.out.println("Can't afford!!");
+                return false;
             }
         }
     }

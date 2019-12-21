@@ -2,7 +2,9 @@ package Server;
 
 import Client.view.CreateGamePane;
 import Server.ServerController.ClientHandler;
-import controller.ControllerFacade;
+import Server.ServerController.ProgressManager;
+import Server.ServerController.ServerControllerFacade;
+import Server.model.ModelService;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -14,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerManager {
+
     private final int NUM_OF_PLAYERS = 3;
     private final int PORT = 5346;
-
+    private int counter = 0;
     private ServerSocket serverSocket;
     private String ipAddress;
     private List<ClientHandler> clientHandlers;
+    private boolean ready = true;
 
 
     public ServerManager() throws IOException {
@@ -43,7 +47,8 @@ public class ServerManager {
                 // ObjectInputStream inputObject = new ObjectInputStream(socket.getInputStream());
                 //ObjectOutputStream outputObject = new ObjectOutputStream(socket.getOutputStream());
                 System.out.println("in ServerManager: method: acceptConnections");
-                ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size());
+                ClientHandler c = new ClientHandler(input, output, socket, clientHandlers.size(), NUM_OF_PLAYERS);
+                System.out.println(clientHandlers.size());
                 clientHandlers.add(c);
                 c.start();
 
@@ -54,11 +59,30 @@ public class ServerManager {
                 e.printStackTrace();
             }
         }
-        ControllerFacade.getInstance().startGame();
+        ServerControllerFacade.getInstance().startGame();
         System.out.println("acceptConnections in ServerManager -- before openGamePane");
         openGamePage();
         System.out.println("acceptConnections in ServerManager -- before update");
         update();
+
+        while(true){
+            for(ClientHandler client : clientHandlers){
+                ready = client.isReady() && ready;
+            }
+
+            if(ready){
+                Thread.sleep(200);
+                ModelService.getInstance().rotateDecks();
+                System.out.println("acceptConnections in ServerManager -- before openGamePane");
+                openGamePage();
+                System.out.println("acceptConnections in ServerManager -- before update");
+                update();
+                for(ClientHandler client : clientHandlers){
+                    client.setReady(false);
+                }
+            }
+            ready = true;
+        }
     }
 
     public String getIpAddress() {
@@ -66,16 +90,14 @@ public class ServerManager {
     }
 
     private void openGamePage() throws IOException, InterruptedException {
-
-        System.out.println("openGamePane in ServerManager");
-        for (ClientHandler c : clientHandlers) {
-            c.openGamePage();
-        }
+        ProgressManager.getInstance().nextCycle(clientHandlers);
     }
+
 
     public void update() throws IOException {
         for (ClientHandler c : clientHandlers) {
             c.update();
+            System.out.println("=====================ServerManager update player " + (c.playerIndex) + "==============");
         }
     }
 
@@ -86,5 +108,6 @@ public class ServerManager {
         /*TODO() change*/
         return ipAddress;
     }
+
 
 }

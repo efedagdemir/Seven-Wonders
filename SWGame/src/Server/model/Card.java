@@ -3,10 +3,7 @@ package Server.model;
 public abstract class Card {
 
     String name;
-//    Image image;
-//    ImageView iv;
-
-    abstract void constructCard();
+    abstract boolean constructCard(Player player, Card[] cards);
 
     public String getName() {
         return name;

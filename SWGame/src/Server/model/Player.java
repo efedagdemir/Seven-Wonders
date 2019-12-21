@@ -76,6 +76,14 @@ public class Player {
 
     }
 
+    void sealResources(){
+        if (currentResources.size() != 0){
+            currentResources.remove(0);
+            return;
+        }
+        return;
+    }
+
     void updateItemList(MilitaryPower milit) {
         boolean exists = false;
 
@@ -170,11 +178,30 @@ public class Player {
         return true;
     }
 
+    public void setCurrentCoin(Coin currentCoin) {
+        this.currentCoin = currentCoin;
+    }
+
+    public void setVictoryPoints(VictoryPoint victoryPoints) {
+        this.victoryPoints = victoryPoints;
+    }
+
+    public void setMilitaryP(MilitaryPower militaryP) {
+        this.militaryP = militaryP;
+    }
+
+    public boolean coinRisk(int coinAmount){
+        currentCoin.setNoOfItems(coinAmount);
+        updateItemList(currentCoin);
+        return true;
+    }
+
     //Updates the current victory points of the player according to the cards taken
     // and according to the wonders built
     void updateVictoryPoints(VictoryPoint vc) {
+        if (vc != null){
         victoryPoints.setNoOfItems(vc.getNoOfItems());
-        updateItemList(victoryPoints);
+        updateItemList(victoryPoints);}
     }
 
     void updateVictoryPoints(WonderStage wonder) {
@@ -183,6 +210,8 @@ public class Player {
 
     //Updates the current scientific structures of the player according to the cards taken.
     void updateScientifictType(ScientificType scType) {
+        if (scType == null)
+            return;
         boolean exists = false;
         int k = 0;
         for (int i = 0; i < scientificTypes.size(); i++) {
@@ -198,17 +227,23 @@ public class Player {
     }
 
     void updateMilitaryPower(int military) {
+        if (military == 0)
+            return;
         militaryP.setNoOfItems(military);
         updateItemList(militaryP);
     }
 
     //Updates the current free structures of the player according to the cards taken.
     void updateFreeStructures(Structure s) {
+        if (s == null)
+            return;
         freeStructures.add(s);
         itemList.add(s);
     }
 
     void updateFreeStructures(Structure[] s) {
+        if (s == null)
+            return;
         for (int i = 0; i < s.length; i++) {
             freeStructures.add(s[i]);
             itemList.add(s[i]);
@@ -268,8 +303,10 @@ public class Player {
     }
 
     /*This method updates the current player's coin amount by three. */
-    public void sellCard() {
-        currentCoin.setNoOfItems(3);
+    public void sellCard( Player player,Card[] cards) {
+        player.currentCoin.setNoOfItems(3);
+        ModelService.getInstance().removeFromRotatingCardList(cards);
+
     }
 
     //Adds the built card to the hand of the player.
@@ -369,7 +406,7 @@ public class Player {
     }
 
     public Player getLeftNeighbor() {
-        return ModelService.getInstance().playerList.get(rightNeighbor);
+        return ModelService.getInstance().playerList.get(leftNeighbor);
     }
 
     public void setLeftNeighbor(int leftNeighbor) {
