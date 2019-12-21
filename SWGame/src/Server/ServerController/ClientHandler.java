@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ClientHandler extends Thread {
-    //    private ObjectInputStream inputObject;
-//    private ObjectOutputStream outputObject;
     Socket socket;
     int playerIndex;
     private DataInputStream input;

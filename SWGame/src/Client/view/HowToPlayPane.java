@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class HowToPlayPane extends ScrollPane {
-    //private static CreditsPane creditsPane = new CreditsPane();
+
 
     public VBox htpBox = new VBox();
     public Label htpLabel = new Label("How to Play");

@@ -1,12 +1,8 @@
 package Server;
-
 import Client.view.CreateGamePane;
-import Client.view.DropBoard;
 import Server.ServerController.ClientHandler;
 import Server.ServerController.ServerControllerFacade;
 import Server.model.ModelService;
-import javafx.application.Platform;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

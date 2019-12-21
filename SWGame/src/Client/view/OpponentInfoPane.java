@@ -17,7 +17,6 @@ import javafx.scene.text.Font;
 
 public class OpponentInfoPane extends BorderPane {
 
-
     private Label coinAmountLabel;
     private Label victoryPointAmountLabel;
     private Label militaryPowerAmountLabel;

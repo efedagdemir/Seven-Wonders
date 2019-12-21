@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ClientControllerFacade {
+    //ClientControllerFacade
 
     ClientManager clientManager;
     private Card selectedCard;

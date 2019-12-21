@@ -7,6 +7,7 @@ import Server.model.Player;
 
 public class ConstructCardDropBoard extends DropBoard {
     public void takeCardAction(Player player, Card[] cards) {
+
         System.out.println("constructCard");
         ClientControllerFacade.getInstance().setDropBoard("ConstructCardDropBoard");
         boolean constructed = ModelService.getInstance().constructCard(player, cards);

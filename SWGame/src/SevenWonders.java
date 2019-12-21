@@ -1,5 +1,5 @@
+import Client.ClientController.ClientControllerFacade;
 import Client.view.GameView;
-import controller.ControllerFacade;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -27,7 +27,8 @@ public class SevenWonders extends Application {
     public void start(Stage primaryStage) {
         //  ModelService.getInstance();
         //music();
-        ControllerFacade controllerFacade = ControllerFacade.getInstance();
+      //  ControllerFacade controllerFacade = ControllerFacade.getInstance();
+        ClientControllerFacade controllerFacade = ClientControllerFacade.getInstance();
         GameView gameView = GameView.getInstance();
 
         controllerFacade.setStage(primaryStage);

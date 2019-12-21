@@ -15,11 +15,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-//import javafx.event.ActionEvent;
+
 
 public class MainMenuPane extends BorderPane {
     public static Button howToPlayButton;

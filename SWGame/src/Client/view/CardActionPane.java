@@ -3,7 +3,6 @@ package Client.view;
 import Client.ClientController.ClientControllerFacade;
 import Server.ServerController.ServerControllerFacade;
 import Server.model.*;
-import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -23,7 +22,6 @@ public class CardActionPane extends BorderPane {
     private HBox imageBox;
     private Player player;
     private SellCardDropBoard sellCard;
-
     private BuildWonderDropBoard wonder1;
     private BuildWonderDropBoard wonder2;
     private BuildWonderDropBoard wonder3;

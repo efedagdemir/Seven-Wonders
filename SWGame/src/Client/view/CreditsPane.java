@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class CreditsPane extends BorderPane {
-    //private static CreditsPane creditsPane = new CreditsPane();
+
     public VBox credsBox = new VBox();
     public Label groupName = new Label("Group 1E");
     public Label creators = new Label("Efe Dağdemir\nAysegül Gökçe\nTuana Türkmen\nSezin Zeydan\nFirat Yonak");

@@ -44,5 +44,4 @@ public class ServerControllerFacade {
         Platform.runLater(() -> db.takeCardAction(client.getPlayer(), client.getCards()));
     }
 
-
 }

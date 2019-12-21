@@ -54,7 +54,7 @@ public class GameInitializer {
             });
         }
         node.setOnDragDropped(e -> {
-            //e.getGestureSource()..setManaged(false)
+
            // ControllerFacade.getInstance().takeAction(e);
               ClientControllerFacade.getInstance().takeAction(e);
         }

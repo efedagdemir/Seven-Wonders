@@ -1,9 +1,9 @@
 package Client.ClientController;
-
 import Client.view.DropBoard;
 import javafx.scene.input.TransferMode;
 
 public class ViewInitializer {
+
 
     public static void initializeDropListener(DropBoard dropBoard, String backgroundColor, String hoveredColor) {  // !!initializeDragListener in report
         dropBoard.setOnDragOver(e -> {
