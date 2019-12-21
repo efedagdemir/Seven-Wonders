@@ -57,6 +57,12 @@ public class ClientHandler extends Thread {
         output.writeUTF(ClientManager.setGsonTypes().toJson(serverReply));
     }
 
+    public void openConflictPage() throws IOException, InterruptedException {
+        Thread.sleep(200);
+        System.out.println("openGamePane in ClientHandler");
+        output.writeInt(2);
+    }
+
     public void openGamePage() throws IOException, InterruptedException {
         Thread.sleep(200);
         System.out.println("openGamePane in ClientHandler");
@@ -96,6 +102,9 @@ public class ClientHandler extends Thread {
                         System.out.println(item.getName());
                     }
                     ModelService.getInstance().removeFromRotatingCardList(playerIndex, selectedCard);
+                    System.out.println("!!!!!!For player" + playerIndex);
+                    for (Card c :  ModelService.getInstance().getRotatingCardList()[playerIndex] )
+                        System.out.println(c.getName());
                 }
             }
         } catch (IOException e) {

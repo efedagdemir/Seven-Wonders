@@ -2,6 +2,7 @@ package Server;
 
 import Client.view.CreateGamePane;
 import Server.ServerController.ClientHandler;
+import Server.ServerController.ProgressManager;
 import Server.ServerController.ServerControllerFacade;
 import Server.model.ModelService;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class ServerManager {
 
-    private final int NUM_OF_PLAYERS = 3;
+    private final int NUM_OF_PLAYERS = 1;
     private final int PORT = 5346;
     private int counter = 0;
     private ServerSocket serverSocket;
@@ -89,12 +90,9 @@ public class ServerManager {
     }
 
     private void openGamePage() throws IOException, InterruptedException {
-
-        System.out.println("openGamePane in ServerManager");
-        for (ClientHandler c : clientHandlers) {
-            c.openGamePage();
-        }
+        ProgressManager.getInstance().nextCycle(clientHandlers);
     }
+
 
     public void update() throws IOException {
         for (ClientHandler c : clientHandlers) {

@@ -53,8 +53,10 @@ public class ModelService {
     }
 
     public boolean constructCard(Player player, Card[] cards, Card selectedCard) {
-        if (selectedCard != null)
+        if (selectedCard != null){
+
             return selectedCard.constructCard(player, cards);
+        }
         return false;
     }
 
@@ -62,10 +64,11 @@ public class ModelService {
         if (currentAge instanceof AgeI) {
             initiateAndShowConflict();
             currentAge = new AgeII();
+            System.out.println("CURRENT AGE 2 OLDU");
         }
         if (currentAge instanceof AgeII) {
             initiateAndShowConflict();
-            currentAge = new AgeII();
+            currentAge = new AgeIII();
         }
         if (currentAge instanceof AgeIII) {
             initiateAndShowConflict();

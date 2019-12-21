@@ -58,6 +58,9 @@ public class ClientManager {
                     cards = s.getRotatingCardList();
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                 }
+                if (tosend == 2) {
+                    ModelService.getInstance().updateCurrentAge();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
