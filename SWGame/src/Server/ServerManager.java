@@ -4,6 +4,7 @@ import Client.view.CreateGamePane;
 import Client.view.DropBoard;
 import Server.ServerController.ClientHandler;
 import Server.ServerController.ServerControllerFacade;
+import Server.model.ModelService;
 import javafx.application.Platform;
 
 import java.io.DataInputStream;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class ServerManager {
 
-    private final int NUM_OF_PLAYERS = 1;
+    private final int NUM_OF_PLAYERS = 2;
     private final int PORT = 5346;
     private int counter = 0;
     private ServerSocket serverSocket;
@@ -70,6 +71,7 @@ public class ServerManager {
             }
 
             if(ready){
+                ModelService.getInstance().rotateDecks();
                 System.out.println("acceptConnections in ServerManager -- before openGamePane");
                 openGamePage();
                 System.out.println("acceptConnections in ServerManager -- before update");

@@ -183,18 +183,13 @@ public class ModelService {
     }
 
     //Will shift the rotatingCardList when called and will make it turn according to the directionFactor attribute.
-    void rotateDecks() {
+    public void rotateDecks() {
         Card[] temp1 = rotatingCardList[0];
         Card[] temp2 = rotatingCardList[1];
-        Card[] temp3 = rotatingCardList[2];
+        //Card[] temp3 = rotatingCardList[2];
         rotatingCardList[1] = temp1;
         rotatingCardList[2] = temp2;
-        rotatingCardList[0] = temp3;
-        if (numberOfPlayers > 3) {
-            rotatingCardList[0] = rotatingCardList[4];
-            rotatingCardList[3] = temp3;
-        }
-
+        //rotatingCardList[0] = temp3;
     }
 
     /*
