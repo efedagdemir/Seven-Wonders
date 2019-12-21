@@ -252,13 +252,16 @@ public class ModelService {
      Will call the notifyWonderPane() method from the ViewManipulator.
     */
 
-    public void riskBuildWonder(Player p) {
-        p.wonder.riskBuildWonderStage();
+    public void riskBuildWonder(Player player) {
+        player.wonder.riskBuildWonderStage();
     }
 
-    public void buildWonder(Player player, Card[] cards, Card selectedCard) {
-        currentPlayer.wonder.buildWonderStage(player);
-        removeFromRotatingCardList(cards);
+    public boolean buildWonder(Player player, Card[] cards, Card selectedCard) {
+        if(player.wonder.buildWonderStage(player)){
+            removeFromRotatingCardList(cards);
+            return true;
+        }
+        return false;
     }
 
     /*

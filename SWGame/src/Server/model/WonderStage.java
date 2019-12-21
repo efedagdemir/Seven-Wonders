@@ -30,7 +30,7 @@ public class WonderStage {
         built = false;
     }
 
-    void buildWonderStage(Player player) {
+    boolean buildWonderStage(Player player) {
         System.out.println("GELDİM");
         for (int i = 0; i < player.getCurrentResources().size(); i++){
             System.out.println("Player's resources:" + player.getCurrentResources().get(i).getResourceName());
@@ -43,8 +43,10 @@ public class WonderStage {
             player.updateResources(providedResources);
             player.updateMilitaryPower(providedMilitaryPower == null ? 0 : providedMilitaryPower.getNoOfItems());
             built = true;
+            return true;
         }
         System.out.println("CANT AFFORD");
+        return false;
     }
 
     void riskBuildWonderStage(){

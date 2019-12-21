@@ -303,8 +303,8 @@ public class Player {
     }
 
     /*This method updates the current player's coin amount by three. */
-    public void sellCard( Card[] cards) {
-        currentCoin.setNoOfItems(3);
+    public void sellCard( Player player,Card[] cards) {
+        player.currentCoin.setNoOfItems(3);
         ModelService.getInstance().removeFromRotatingCardList(cards);
 
     }
