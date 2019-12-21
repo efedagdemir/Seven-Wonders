@@ -66,7 +66,12 @@ public class GameView {
         primaryStage.show();
     }
 
-    public void showConflictScreen(ArrayList<Player> playerList) {
+    public void showConflictScreen(Player current, Player left, Player right) {
+        EndOfAgePane endOfAgePane = new EndOfAgePane(current, left, right);
+        scene = new Scene(endOfAgePane, 1300, 750);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
     }
 
     public void showCredits() {

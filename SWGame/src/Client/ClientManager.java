@@ -1,7 +1,9 @@
 package Client;
 
 import Client.ClientController.ClientRequest;
+import Client.ClientController.ViewCommander;
 import Client.view.GameView;
+import Server.ServerController.GameInitializer;
 import Server.ServerController.ServerReply;
 import Server.model.*;
 import com.google.gson.Gson;
@@ -25,6 +27,8 @@ public class ClientManager {
     private Socket socket;
     private ClientRequest request;
     private List<String> messages;
+    Player leftNeighbor;
+    Player rightNeighbor;
 
 
     public ClientManager(String key) throws IOException {
@@ -53,13 +57,13 @@ public class ClientManager {
                     if( player == null)
                         this.player = s.getPlayer();
                     Player player = s.getPlayer();
-                    Player leftNeighbor = s.getLeftNeighbor();
-                    Player rightNeighbor = s.getRightNeighbor();
+                    leftNeighbor = s.getLeftNeighbor();
+                    rightNeighbor = s.getRightNeighbor();
                     cards = s.getRotatingCardList();
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                 }
                 if (tosend == 2) {
-                    ModelService.getInstance().updateCurrentAge();
+                    ViewCommander.getInstance().showConflictScreen(player, leftNeighbor, rightNeighbor);
                 }
             }
         } catch (Exception e) {
