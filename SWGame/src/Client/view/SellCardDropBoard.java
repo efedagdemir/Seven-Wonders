@@ -10,7 +10,7 @@ public class SellCardDropBoard extends DropBoard {
         ClientControllerFacade.getInstance().setDropBoard("SellCardDropBoard");
         player.sellCard(cards);
         if (ui) {
-            ((GamePane) getScene().getRoot()).update();
+            ((GamePane) getScene().getRoot()).update(player);
         }
 
     }

@@ -44,10 +44,10 @@ public class GamePane extends BorderPane {
 
     }
 
-    public void update() {
+    public void update(Player player) {
         System.out.println("update in GamePane");
         ClientManager client = ClientControllerFacade.getInstance().getClientManager();
-        playerInfoPane.update();
+        playerInfoPane.update(player);
         allOpponentsPane.update();
         cardActionPane.update(client.getCards());
         WonderStage[] wonderStages = client.getPlayer().getWonder().getWonderStages();
