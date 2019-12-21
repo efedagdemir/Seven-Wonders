@@ -5,8 +5,10 @@ import Server.model.ModelService;
 import Server.model.Player;
 
 public class ConstructCardDropBoard extends DropBoard {
+
     public void takeCardAction(Player player) {
         ClientControllerFacade.getInstance().setDropBoard("ConstructCardDropBoard");
-        ModelService.getInstance().constructCard(player);
+        boolean constructed = ModelService.getInstance().constructCard(player);
+        if (constructed) { ((GamePane) getScene().getRoot()).update();}
     }
 }

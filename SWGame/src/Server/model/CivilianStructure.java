@@ -1,5 +1,7 @@
 package Server.model;
 
+import java.sql.SQLOutput;
+
 public class CivilianStructure extends Card {
 
     VictoryPoint victoryPoints;
@@ -52,22 +54,24 @@ public class CivilianStructure extends Card {
     }
 
     @Override
-    void constructCard(Player currentPlayer) {
+    boolean constructCard(Player currentPlayer) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateVictoryPoints(victoryPoints);
             currentPlayer.updateFreeStructures(providedStructure);
             ModelService.getInstance().removeFromRotatingCardList();
+            return true;
         } else {
             if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateVictoryPoints(victoryPoints);
                 currentPlayer.updateFreeStructures(providedStructure);
                 ModelService.getInstance().removeFromRotatingCardList();
+                return true;
             } else {
                 System.out.println("Can't afford!!");
+                return false;
             }
         }
-
     }
 }

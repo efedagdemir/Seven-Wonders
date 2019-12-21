@@ -22,7 +22,6 @@ public class CardActionPane extends BorderPane {
     private HBox imageBox;
     private Player player;
     private SellCardDropBoard sellCard;
-
     private BuildWonderDropBoard wonder1;
     private BuildWonderDropBoard wonder2;
     private BuildWonderDropBoard wonder3;
@@ -91,10 +90,8 @@ public class CardActionPane extends BorderPane {
                     e.consume();
                 });
                 iv.setOnDragDone(e -> {
-//                    update();
-                    ModelService.getInstance().removeFromRotatingCardList();
-                    System.out.println("***E card constructlandı");
-                    ((GamePane) getScene().getRoot()).update();
+                    //ModelService.getInstance().removeFromRotatingCardList();
+                    //((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
 
@@ -105,9 +102,6 @@ public class CardActionPane extends BorderPane {
             cardFlowPane.getChildren().add(imageBox);
             cardFlowPane.setAlignment(Pos.CENTER);
         }
-
-//        cardFlowPane.setStyle("-fx-background-color: #FFFFFF");
-        // setStyle("-fx-background-color: #FFFFFF");
     }
 
     public void update(Card[] cardList) {
@@ -119,20 +113,6 @@ public class CardActionPane extends BorderPane {
                 imageViews.add(iv);
                 iv.setFitHeight(180);
                 iv.setFitWidth(120);
-                iv.setOnDragDetected(e -> {
-                    Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
-                    ClipboardContent content = new ClipboardContent();
-                   // modelService.setSelectedCard(currentCard);
-                    content.putImage(iv.getImage());
-                    db.setContent(content);
-                    e.consume();
-                });
-                iv.setOnDragDone(e -> {
-                    ModelService.getInstance().removeFromRotatingCardList();
-                    ((GamePane) getScene().getRoot()).update();
-                    e.consume();
-                });
-
             }
             imageBox.getChildren().clear();
             imageBox.getChildren().addAll(imageViews);

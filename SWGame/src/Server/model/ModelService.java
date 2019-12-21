@@ -1,6 +1,8 @@
 package Server.model;
 
 import Client.ClientController.ClientControllerFacade;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,10 +54,11 @@ public class ModelService {
         return cardLength;
     }
 
-    public void constructCard(Player player) {
+    public boolean constructCard(Player player) {
         Card selectedCard = ClientControllerFacade.getInstance().getSelectedCard();
         if (selectedCard != null)
-            selectedCard.constructCard(player);
+           return selectedCard.constructCard(player);
+        return false;
     }
 
     public void updateCurrentAge() {
@@ -92,8 +95,8 @@ public class ModelService {
      */
     public void removeFromRotatingCardList() {
         Card[] rotatingCardList = ClientControllerFacade.getInstance().getClientManager().getCards();
+        System.out.println("***Rem from rot list");
         if (selectedCard != null) {
-            System.out.println("hi bitches");
             for (int i = 0; i < rotatingCardList.length; i++) {
                 if (rotatingCardList[i] == selectedCard) {
                     for (int j = i; j < rotatingCardList.length - 1; j++) {
@@ -110,13 +113,9 @@ public class ModelService {
                 }
             }
         }
-        System.out.println(rotatingCardList.length);
-        System.out.println("removed");
-//        ImageView iv = new ImageView();
-//        iv.setImage(new Image(selectedCard.getName() + ".png"));
-//        iv.setManaged(false);
         selectedCard = null;
     }
+
 
     /*
     Will initiate the game. This method will call the createWonderBoard() method from the WonderBoard class
@@ -146,11 +145,6 @@ public class ModelService {
         player2.setRightNeighbor(2);
         player3.setLeftNeighbor(1);
         player3.setRightNeighbor(0);
-        if (numberOfPlayers == 4) {
-
-            Player player4 = new Player("Player4", 3);
-            playerList.add(player4);
-        }
         currentPlayer = player1;
         playerIndex = 0;
     }

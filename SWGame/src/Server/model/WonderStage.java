@@ -32,7 +32,12 @@ public class WonderStage {
 
     void buildWonderStage(Player player) {
         System.out.println("GELDİM");
-        ModelService ms = ModelService.getInstance();
+        for (int i = 0; i < player.getCurrentResources().size(); i++){
+            System.out.println("Player's resources:" + player.getCurrentResources().get(i).getResourceName());
+        }
+        for (int i = 0; i < requiredResources.length; i++){
+            System.out.println("required resources: " + requiredResources[i].getResourceName());
+        }
         if (player.checkRequirements(null, requiredResources, null)) {
             player.updateVictoryPoints(providedVictoryPoint);
             player.updateResources(providedResources);

@@ -31,21 +31,25 @@ public class ManufacturedGood extends Card {
     }
 
     @Override
-    void constructCard(Player currentPlayer) {
+    boolean constructCard(Player currentPlayer) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(givenProducts);
             ModelService.getInstance().removeFromRotatingCardList();
+            return true;
         } else {
             if (currentPlayer.checkRequirements(null, requiredProducts, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(givenProducts);
                 ModelService.getInstance().removeFromRotatingCardList();
+                return true;
             } else {
                 System.out.println("Can't afford");
+                return false;
             }
 
         }
+
 
     }
 
