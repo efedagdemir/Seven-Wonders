@@ -1,6 +1,7 @@
 package Server.ServerController;
 
 import Client.ClientController.ClientControllerFacade;
+import Client.ClientManager;
 import Client.view.DropBoard;
 import Server.ServerManager;
 import Server.model.ModelService;
@@ -39,8 +40,8 @@ public class ServerControllerFacade {
     }
 
     public void determineCardAction(DropBoard db) {
-
-        Platform.runLater(() -> db.takeCardAction(ClientControllerFacade.getInstance().getClientManager().getPlayer()));
+        ClientManager client = ClientControllerFacade.getInstance().getClientManager();
+        Platform.runLater(() -> db.takeCardAction(client.getPlayer(), client.getCards()));
     }
 
 

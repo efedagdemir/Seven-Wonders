@@ -55,7 +55,7 @@ public class ScientificStructure extends Card {
 
             currentPlayer.updateFreeStructures(providedS);
             currentPlayer.updateScientifictType(scType);
-            ModelService.getInstance().removeFromRotatingCardList();
+            ModelService.getInstance().removeFromRotatingCardList(cards);
             return true;
         } else {
             if (currentPlayer.checkRequirements(requiredS, requiredP, null)) {
