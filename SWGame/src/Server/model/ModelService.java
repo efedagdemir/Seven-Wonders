@@ -52,10 +52,10 @@ public class ModelService {
         return cardLength;
     }
 
-    public void constructCard(Player player) {
+    public void constructCard(Player player, Card[] cards) {
         Card selectedCard = ClientControllerFacade.getInstance().getSelectedCard();
         if (selectedCard != null)
-            selectedCard.constructCard(player);
+            selectedCard.constructCard(player, cards);
     }
 
     public void updateCurrentAge() {
@@ -90,8 +90,7 @@ public class ModelService {
      Will remove the chosen card from the rotating card list.
      The parameter of this method will be the card which is chosen by player.
      */
-    public void removeFromRotatingCardList() {
-        Card[] rotatingCardList = ClientControllerFacade.getInstance().getClientManager().getCards();
+    public void removeFromRotatingCardList( Card[] rotatingCardList) {
         if (selectedCard != null) {
             System.out.println("hi bitches");
             for (int i = 0; i < rotatingCardList.length; i++) {
@@ -104,13 +103,43 @@ public class ModelService {
                         arr[j] = rotatingCardList[j];
                     }
                     rotatingCardList = new Card[rotatingCardList.length - 1];
-                    for (int j = 0; j < rotatingCardList.length; j++) {
+                    for (int j = 0; j < rotatingCardList.length ; j++) {
                         rotatingCardList[j] = arr[j];
                     }
                 }
             }
         }
+        ClientControllerFacade.getInstance().getClientManager().setCards(rotatingCardList);
         System.out.println(rotatingCardList.length);
+        System.out.println("removed");
+//        ImageView iv = new ImageView();
+//        iv.setImage(new Image(selectedCard.getName() + ".png"));
+//        iv.setManaged(false);
+        selectedCard = null;
+    }
+
+    public void removeFromRotatingCardList( int playerIndex, Card selectedCard) {
+        if (selectedCard != null) {
+            System.out.println("hi bitches");
+            for (int i = 0; i < rotatingCardList[playerIndex].length; i++) {
+                if (rotatingCardList[playerIndex][i].getName().equals(selectedCard.getName())) {
+                    System.out.println("SELECTED CARD EQUALS GIRDI");
+                    for (int j = i; j < rotatingCardList[playerIndex].length - 1; j++) {
+                        rotatingCardList[playerIndex][j] = rotatingCardList[playerIndex][j + 1];
+                    }
+                    Card[] arr = new Card[rotatingCardList[playerIndex].length - 1];
+                    for (int j = 0; j < rotatingCardList[playerIndex].length - 1; j++) {
+                        arr[j] = rotatingCardList[playerIndex][j];
+                    }
+                    rotatingCardList[playerIndex] = new Card[rotatingCardList[playerIndex].length - 1];
+                    for (int j = 0; j < rotatingCardList[playerIndex].length ; j++) {
+                        rotatingCardList[playerIndex][j] = arr[j];
+                    }
+                }
+            }
+        }
+        this.rotatingCardList[playerIndex] = rotatingCardList[playerIndex];
+        System.out.println(rotatingCardList[playerIndex].length);
         System.out.println("removed");
 //        ImageView iv = new ImageView();
 //        iv.setImage(new Image(selectedCard.getName() + ".png"));
@@ -236,8 +265,9 @@ public class ModelService {
     public void riskBuildWonder(Player p) {
         p.wonder.riskBuildWonderStage();
     }
-    public void buildWonder(Player player) {
+    public void buildWonder(Player player, Card[] cards) {
         currentPlayer.wonder.buildWonderStage(player);
+        removeFromRotatingCardList(cards);
     }
 
     /*

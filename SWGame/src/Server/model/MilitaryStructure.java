@@ -31,18 +31,18 @@ public class MilitaryStructure extends Card {
     }
 
     @Override
-    void constructCard(Player currentPlayer) {
-        if (currentPlayer.isFree(this) == true) {
+    void constructCard(Player currentPlayer, Card[] cards) {
+        if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateMilitaryPower(militaryItem.getNoOfItems());
             currentPlayer.updateFreeStructures(providedStructure);
 
         } else {
-            if (currentPlayer.checkRequirements(requiredStructure, requiredProducts, null) == true) {
+            if (currentPlayer.checkRequirements(requiredStructure, requiredProducts, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateMilitaryPower(militaryItem.getNoOfItems());
                 currentPlayer.updateFreeStructures(providedStructure);
-                ModelService.getInstance().removeFromRotatingCardList();
+                ModelService.getInstance().removeFromRotatingCardList(cards);
             } else {
                 System.out.println("Can't afford");
             }

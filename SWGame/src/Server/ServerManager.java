@@ -15,12 +15,13 @@ import java.util.List;
 
 public class ServerManager {
 
-    private final int NUM_OF_PLAYERS = 3;
+    private final int NUM_OF_PLAYERS = 1;
     private final int PORT = 5346;
-
+    private int counter = 0;
     private ServerSocket serverSocket;
     private String ipAddress;
     private List<ClientHandler> clientHandlers;
+    private boolean ready = true;
 
 
     public ServerManager() throws IOException {
@@ -60,6 +61,23 @@ public class ServerManager {
         openGamePage();
         System.out.println("acceptConnections in ServerManager -- before update");
         update();
+
+        while(true){
+            for(ClientHandler client : clientHandlers){
+                ready = client.isReady() && ready;
+            }
+
+            if(ready){
+                System.out.println("acceptConnections in ServerManager -- before openGamePane");
+                openGamePage();
+                System.out.println("acceptConnections in ServerManager -- before update");
+                update();
+                for(ClientHandler client : clientHandlers){
+                    client.setReady(false);
+                }
+            }
+            ready = true;
+        }
     }
 
     public String getIpAddress() {

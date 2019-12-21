@@ -49,19 +49,19 @@ public class ScientificStructure extends Card {
     }
 
     @Override
-    void constructCard(Player currentPlayer) {
+    void constructCard(Player currentPlayer, Card[] cards) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
 
             currentPlayer.updateFreeStructures(providedS);
             currentPlayer.updateScientifictType(scType);
-            ModelService.getInstance().removeFromRotatingCardList();
+            ModelService.getInstance().removeFromRotatingCardList(cards);
         } else {
             if (currentPlayer.checkRequirements(requiredS, requiredP, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateFreeStructures(providedS);
                 currentPlayer.updateScientifictType(scType);
-                ModelService.getInstance().removeFromRotatingCardList();
+                ModelService.getInstance().removeFromRotatingCardList(cards);
             } else {
                 System.out.println("Can't afford!");
             }

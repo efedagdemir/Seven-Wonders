@@ -41,7 +41,7 @@ public class CommercialStructure extends Card {
     }
 
     @Override
-    void constructCard(Player currentPlayer) {
+    void constructCard(Player currentPlayer, Card[] cards) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedStructure);
@@ -55,7 +55,7 @@ public class CommercialStructure extends Card {
                 currentPlayer.updateDiscountedResources(discountedR);
                 currentPlayer.addCoin(givenCoins.getNoOfItems());
                 currentPlayer.updateVictoryPoints(victoryPoints);
-                ModelService.getInstance().removeFromRotatingCardList();
+                ModelService.getInstance().removeFromRotatingCardList(cards);
             } else {
                 System.out.println("Can't afford!!");
             }

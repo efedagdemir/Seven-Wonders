@@ -1,5 +1,7 @@
 package Server.model;
 
+import com.sun.webkit.Timer;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -303,8 +305,10 @@ public class Player {
     }
 
     /*This method updates the current player's coin amount by three. */
-    public void sellCard() {
+    public void sellCard( Card[] cards) {
         currentCoin.setNoOfItems(3);
+        ModelService.getInstance().removeFromRotatingCardList(cards);
+
     }
 
     //Adds the built card to the hand of the player.

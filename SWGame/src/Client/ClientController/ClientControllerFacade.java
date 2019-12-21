@@ -64,6 +64,7 @@ public class ClientControllerFacade {
 
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
+
     }
 
     public void setDropBoard(String dropBoard) {

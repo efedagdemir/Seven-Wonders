@@ -84,6 +84,7 @@ public class CardActionPane extends BorderPane {
                 iv.setOnDragDetected(e -> {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
+
                     ClientControllerFacade.getInstance().setSelectedCard(currentCard);
                     ModelService.getInstance().setSelectedCard(currentCard);
                     content.putImage(iv.getImage());
@@ -92,7 +93,7 @@ public class CardActionPane extends BorderPane {
                 });
                 iv.setOnDragDone(e -> {
 //                    update();
-                    ModelService.getInstance().removeFromRotatingCardList();
+                    //ModelService.getInstance().removeFromRotatingCardList(cards);
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
@@ -118,7 +119,7 @@ public class CardActionPane extends BorderPane {
                 imageViews.add(iv);
                 iv.setFitHeight(180);
                 iv.setFitWidth(120);
-                iv.setOnDragDetected(e -> {
+                /*iv.setOnDragDetected(e -> {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                    // modelService.setSelectedCard(currentCard);
@@ -130,7 +131,7 @@ public class CardActionPane extends BorderPane {
                     ModelService.getInstance().removeFromRotatingCardList();
                     ((GamePane) getScene().getRoot()).update();
                     e.consume();
-                });
+                });*/
 
             }
             imageBox.getChildren().clear();

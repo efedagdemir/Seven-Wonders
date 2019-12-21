@@ -31,16 +31,16 @@ public class ManufacturedGood extends Card {
     }
 
     @Override
-    void constructCard(Player currentPlayer) {
+    void constructCard(Player currentPlayer, Card[] cards) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(givenProducts);
-            ModelService.getInstance().removeFromRotatingCardList();
+            ModelService.getInstance().removeFromRotatingCardList(cards);
         } else {
             if (currentPlayer.checkRequirements(null, requiredProducts, null)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(givenProducts);
-                ModelService.getInstance().removeFromRotatingCardList();
+                ModelService.getInstance().removeFromRotatingCardList(cards);
             } else {
                 System.out.println("Can't afford");
             }

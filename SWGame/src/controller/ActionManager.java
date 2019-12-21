@@ -1,6 +1,7 @@
 package controller;
 
 import Client.ClientController.ClientControllerFacade;
+import Client.ClientManager;
 import Client.view.DropBoard;
 import Server.model.Resource;
 import javafx.application.Platform;
@@ -23,7 +24,8 @@ public class ActionManager {
 
 
     public void determineCardAction(DropBoard db) {
+        ClientManager client = ClientControllerFacade.getInstance().getClientManager();
+        Platform.runLater(() -> db.takeCardAction(client.getPlayer(), client.getCards()));
 
-        Platform.runLater(() -> db.takeCardAction(ClientControllerFacade.getInstance().getClientManager().getPlayer()));
     }
 }

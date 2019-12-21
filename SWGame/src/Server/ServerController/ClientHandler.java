@@ -26,6 +26,10 @@ public class ClientHandler extends Thread {
     private DataOutputStream output;
     int numOfPlayers;
 
+
+    boolean ready = false;
+
+
     public ClientHandler(DataInputStream input,
                          DataOutputStream output,
 //                         ObjectInputStream inputObject,
@@ -52,6 +56,7 @@ public class ClientHandler extends Thread {
 
     public void update() throws IOException {
         ServerReply serverReply = new ServerReply(playerIndex);
+        System.out.println("LENGTH  " + serverReply.getRotatingCardList().length);
         output.writeUTF(ClientManager.setGsonTypes().toJson(serverReply));
     }
 
@@ -61,6 +66,7 @@ public class ClientHandler extends Thread {
         output.writeInt(1);
     }
 
+
     @Override
     public void run() {
         int counter = 0;
@@ -68,32 +74,34 @@ public class ClientHandler extends Thread {
             while (true) {
                 ClientRequest request = getRequest();
                 if (request != null) {
-                    counter++;
+                    setReady(true);
                     String boardClass = request.getOperation();
                     DropBoard board = null;
+
                     if (boardClass.equals("BuildWonderDropBoard")) {
                         board = new BuildWonderDropBoard();
-                    } else if (boardClass.equals("ConstructCardDropBoard")) {
+                    }
+
+                    else if (boardClass.equals("ConstructCardDropBoard")) {
                         board = new ConstructCardDropBoard();
-                    } else if (boardClass.equals("SellCardDropBoard")) {
+                    }
+
+                    else if (boardClass.equals("SellCardDropBoard")) {
                         board = new SellCardDropBoard();
                     }
                     Card selectedCard = request.getCard();
                     ModelService.getInstance().setSelectedCard(selectedCard);
+                    System.out.println(selectedCard.getName());
                     DropBoard finalBoard = board;
-                    Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)));
-                    if(counter == numOfPlayers){
-                        System.out.println("acceptConnections in ServerManager -- before openGamePane");
-                        openGamePage();
-                        System.out.println("acceptConnections in ServerManager -- before update");
-                        update();
-                        counter = 0;
-                    }
+                    Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
+                    , ModelService.getInstance().getRotatingCardList()[playerIndex]));
+                    ModelService.getInstance().removeFromRotatingCardList(playerIndex, selectedCard);
                 }
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
 
         }
+
 
 //        try {
 //            ClientRequest request = (ClientRequest) inputObject.readObject();
@@ -113,5 +121,14 @@ public class ClientHandler extends Thread {
 //            e.printStackTrace();
 //        }
     }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+
 }
 

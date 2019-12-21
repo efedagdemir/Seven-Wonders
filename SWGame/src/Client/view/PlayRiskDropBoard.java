@@ -1,5 +1,6 @@
 package Client.view;
 
+import Server.model.Card;
 import Server.model.ModelService;
 import Server.model.Player;
 
@@ -9,7 +10,7 @@ public class PlayRiskDropBoard extends DropBoard {
 
     }
 
-    public void takeCardAction(Player player) {
-        ModelService.getInstance().constructCard(player);
+    public void takeCardAction(Player player, Card[] cards) {
+        ModelService.getInstance().constructCard(player, cards);
     }
 }
