@@ -1,7 +1,5 @@
 package Server.model;
 
-import com.sun.webkit.Timer;
-
 import java.util.ArrayList;
 
 public class Player {
@@ -408,7 +406,7 @@ public class Player {
     }
 
     public Player getLeftNeighbor() {
-        return ModelService.getInstance().playerList.get(rightNeighbor);
+        return ModelService.getInstance().playerList.get(leftNeighbor);
     }
 
     public void setLeftNeighbor(int leftNeighbor) {

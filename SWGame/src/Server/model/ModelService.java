@@ -1,8 +1,6 @@
 package Server.model;
 
 import Client.ClientController.ClientControllerFacade;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,8 +52,7 @@ public class ModelService {
         return cardLength;
     }
 
-    public boolean constructCard(Player player, Card[] cards) {
-        Card selectedCard = ClientControllerFacade.getInstance().getSelectedCard();
+    public boolean constructCard(Player player, Card[] cards, Card selectedCard) {
         if (selectedCard != null)
             return selectedCard.constructCard(player, cards);
         return false;
@@ -186,10 +183,10 @@ public class ModelService {
     public void rotateDecks() {
         Card[] temp1 = rotatingCardList[0];
         Card[] temp2 = rotatingCardList[1];
-        //Card[] temp3 = rotatingCardList[2];
+        Card[] temp3 = rotatingCardList[2];
         rotatingCardList[1] = temp1;
         rotatingCardList[2] = temp2;
-        //rotatingCardList[0] = temp3;
+        rotatingCardList[0] = temp3;
     }
 
     /*
@@ -258,7 +255,8 @@ public class ModelService {
     public void riskBuildWonder(Player p) {
         p.wonder.riskBuildWonderStage();
     }
-    public void buildWonder(Player player, Card[] cards) {
+
+    public void buildWonder(Player player, Card[] cards, Card selectedCard) {
         currentPlayer.wonder.buildWonderStage(player);
         removeFromRotatingCardList(cards);
     }

@@ -1,8 +1,10 @@
 package Server;
+
 import Client.view.CreateGamePane;
 import Server.ServerController.ClientHandler;
 import Server.ServerController.ServerControllerFacade;
 import Server.model.ModelService;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -44,7 +46,8 @@ public class ServerManager {
                 // ObjectInputStream inputObject = new ObjectInputStream(socket.getInputStream());
                 //ObjectOutputStream outputObject = new ObjectOutputStream(socket.getOutputStream());
                 System.out.println("in ServerManager: method: acceptConnections");
-                ClientHandler c = new ClientHandler(input, output, /*inputObject, outputObject, */ socket, clientHandlers.size(), NUM_OF_PLAYERS);
+                ClientHandler c = new ClientHandler(input, output, socket, clientHandlers.size(), NUM_OF_PLAYERS);
+                System.out.println(clientHandlers.size());
                 clientHandlers.add(c);
                 c.start();
 
@@ -67,6 +70,7 @@ public class ServerManager {
             }
 
             if(ready){
+                Thread.sleep(200);
                 ModelService.getInstance().rotateDecks();
                 System.out.println("acceptConnections in ServerManager -- before openGamePane");
                 openGamePage();
@@ -95,6 +99,7 @@ public class ServerManager {
     public void update() throws IOException {
         for (ClientHandler c : clientHandlers) {
             c.update();
+            System.out.println("=====================ServerManager update player " + (c.playerIndex) + "==============");
         }
     }
 

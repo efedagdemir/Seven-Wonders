@@ -4,6 +4,7 @@ import Client.ClientController.ClientControllerFacade;
 import Client.ClientManager;
 import Client.view.DropBoard;
 import Server.ServerManager;
+import Server.model.Card;
 import Server.model.ModelService;
 import Server.model.Player;
 import javafx.application.Platform;
@@ -39,9 +40,9 @@ public class ServerControllerFacade {
         GameInitializer.getInstance().initializeDADListeners(node, backgroundColor, hoveredColor, chosenP, currentP);
     }
 
-    public void determineCardAction(DropBoard db) {
+    public void determineCardAction(DropBoard db, Card selectedCard) {
         ClientManager client = ClientControllerFacade.getInstance().getClientManager();
-        Platform.runLater(() -> db.takeCardAction(client.getPlayer(), client.getCards()));
+        Platform.runLater(() -> db.takeCardAction(client.getPlayer(), client.getCards(), true, selectedCard));
     }
 
 }

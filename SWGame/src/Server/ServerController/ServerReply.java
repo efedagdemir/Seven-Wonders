@@ -14,8 +14,11 @@ public class ServerReply {
     public ServerReply(int playerIndex) {
         ModelService ms = ModelService.getInstance();
         player = ms.getPlayerList().get(playerIndex);
+        System.out.println(" SERVER REPLY -------------------- PLAYER NAME: " + player.getName());
         leftNeighbor = player.getLeftNeighbor();
+        System.out.println(" SERVER REPLY -------------------- RIGHT PLAYER NAME: " + leftNeighbor.getName());
         rightNeighbor = player.getRightNeighbor();
+        System.out.println(" SERVER REPLY -------------------- LEFT PLAYER NAME: " + rightNeighbor.getName());
         rotatingCardList = ms.getRotatingCardList()[playerIndex];
     }
 
