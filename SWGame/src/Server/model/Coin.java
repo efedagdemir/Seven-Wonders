@@ -6,9 +6,6 @@ public class Coin extends Item {
     public Coin(int coinAmount, String img) {
         noOfItems = coinAmount;
         name = img;
-//        image = new Image(img);
-//        iv = new ImageView();
-//        iv.setImage(image);
     }
 
     @Override

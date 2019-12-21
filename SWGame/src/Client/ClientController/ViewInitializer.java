@@ -1,7 +1,6 @@
 package Client.ClientController;
 
 import Client.view.DropBoard;
-import controller.ControllerFacade;
 import javafx.scene.input.TransferMode;
 
 public class ViewInitializer {
@@ -31,7 +30,8 @@ public class ViewInitializer {
         }
         dropBoard.setOnDragDropped(e -> {
                     //e.getGestureSource()..setManaged(false);
-                    ControllerFacade.getInstance().takeAction(e);
+                    //ControllerFacade.getInstance().takeAction(e); Bunu
+                    ClientControllerFacade.getInstance().takeAction(e);
                 }
         );
     }

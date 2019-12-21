@@ -4,7 +4,6 @@ import Client.ClientController.ClientControllerFacade;
 import Client.ClientManager;
 import Server.ServerController.ServerControllerFacade;
 import Server.ServerManager;
-import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,7 +33,7 @@ public class MainMenuPane extends BorderPane {
     public VBox menuButtons;
     public Label gameName;
     //end of new features
-    ControllerFacade controllerFacade = ControllerFacade.getInstance();
+
 
     private MainMenuPane() {
         // new features
@@ -91,8 +90,20 @@ public class MainMenuPane extends BorderPane {
         gameName.setEffect(dropShadow2);
 //      setBorder(new Border(new Layout));
        // startButton.setOnAction(e -> controllerFacade.startGame());
-        creditsButton.setOnAction(e -> controllerFacade.commandModel(e));
-        howToPlayButton.setOnAction(e -> controllerFacade.commandModel(e));
+        creditsButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        howToPlayButton.setOnAction(e -> {
+            try {
+                ClientControllerFacade.getInstance().commandView(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         //new features
         createGameButton.setEffect(dropShadow);

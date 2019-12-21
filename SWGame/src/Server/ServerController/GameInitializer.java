@@ -1,12 +1,12 @@
 package Server.ServerController;
 
+import Client.ClientController.ClientControllerFacade;
 import Client.view.CardActionPane;
 import Client.view.GamePane;
 import Client.view.GameView;
 import Client.view.OpponentInfoPane;
 import Server.model.ModelService;
 import Server.model.Player;
-import controller.ControllerFacade;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.TransferMode;
@@ -55,7 +55,8 @@ public class GameInitializer {
         }
         node.setOnDragDropped(e -> {
             //e.getGestureSource()..setManaged(false)
-            ControllerFacade.getInstance().takeAction(e);
+           // ControllerFacade.getInstance().takeAction(e);
+              ClientControllerFacade.getInstance().takeAction(e);
         }
         );
     }
@@ -88,7 +89,8 @@ public class GameInitializer {
                     //e.getGestureSource()..setManaged(false)
                     ModelService.getInstance().setChosenPlayer(chosenP);
                     ModelService.getInstance().setSwappedPlayer(currentP);
-                    ControllerFacade.getInstance().takeAction(e);
+                    //ControllerFacade.getInstance().takeAction(e);
+                    ClientControllerFacade.getInstance().takeAction(e);
                 }
         );
     }

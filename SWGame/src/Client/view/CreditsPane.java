@@ -1,6 +1,4 @@
 package Client.view;
-
-import controller.ControllerFacade;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -18,8 +16,6 @@ public class CreditsPane extends BorderPane {
     //public Button okayButton = new Button( "Okay");
     public Image menuBackground = new Image("leaf.png");
     public BackgroundImage backgroundImage = new BackgroundImage(menuBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-
-    ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
     public CreditsPane() {
         setPrefSize(600, 600);

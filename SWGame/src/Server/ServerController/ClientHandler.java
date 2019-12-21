@@ -56,7 +56,6 @@ public class ClientHandler extends Thread {
 
     public void update() throws IOException {
         ServerReply serverReply = new ServerReply(playerIndex);
-        System.out.println("LENGTH  " + serverReply.getRotatingCardList().length);
         output.writeUTF(ClientManager.setGsonTypes().toJson(serverReply));
     }
 
@@ -65,7 +64,6 @@ public class ClientHandler extends Thread {
         System.out.println("openGamePane in ClientHandler");
         output.writeInt(1);
     }
-
 
     @Override
     public void run() {
@@ -101,25 +99,6 @@ public class ClientHandler extends Thread {
         } catch (IOException e) {
 
         }
-
-
-//        try {
-//            ClientRequest request = (ClientRequest) inputObject.readObject();
-//            int operation = request.getOperation();
-//            switch (operation){
-//                case 0:
-//                    break;
-//                case 1:
-//                    break;
-//                case 2:
-//                    break;
-//                case 3:
-//                    break;
-//                default:
-//            }
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public boolean isReady() {

@@ -1,8 +1,10 @@
 package Server;
 
 import Client.view.CreateGamePane;
+import Client.view.DropBoard;
 import Server.ServerController.ClientHandler;
-import controller.ControllerFacade;
+import Server.ServerController.ServerControllerFacade;
+import javafx.application.Platform;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -56,7 +58,7 @@ public class ServerManager {
                 e.printStackTrace();
             }
         }
-        ControllerFacade.getInstance().startGame();
+        ServerControllerFacade.getInstance().startGame();
         System.out.println("acceptConnections in ServerManager -- before openGamePane");
         openGamePage();
         System.out.println("acceptConnections in ServerManager -- before update");
@@ -105,5 +107,6 @@ public class ServerManager {
         /*TODO() change*/
         return ipAddress;
     }
+
 
 }

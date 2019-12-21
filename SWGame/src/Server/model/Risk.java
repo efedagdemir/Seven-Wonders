@@ -4,18 +4,19 @@ public class Risk extends Card {
 
 
     RiskEnum riskEnum;
-    public Risk(String image, RiskEnum riskEnum){
+
+    public Risk(String image, RiskEnum riskEnum) {
         this.name = name;
-//        this.image = new Image(image);
-//        iv = new javafx.scene.image.ImageView();
-//        iv.setImage(this.image);
+        /*this.image = new Image(image);
+        iv = new javafx.scene.image.ImageView();
+        iv.setImage(this.image);*/
         this.riskEnum = riskEnum;
     }
 
     @Override
-    void constructCard(Player chosenPlayer, Card[] cards) {
+    boolean constructCard(Player chosenPlayer, Card[] cards) {
         Player swapped = ModelService.getInstance().getSwappedPlayer();
-        switch(riskEnum){
+        switch (riskEnum) {
             case BLOCK:
                 riskEnum.constructRisk(chosenPlayer, cards);
                 break;
@@ -51,9 +52,7 @@ public class Risk extends Card {
 
                 break;
         }
-
-        return;
-
+        return true;
     }
 
 

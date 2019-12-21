@@ -9,6 +9,7 @@ public class ConstructCardDropBoard extends DropBoard {
     public void takeCardAction(Player player, Card[] cards) {
         System.out.println("constructCard");
         ClientControllerFacade.getInstance().setDropBoard("ConstructCardDropBoard");
-        ModelService.getInstance().constructCard(player, cards);
+        boolean constructed = ModelService.getInstance().constructCard(player, cards);
+        if (constructed) { ((GamePane) getScene().getRoot()).update();}
     }
 }

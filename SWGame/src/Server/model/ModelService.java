@@ -1,6 +1,8 @@
 package Server.model;
 
 import Client.ClientController.ClientControllerFacade;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,10 +54,11 @@ public class ModelService {
         return cardLength;
     }
 
-    public void constructCard(Player player, Card[] cards) {
+    public boolean constructCard(Player player, Card[] cards) {
         Card selectedCard = ClientControllerFacade.getInstance().getSelectedCard();
         if (selectedCard != null)
-            selectedCard.constructCard(player, cards);
+            return selectedCard.constructCard(player, cards);
+        return false;
     }
 
     public void updateCurrentAge() {
@@ -103,7 +106,7 @@ public class ModelService {
                         arr[j] = rotatingCardList[j];
                     }
                     rotatingCardList = new Card[rotatingCardList.length - 1];
-                    for (int j = 0; j < rotatingCardList.length ; j++) {
+                    for (int j = 0; j < rotatingCardList.length; j++) {
                         rotatingCardList[j] = arr[j];
                     }
                 }
@@ -175,11 +178,6 @@ public class ModelService {
         player2.setRightNeighbor(2);
         player3.setLeftNeighbor(1);
         player3.setRightNeighbor(0);
-        if (numberOfPlayers == 4) {
-
-            Player player4 = new Player("Player4", 3);
-            playerList.add(player4);
-        }
         currentPlayer = player1;
         playerIndex = 0;
     }

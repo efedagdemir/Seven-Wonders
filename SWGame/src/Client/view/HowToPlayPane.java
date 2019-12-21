@@ -1,6 +1,5 @@
 package Client.view;
 
-import controller.ControllerFacade;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
@@ -239,7 +238,6 @@ public class HowToPlayPane extends ScrollPane {
 
     //public Image menuBackground = new Image("7Wbg.jpg");
     //public BackgroundImage backgroundImage = new BackgroundImage( menuBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-    ControllerFacade controllerFacade = ControllerFacade.getInstance();
 
     public HowToPlayPane() {
         setHbarPolicy(ScrollBarPolicy.ALWAYS);

@@ -6,4 +6,5 @@ import javafx.scene.layout.HBox;
 
 public abstract class DropBoard extends HBox {
     public abstract void takeCardAction(Player player, Card[] cards);
+
 }

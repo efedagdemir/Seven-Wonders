@@ -28,19 +28,22 @@ public class RawMaterial extends Card {
     }
 
     @Override
-    void constructCard(Player currentPlayer, Card[] cards) {
+    boolean constructCard(Player currentPlayer, Card[] cards) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(products);
             ModelService.getInstance().removeFromRotatingCardList(cards);
+            return true;
         } else {
             if (currentPlayer.checkRequirements(null, null, price)) {
                 currentPlayer.updateHand(this);
                 currentPlayer.updateResources(products);
                 currentPlayer.addCoin(-1 * price.getNoOfItems());
                 ModelService.getInstance().removeFromRotatingCardList(cards);
+                return true;
             } else {
                 System.out.println("Can't afford!");
+                return false;
             }
         }
     }
