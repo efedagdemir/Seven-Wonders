@@ -1,5 +1,7 @@
 package Server.model;
 
+import Client.ClientController.ClientControllerFacade;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -167,7 +169,7 @@ public class Player {
 
     //Updates the current coin of the player according to the actions taken.
     public boolean addCoin(int coinAmount) {
-        if (currentCoin.getNoOfItems() - coinAmount < 0)
+        if (currentCoin.getNoOfItems() + coinAmount < 0)
             return false;
 
         currentCoin.setNoOfItems(coinAmount);
@@ -353,15 +355,21 @@ public class Player {
     }
 
 
-    public void buyResource(Resource resource, Player neighbor) {
-        if( currentCoin.noOfItems >= 3){
+    public void buyResource(Resource resource, int neighbor) {
+        System.out.println("CurrentCoin in Player's buyResource: " + currentCoin);
+        if( currentCoin.noOfItems >= 2){
             int money = -2;
             for (int i = 0; i < discountedResources.size(); i++) {
                 if (resource.getResourceName().equals(discountedResources.get(i).getResourceName())) {
                     money = -1;
                 }
             }
-            neighbor.addCoin(-1 * money);
+            //neighbor.addCoin(-1 * money);
+            if( neighbor == 0)
+                ClientControllerFacade.getInstance().getClientManager().setSpentToLeft( -1 * money);
+            else
+                ClientControllerFacade.getInstance().getClientManager().setSpentToRight( -1 * money);
+
             addCoin(money);
             Resource[] r = new Resource[1];
             r[0] = resource;

@@ -354,7 +354,6 @@ public class ModelService {
     */
     Card[][] createRotatingCardList() {
 
-
         if (numberOfPlayers == 3) {
             int rotNo = 7;
             shuffle(currentAge.getCardDeck());

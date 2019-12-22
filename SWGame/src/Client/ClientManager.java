@@ -29,9 +29,11 @@ public class ClientManager {
     private List<String> messages;
     Player leftNeighbor;
     Player rightNeighbor;
+    int spentToLeft;
+    int spentToRight;
 
-    private Player leftNeighbor;
-    private Player rightNeighbor;
+    //private Player leftNeighbor;
+    //private Player rightNeighbor;
 
 
     public ClientManager(String key) throws IOException {
@@ -57,9 +59,7 @@ public class ClientManager {
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
                     ServerReply s = getReply();
-                    if( player == null)
-                        this.player = s.getPlayer();
-                    Player player = s.getPlayer();
+                    player = s.getPlayer();
                     leftNeighbor = s.getLeftNeighbor();
                     rightNeighbor = s.getRightNeighbor();
                     cards = s.getRotatingCardList();
@@ -70,9 +70,7 @@ public class ClientManager {
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
                     ServerReply s = getReply();
-                    if( player == null)
-                        this.player = s.getPlayer();
-                    Player player = s.getPlayer();
+                    player = s.getPlayer();
                     leftNeighbor = s.getLeftNeighbor();
                     rightNeighbor = s.getRightNeighbor();
                     ViewCommander.getInstance().showConflictScreen(player, leftNeighbor, rightNeighbor);
@@ -155,6 +153,15 @@ public class ClientManager {
 
     public Player getRightNeighbor() { return rightNeighbor; }
     public Player getLeftNeighbor() { return leftNeighbor; }
+
+    public int getSpentToLeft() { return spentToLeft; }
+
+    public void setSpentToLeft(int spentToLeft) { this.spentToLeft = spentToLeft; }
+
+    public int getSpentToRight() { return spentToRight; }
+
+    public void setSpentToRight(int spentToRight) { this.spentToRight = spentToRight; }
+
 
 }
 

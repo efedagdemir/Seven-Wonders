@@ -63,7 +63,10 @@ public class CreateGamePane extends BorderPane {
         p2ConnectedLabel.setManaged(false);
         p3ConnectedLabel.setManaged(false);
         //waitingLabel.setManaged(true);
-        startingLabel.setManaged(false);
+        //startingLabel.setManaged(false);
+
+        waitingLabel.setVisible(true);
+        startingLabel.setVisible(false);
 
         labelBox.setSpacing(50);
 
@@ -141,12 +144,14 @@ public class CreateGamePane extends BorderPane {
 
     public void update(int x){
         Platform.runLater(() -> playerConnectedLabels.get(x).setManaged(true));
-        if( x == 1) {
+        if( x == 2) {
             System.out.println("IS THIS EVER 3???: " + x);
             //Platform.runLater(() -> waitingLabel.setManaged(false));
             //Platform.runLater(() -> startingLabel.setManaged(true));
-            Platform.runLater(() -> waitingLabel.setManaged(false));
-            Platform.runLater(() -> startingLabel.setManaged(true));
+            //Platform.runLater(() -> waitingLabel.setManaged(false));
+            //Platform.runLater(() -> startingLabel.setManaged(true));
+            Platform.runLater(() -> waitingLabel.setVisible(false));
+            Platform.runLater(() -> startingLabel.setVisible(true));
         }
     }
 

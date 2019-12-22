@@ -3,6 +3,7 @@ package Client.view;
 import Client.ClientController.ClientControllerFacade;
 import Server.model.Player;
 import Server.model.Resource;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -210,20 +211,20 @@ public class ResourcePane extends BorderPane {
         resourceBox.getChildren().add(papyrusBox);
         resourceBox.getChildren().add(clayBox);*/
 
-        timber.setOnAction(e -> {player.buyResource(new Resource("Timber", 1, null), neighborIndex == 0 ? player.getLeftNeighbor():player.getRightNeighbor());
-                                infoPane.update();});
-        ore.setOnAction(e -> {player.buyResource(new Resource("Ore", 1, null), neighborIndex == 0 ? player.getLeftNeighbor():player.getRightNeighbor());
-                                infoPane.update();});
-        textile.setOnAction(e -> {player.buyResource(new Resource("Textile", 1, null), neighborIndex == 0 ? player.getLeftNeighbor():player.getRightNeighbor());
-                                infoPane.update();});
-        stone.setOnAction(e -> {player.buyResource(new Resource("Stone", 1, null), neighborIndex == 0 ? player.getLeftNeighbor():player.getRightNeighbor());
-                                infoPane.update();});
-        glass.setOnAction(e -> {player.buyResource(new Resource("Glass", 1, null), neighborIndex == 0 ? player.getLeftNeighbor():player.getRightNeighbor());
-                                infoPane.update();});
-        papyrus.setOnAction(e -> {player.buyResource(new Resource("Papyrus", 1, null), neighborIndex == 0 ? player.getLeftNeighbor():player.getRightNeighbor());
-                                infoPane.update();});
-        clay.setOnAction(e -> {player.buyResource(new Resource("Clay", 1, null), neighborIndex == 0 ? player.getLeftNeighbor():player.getRightNeighbor());
-                                infoPane.update();});
+        timber.setOnAction(e -> {player.buyResource(new Resource("Timber", 1, null), neighborIndex);
+            Platform.runLater(()-> infoPane.update(player));});
+        ore.setOnAction(e -> {player.buyResource(new Resource("Ore", 1, null), neighborIndex);
+            Platform.runLater(()-> infoPane.update(player));});
+        textile.setOnAction(e -> {player.buyResource(new Resource("Textile", 1, null), neighborIndex);
+            Platform.runLater(()-> infoPane.update(player));});
+        stone.setOnAction(e -> {player.buyResource(new Resource("Stone", 1, null), neighborIndex);
+            Platform.runLater(()-> infoPane.update(player));});
+        glass.setOnAction(e -> {player.buyResource(new Resource("Glass", 1, null), neighborIndex);
+            Platform.runLater(()-> infoPane.update(player));});
+        papyrus.setOnAction(e -> {player.buyResource(new Resource("Papyrus", 1, null), neighborIndex);
+            Platform.runLater(()-> infoPane.update(player));});
+        clay.setOnAction(e -> {player.buyResource(new Resource("Clay", 1, null), neighborIndex);
+            Platform.runLater(()-> infoPane.update(player));});
 
         //timberBox.setStyle("-fx-font-weight: bold");
 
@@ -239,9 +240,9 @@ public class ResourcePane extends BorderPane {
             tradables = ClientControllerFacade.getInstance().getClientManager().getLeftNeighbor().getCurrentResources();
         else
             tradables = ClientControllerFacade.getInstance().getClientManager().getRightNeighbor().getCurrentResources();
-        for(int i = 0; i < tradables.size(); i++){
+        /*for(int i = 0; i < tradables.size(); i++){
             System.out.println( "Resource name:" + tradables.get(i).getResourceName() + "--");
-        }
+        }*/
         resourceBox.getChildren().clear();
         //resourceBox.getChildren().add(buyLabel);
         for(int i = 0; i < tradables.size(); i++){
