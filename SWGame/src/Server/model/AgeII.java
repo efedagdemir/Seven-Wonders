@@ -12,7 +12,7 @@ public class AgeII extends Age {
     @Override
     void createDeck(int numOfPlayers) {
         //Risk TRYYY
-        Risk SWAP_VP = new Risk("risk.png", Risk.RiskEnum.SWAP_VP);
+       /* Risk SWAP_VP = new Risk("risk.png", Risk.RiskEnum.SWAP_VP);
         cardDeck.add(SWAP_VP);
         Risk COIN_DONATION = new Risk("risk.png", Risk.RiskEnum.COIN_DONATION);
         Risk COIN_VIRUS = new Risk("risk.png", Risk.RiskEnum.COIN_VIRUS);
@@ -29,11 +29,11 @@ public class AgeII extends Age {
         Risk c = new Risk("risk.png", Risk.RiskEnum.WS_BUILDER);
         cardDeck.add(a);
         cardDeck.add(b);
-        cardDeck.add(c);
+        cardDeck.add(c);*/
 
 
         cardDeck.clear();
-        //Civilian Structuress
+        //Civilian Structures
         String [] rTemple = { "Timber", "Clay", "Glass"};
         int [] nTemple = {1,1,1};
         CivilianStructure Temple = new CivilianStructure( 3, null, "Pantheon", rTemple, nTemple,"temple.png", "Temple");
@@ -50,6 +50,8 @@ public class AgeII extends Age {
         cardDeck.add(Temple);
         cardDeck.add(Aqueduct);
         cardDeck.add(Statue);
+        Risk COIN_VIRUS1 = new Risk("risk.png", Risk.RiskEnum.COIN_VIRUS);
+        cardDeck.add(COIN_VIRUS1);
         //Commercial Structure
         CommercialStructure Bazar = new CommercialStructure(4 , 0, null, null, true, true, null, "bazar.png", "Bazar");
         cardDeck.add(Bazar);
@@ -69,6 +71,10 @@ public class AgeII extends Age {
         cardDeck.add(Quarry);
         cardDeck.add(Foundry);
         cardDeck.add(BrickYard);
+        Risk COIN_DONATION = new Risk("risk.png", Risk.RiskEnum.COIN_DONATION);
+        Risk COIN_VIRUS = new Risk("risk.png", Risk.RiskEnum.COIN_VIRUS);
+        cardDeck.add(COIN_DONATION);
+        cardDeck.add(COIN_VIRUS);
         //Military Structure
         String[] guaName2 = {"Stone"};
         int[] guaNo2 = {3};
@@ -126,6 +132,6 @@ public class AgeII extends Age {
 
     @Override
     public List<Card> getCardDeck() {
-        return null;
+        return cardDeck;
     }
 }

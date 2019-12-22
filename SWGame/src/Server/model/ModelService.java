@@ -204,9 +204,11 @@ public class ModelService {
     public void changeAge(Player p, Age age ){
         if (age instanceof AgeI) {
             currentAge = new AgeII();
+            currentAge.createDeck(3);
         }
         if (age instanceof AgeII) {
             currentAge = new AgeIII();
+            currentAge.createDeck(3);
         }
     }
     /*
@@ -352,31 +354,22 @@ public class ModelService {
     Will divide the shuffled cardDeck object into 4 equal sub card sets
     and then will put these into a card array which is called RotatingCardList.
     */
-    Card[][] createRotatingCardList() {
-
+    public Card[][] createRotatingCardList() {
+        Card[][] rotatingCardListt = new Card[3][7];
         if (numberOfPlayers == 3) {
+            System.out.println(currentAge.name);
             int rotNo = 7;
             shuffle(currentAge.getCardDeck());
             int cardDeckNo = 0;
             for (int j = 0; j < 3; j++) {
                 for (int i = 0; i < rotNo; i++) {
-                    rotatingCardList[j][i] = currentAge.getCardDeck().get(cardDeckNo);
-
+                    rotatingCardListt[j][i] = currentAge.getCardDeck().get(cardDeckNo);
                     cardDeckNo++;
                 }
             }
 
-        } else if (numberOfPlayers == 4) {
-            int rotNo = currentAge.cardDeck.size() / 4;
-            shuffle(currentAge.cardDeck);
-            int cardDeckNo = 0;
-            for (int j = 0; j < 4; j++) {
-                for (int i = 0; i < rotNo; i++) {
-                    rotatingCardList[j][i] = currentAge.cardDeck.get(cardDeckNo);
-                    cardDeckNo++;
-                }
-            }
         }
+        this.rotatingCardList = rotatingCardListt;
         return rotatingCardList;
     }
 

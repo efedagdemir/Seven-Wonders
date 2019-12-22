@@ -55,7 +55,7 @@ public class ClientManager {
                 // If client sends exit,close this connection
                 // and then break from the while loop
                 if (tosend == 1) {
-                    System.out.println("communicateServer in ClientManager");
+                    System.out.println("communicateServer in ClientManager1");
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
                     ServerReply s = getReply();
@@ -66,7 +66,7 @@ public class ClientManager {
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                 }
                 if (tosend == 2) {
-                    System.out.println("communicateServer in ClientManager");
+                    System.out.println("communicateServer in ClientManager2");
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
                     ServerReply s = getReply();
@@ -114,6 +114,7 @@ public class ClientManager {
                 .registerSubtype(CivilianStructure.class, "CivilianStructure")
                 .registerSubtype(MilitaryStructure.class, "MilitaryStructure")
                 .registerSubtype(Guild.class, "Guild")
+                .registerSubtype(Risk.class, "Risk")
                 .registerSubtype(ScientificStructure.class, "ScientificStructure");
 
         RuntimeTypeAdapterFactory<Age> ageAdapterFactory = RuntimeTypeAdapterFactory.of(Age.class, "Age")

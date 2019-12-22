@@ -23,8 +23,9 @@ public class ClientHandler extends Thread {
     private DataInputStream input;
     private DataOutputStream output;
     int numOfPlayers;
-
+    public boolean nextAge = false;
     boolean ready = false;
+
 
     public ClientHandler(DataInputStream input,
                          DataOutputStream output,
@@ -75,9 +76,17 @@ public class ClientHandler extends Thread {
                 ClientRequest request = getRequest();
                 if (request != null) {
                     System.out.println("-------TAKEN CARD CLIENTHANDLER:  " + request.getCard().getName());
-                    setReady(true);
+
                     String boardClass = request.getOperation();
                     DropBoard board = null;
+                    if (boardClass.equals("nextAge")){
+                        setNextAge(true);
+                        ready = false;
+                        System.out.println("ClientHandlerdaki ilk if'e geldi mi??");
+                    }
+                    else{
+                        setReady(true);
+                        nextAge = false;
                     Card selectedCard = request.getCard();
                     ModelService.getInstance().setSelectedCard(selectedCard);
                     System.out.println(selectedCard.getName());
@@ -134,6 +143,9 @@ public class ClientHandler extends Thread {
 
     public void setReady(boolean ready) {
         this.ready = ready;
+    }
+    public void setNextAge(boolean nextAge) {
+        this.nextAge = nextAge;
     }
 
 }
