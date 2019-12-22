@@ -75,6 +75,16 @@ public class ClientManager {
                     rightNeighbor = s.getRightNeighbor();
                     ViewCommander.getInstance().showConflictScreen(player, leftNeighbor, rightNeighbor);
                 }
+                if (tosend == 3){
+
+                    Thread.sleep(100);
+                    System.out.println("********************************** end *********************************************");
+                    //ServerReply s = getReply();
+                    //player = s.getPlayer();
+                    //leftNeighbor = s.getLeftNeighbor();
+                    //rightNeighbor = s.getRightNeighbor();
+                    ViewCommander.getInstance().showGameOverPane(player, leftNeighbor, rightNeighbor);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

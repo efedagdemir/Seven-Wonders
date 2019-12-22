@@ -42,8 +42,8 @@ public class ViewCommander {
         gameView.showUpdatedWonderPane(wonders);
     }
 
-    void showGameOverPane() {
-        gameView.showGameOverPane();
+    public void showGameOverPane(Player current, Player left, Player right) {
+        gameView.showGameOverPane(current, left, right);
     }
 
 

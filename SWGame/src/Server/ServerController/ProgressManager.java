@@ -29,24 +29,20 @@ public class ProgressManager {
     public void nextCycle(List<ClientHandler> clientHandlers) throws IOException, InterruptedException {
             int endAge = 0;
             for (ClientHandler c : clientHandlers) {
-                if(ModelService.getInstance().getCardLength() > 7){
+                if(ModelService.getInstance().getCardLength() > 1){
                     c.openGamePage();
                 }
-
-                else{
+                else {
                     System.out.println("------For player " + c.playerIndex);
                     nextAge(c);
                     ModelService.getInstance().changeAge((ModelService.getInstance().getPlayerList().get(c.playerIndex)), (ModelService.getInstance().getPlayerList().get(c.playerIndex)).currentAge);
                     endAge++;
                 }
-
             }
             if (endAge == 3){
                 ModelService.getInstance().createRotatingCardList();
                 endAge = 0;
             }
-
-
 
     }
 

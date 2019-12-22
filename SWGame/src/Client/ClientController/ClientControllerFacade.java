@@ -8,6 +8,7 @@ import Client.view.PlayerInfoPane;
 import Server.ServerController.ClientHandler;
 import Server.ServerController.ServerControllerFacade;
 import Server.model.Card;
+import Server.model.ModelService;
 import Server.model.Player;
 import com.sun.source.tree.EnhancedForLoopTree;
 import javafx.event.ActionEvent;
@@ -51,12 +52,14 @@ public class ClientControllerFacade {
         if (event.getTarget() == PlayerInfoPane.howToPlayButton) {
             ViewCommander.getInstance().showHowToPlay();
         }
-        if (event.getTarget() == EndOfAgePane.button) {
-            ClientRequest request = new ClientRequest(selectedCard, "nextAge");
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA endGame = " + ModelService.getInstance().endGame);
+        if (event.getTarget() == EndOfAgePane.button && (ModelService.getInstance().endGame)){
+            ClientRequest request = new ClientRequest(selectedCard, "endGame");
             clientManager.sendRequest(request);
         }
-        if (event.getTarget() == EndOfAgePane.button && (getClientManager().getPlayer().currentAge.name == "Age 3")){
-            ViewCommander.getInstance().showGameOverPane();
+        else if (event.getTarget() == EndOfAgePane.button) {
+            ClientRequest request = new ClientRequest(selectedCard, "nextAge");
+            clientManager.sendRequest(request);
         }
     }
     public void takeAction(DragEvent e) {

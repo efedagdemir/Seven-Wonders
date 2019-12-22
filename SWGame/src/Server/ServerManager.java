@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ServerManager {
 
-    private final int NUM_OF_PLAYERS = 1;
+    private final int NUM_OF_PLAYERS = 2;
     private final int PORT = 5346;
     private int counter = 0;
     private ServerSocket serverSocket;
@@ -25,6 +25,7 @@ public class ServerManager {
     private List<ClientHandler> clientHandlers;
     private boolean ready = true;
     private boolean ready2;
+    private boolean ready3;
 
 
     public ServerManager() throws IOException {
@@ -69,7 +70,8 @@ public class ServerManager {
         while(true){
             for(ClientHandler client : clientHandlers){
                 ready = client.isReady() && ready;
-                ready2 = client.nextAge;
+                ready2 = client.nextAge && ready2;
+                ready3 = client.endPane && ready3;
             }
 
             if(ready){
@@ -84,16 +86,22 @@ public class ServerManager {
                 }
             }
             if (ready2){
-
-                System.out.println("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 openGamePage();
-                System.out.println("AYYYYYYYYYYYYY");
                 update();
                 for(ClientHandler client : clientHandlers){
                     client.setNextAge(false);
                 }
             }
+            if (ready3){
+                openEndPane();
+                update();
+                for(ClientHandler client : clientHandlers){
+                    client.setEnd(false);
+                }
+            }
             ready = true;
+            ready2 = true;
+            ready3 = true;
         }
     }
 
@@ -104,6 +112,13 @@ public class ServerManager {
     private void openGamePage() throws IOException, InterruptedException {
         ProgressManager.getInstance().nextCycle(clientHandlers);
     }
+
+    private void openEndPane() throws IOException, InterruptedException {
+        for (ClientHandler client: clientHandlers )
+            client.openEndPane();
+    }
+
+
 
 
     public void update() throws IOException {

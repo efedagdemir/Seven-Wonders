@@ -22,7 +22,7 @@ public class ModelService {
     int cardLength;
     private Player chosenPlayer;
     private Player swappedPlayer;
-
+    public boolean endGame = false;
 
     private ModelService() {
         cardLength = 7;
@@ -208,6 +208,9 @@ public class ModelService {
             p.currentAge = new AgeIII();
             currentAge = new AgeIII();
             currentAge.createDeck(3);
+        }
+        else{
+            endGame = true;
         }
     }
     /*

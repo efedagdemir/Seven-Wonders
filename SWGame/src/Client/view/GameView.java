@@ -87,8 +87,9 @@ public class GameView {
 
     }
 
-    public void showGameOverPane() {
-        GameOverPane gop = new GameOverPane();
+    public void showGameOverPane(Player current, Player left, Player right) {
+        System.out.println("showGamePane'e giriyor mu");
+        GameOverPane gop = new GameOverPane(current, left, right);
         Platform.runLater(() -> primaryStage.setScene(new Scene(gop, 1300, 750)));
         Platform.runLater(() -> primaryStage.show());
     }

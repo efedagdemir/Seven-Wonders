@@ -49,7 +49,7 @@ public class ViewManipulator {
     }
 
     void notifyGameOverPane(ArrayList<Player> playerList) {
-        gameView.showGameOverPane();
+        //gameView.showGameOverPane();
     }
 
     void notifyGameBorderPane(Player player) {

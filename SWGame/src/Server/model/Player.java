@@ -300,7 +300,7 @@ public class Player {
             affordC = requiredCoin.getNoOfItems() <= currentCoin.getNoOfItems();
         }
 
-        return affordC && affordR && affordS;
+        return (affordC && affordR ) || affordS;
     }
 
     /*This method updates the current player's coin amount by three. */
