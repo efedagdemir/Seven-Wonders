@@ -32,7 +32,7 @@ public class ViewManipulator {
     }
 
     void notifyConflictScreen(ArrayList<Player> playerList) {
-        gameView.showConflictScreen(playerList);
+      //  gameView.showConflictScreen(playerList);
     }
 
     void notifyCredits() {

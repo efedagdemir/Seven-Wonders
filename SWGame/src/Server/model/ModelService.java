@@ -9,7 +9,7 @@ import java.util.List;
 public class ModelService {
     private static ModelService modelService;
     public int playerIndex;
-    Age currentAge;
+    public Age currentAge;
     Player currentPlayer;
     int numberOfPlayers;
     ArrayList<Player> playerList;
@@ -49,7 +49,7 @@ public class ModelService {
     }
 
     public int getCardLength() {
-        return cardLength;
+        return rotatingCardList[numberOfPlayers - 1].length;
     }
 
     public boolean constructCard(Player player, Card[] cards, Card selectedCard) {
@@ -60,21 +60,19 @@ public class ModelService {
         return false;
     }
 
-    public void updateCurrentAge() {
-        if (currentAge instanceof AgeI) {
-            initiateAndShowConflict();
-            currentAge = new AgeII();
-            System.out.println("CURRENT AGE 2 OLDU");
+    public void updateCurrentAge(Player player, Age age) throws InterruptedException {
+        if (age instanceof AgeI) {
+            initiateAndShowConflict(player,age);
         }
-        if (currentAge instanceof AgeII) {
-            initiateAndShowConflict();
-            currentAge = new AgeIII();
+        if (age instanceof AgeII) {
+            initiateAndShowConflict(player, age);
         }
-        if (currentAge instanceof AgeIII) {
-            initiateAndShowConflict();
+        if (age instanceof AgeIII) {
+            initiateAndShowConflict(player, age);
             calculateFinalPoints();
         }
     }
+
 
     //Will update the current player as each turn is played.
     public void updateCurrentPlayer() {
@@ -203,14 +201,20 @@ public class ModelService {
         }
     }
 
+    public void changeAge(Player p, Age age ){
+        if (age instanceof AgeI) {
+            currentAge = new AgeII();
+        }
+        if (age instanceof AgeII) {
+            currentAge = new AgeIII();
+        }
+    }
     /*
     Will calculate the victory points of the players after a conflict
     and will call the notifyConflictScreen(Player[]) from the ViewManipulator class.
     */
-    public void initiateAndShowConflict() {
-        for (int i = 0; i < playerList.size(); i++) {
-            playerList.get(i).updateConflictPoints(currentAge);
-        }
+    public void initiateAndShowConflict(Player player, Age age) {
+            player.updateConflictPoints(age);
 
     }
 

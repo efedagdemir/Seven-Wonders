@@ -69,8 +69,8 @@ public class GameView {
     public void showConflictScreen(Player current, Player left, Player right) {
         EndOfAgePane endOfAgePane = new EndOfAgePane(current, left, right);
         scene = new Scene(endOfAgePane, 1300, 750);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Platform.runLater(() -> primaryStage.setScene(scene));
+        Platform.runLater(() -> primaryStage.show());
 
     }
 
@@ -92,10 +92,7 @@ public class GameView {
     public void showGamePane(Player player, Card[] cards, Player left, Player right) throws IllegalStateException {
         try {
             System.out.println("showGamePane in GameView");
-            //amePane gamePane = new GamePane(player);
-
             System.out.println("after creation of GamePane");
-            //Scene sc = new Scene(gamePane);
             System.out.println("sout1");
             Platform.runLater(() -> primaryStage.setScene(new Scene(new GamePane(player, cards, left, right))));
             System.out.println("sout2");
@@ -108,13 +105,13 @@ public class GameView {
     public void showCreateGameScreen() throws IOException, ClassNotFoundException {
         CreateGamePane createGamePane = new CreateGamePane();
         Scene sc = new Scene(createGamePane, 1300, 750);
-        primaryStage.setScene(sc);
-        primaryStage.show();
+        Platform.runLater(() -> primaryStage.setScene(sc));
+        Platform.runLater(() ->primaryStage.show());
     }
     public void showJoinGameScreen(){
         JoinGamePane joinGamePane = new JoinGamePane();
         Scene sc = new Scene(joinGamePane, 1300, 750);
-        primaryStage.setScene(sc);
-        primaryStage.show();
+        Platform.runLater(() ->primaryStage.setScene(sc));
+        Platform.runLater(() -> primaryStage.show());
     }
 }

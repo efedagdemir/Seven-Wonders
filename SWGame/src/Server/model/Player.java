@@ -19,9 +19,7 @@ public class Player {
     ArrayList<ScientificType> scientificTypes;
     ArrayList<Resource> currentResources;
     ArrayList<Structure> freeStructures;
-
-    public Player() {
-    }
+    public Age currentAge;
 
     public Player(String name, int coinAmount) {
         this.name = name;
@@ -30,10 +28,9 @@ public class Player {
         conflictPoints = new ConflictPoint(0);
         finalPoint = 0;
         militaryP = new MilitaryPower(0);
-
+        currentAge = new AgeI();
         hand = new ArrayList<>();
         discountedResources = new ArrayList<>();
-
         freeStructures = new ArrayList<>();
         scientificTypes = new ArrayList<>();
         itemList = new ArrayList<>();
@@ -317,7 +314,7 @@ public class Player {
     // Looks at the conflict points of both of the neighbors
     // and then compares them with the player’s conflict point.
     // Then according to the comparisons made, updates the conflict points of the player.
-    void updateConflictPoints(Age age) {
+    void updateConflictPoints(Age currentAge) {
         Player player1 = this.getLeftNeighbor();
         int player1W = player1.getMilitaryPower().getNoOfItems();
 
@@ -326,10 +323,11 @@ public class Player {
 
         int agePoint = 1;
         int lost = -1;
-        if (age instanceof AgeII) {
+        if ( currentAge instanceof AgeII) {
             agePoint = 3;
+            currentAge = new AgeIII();
         }
-        if (age instanceof AgeIII) {
+        else if (currentAge instanceof AgeIII) {
             agePoint = 5;
         }
 
@@ -368,7 +366,6 @@ public class Player {
         updateResources(r);
 
     }
-
 
     public Coin getCurrentCoin() {
         return currentCoin;
@@ -424,8 +421,7 @@ public class Player {
     public Item getVictoryPoints() {
         return victoryPoints;
     }
-
-
+    public ConflictPoint getConflictPoints() { return conflictPoints; }
     public MilitaryPower getMilitaryPower() {
         return militaryP;
     }
