@@ -7,6 +7,8 @@ public class AgeI extends Age {
 
     public AgeI() {
         cardDeck = new ArrayList<>();
+        name = "Age 1";
+
     }
 
     public List<Card> getCardDeck() {

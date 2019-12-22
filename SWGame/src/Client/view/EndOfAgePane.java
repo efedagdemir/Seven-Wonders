@@ -1,5 +1,6 @@
 package Client.view;
 
+import Client.ClientController.ClientControllerFacade;
 import Server.model.Player;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
@@ -13,10 +14,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class EndOfAgePane extends BorderPane {
 
-
+        public static Button button;
         public EndOfAgePane(Player current, Player left, Player right) {
             setPrefSize(1300, 750);
             VBox box = new VBox();
@@ -24,7 +26,7 @@ public class EndOfAgePane extends BorderPane {
             box.setAlignment(Pos.BOTTOM_CENTER);
             Label mtLabel = new Label("Military Conflict Resolutions");
             Label ageLabel = new Label("END OF AGE!");
-            Button button = new Button("Next Age");
+            button = new Button("Next Age");
 
 
             Player player1 = current;
@@ -72,6 +74,14 @@ public class EndOfAgePane extends BorderPane {
             pointsColumn.getChildren().add(player1ConflictPoints);
             pointsColumn.getChildren().add(player2ConflictPoints);
             pointsColumn.getChildren().add(player3ConflictPoints);
+
+            button.setOnAction(e -> {
+                        try {
+                            ClientControllerFacade.getInstance().commandView(e);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+            });
 
             HBox conflictTable = new HBox();
             setCenter(conflictTable);

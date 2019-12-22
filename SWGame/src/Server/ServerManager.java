@@ -24,6 +24,7 @@ public class ServerManager {
     private String ipAddress;
     private List<ClientHandler> clientHandlers;
     private boolean ready = true;
+    private boolean ready2;
 
 
     public ServerManager() throws IOException {
@@ -68,6 +69,7 @@ public class ServerManager {
         while(true){
             for(ClientHandler client : clientHandlers){
                 ready = client.isReady() && ready;
+                ready2 = client.nextAge;
             }
 
             if(ready){
@@ -79,6 +81,16 @@ public class ServerManager {
                 update();
                 for(ClientHandler client : clientHandlers){
                     client.setReady(false);
+                }
+            }
+            if (ready2){
+
+                System.out.println("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                openGamePage();
+                System.out.println("AYYYYYYYYYYYYY");
+                update();
+                for(ClientHandler client : clientHandlers){
+                    client.setNextAge(false);
                 }
             }
             ready = true;

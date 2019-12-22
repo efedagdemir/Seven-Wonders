@@ -141,7 +141,6 @@ public class MainMenuPane extends BorderPane {
             }
         });
 
-
         joinGameButton.setOnAction(e -> {
             JoinGamePane cgp = new JoinGamePane();
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
