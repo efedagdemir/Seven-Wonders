@@ -31,7 +31,7 @@ public class ManufacturedGood extends Card {
     }
 
     @Override
-    boolean constructCard(Player currentPlayer, Card[] cards) {
+    boolean constructCard(Player currentPlayer, Card[] cards, boolean taken) {
         if (currentPlayer.isFree(this)) {
             currentPlayer.updateHand(this);
             currentPlayer.updateResources(givenProducts);

@@ -14,7 +14,7 @@ public class Risk extends Card {
     }
 
     @Override
-    boolean constructCard(Player chosenPlayer, Card[] cards) {
+    boolean constructCard(Player chosenPlayer, Card[] cards, boolean taken) {
         Player swapped = ModelService.getInstance().getSwappedPlayer();
         switch (riskEnum) {
             case BLOCK:

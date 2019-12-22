@@ -31,8 +31,8 @@ public class ProgressManager {
             for (ClientHandler c : clientHandlers) {
                 if(ModelService.getInstance().getCardLength() > 1){
                     c.openGamePage();
-
                 }
+
                 else{
                     System.out.println("------For player " + c.playerIndex);
                     nextAge(c);

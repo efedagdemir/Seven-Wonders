@@ -31,8 +31,8 @@ public class MilitaryStructure extends Card {
     }
 
     @Override
-    boolean constructCard(Player currentPlayer, Card[] cards) {
-        if (currentPlayer.isFree(this)) {
+    boolean constructCard(Player currentPlayer, Card[] cards, boolean taken) {
+        if (currentPlayer.isFree(this)|| taken) {
             currentPlayer.updateHand(this);
             currentPlayer.updateMilitaryPower(militaryItem.getNoOfItems());
             currentPlayer.updateFreeStructures(providedStructure);

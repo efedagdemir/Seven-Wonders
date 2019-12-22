@@ -7,10 +7,10 @@ import Server.model.Player;
 import Server.model.Resource;
 
 public class ConstructCardDropBoard extends DropBoard {
-    public void takeCardAction(Player player, Card[] cards, boolean ui, Card selectedCard) {
+    public void takeCardAction(Player player, Card[] cards, boolean ui, Card selectedCard, boolean taken) {
         System.out.println("constructCard");
         ClientControllerFacade.getInstance().setDropBoard("ConstructCardDropBoard");
-        boolean constructed = ModelService.getInstance().constructCard(player, cards, selectedCard);
+        boolean constructed = ModelService.getInstance().constructCard(player, cards, selectedCard, taken);
         for(Resource res : player.getCurrentResources()){
             System.out.println("*******RESOURCES AFTER MODEL "
             + res.getName());

@@ -95,21 +95,21 @@ public class ClientHandler extends Thread {
                         board = new BuildWonderDropBoard();
                         DropBoard finalBoard = board;
                         Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
-                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
+                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard,true));
                     }
 
                     else if (boardClass.equals("ConstructCardDropBoard")) {
                         board = new ConstructCardDropBoard();
                         DropBoard finalBoard1 = board;
                         Platform.runLater(() -> finalBoard1.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
-                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
+                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard,true));
                     }
 
                     else if (boardClass.equals("SellCardDropBoard")) {
                         board = new SellCardDropBoard();
                         DropBoard finalBoard2 = board;
                         Platform.runLater(() -> finalBoard2.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
-                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
+                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard, true));
                     }
 
 
@@ -132,7 +132,7 @@ public class ClientHandler extends Thread {
                     //request.getSpentToLeft()
                 }
             }
-        } catch (IOException e) {
+        } }catch (IOException e) {
 
         }
     }
