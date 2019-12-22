@@ -334,22 +334,26 @@ public class Player {
         else if (currentAge instanceof AgeIII) {
             agePoint = 5;
         }
-
+        ConflictPoint thisAge = new ConflictPoint(0);
         //compare with left neighbor
         if (player1W > this.getMilitaryPower().getNoOfItems()) {
             this.conflictPoints.setNoOfItems(lost);
+            thisAge.setNoOfItems(lost);
         }
 
         if (player1W < this.getMilitaryPower().getNoOfItems()) {
             this.conflictPoints.setNoOfItems(agePoint);
+            thisAge.setNoOfItems(lost);
         }
 
         if (player2W > this.getMilitaryPower().getNoOfItems()) {
             this.conflictPoints.setNoOfItems(lost);
+            thisAge.setNoOfItems(lost);
         }
 
         if (player2W < this.getMilitaryPower().getNoOfItems()) {
             this.conflictPoints.setNoOfItems(agePoint);
+            thisAge.setNoOfItems(lost);
         }
         ConflictPoint cp = conflictPoints;
         updateItemList(cp);
@@ -441,6 +445,10 @@ public class Player {
     public ArrayList<Item> getItemList() {
         return itemList;
     }
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
     public ArrayList<Card> getHand() {
         return hand;
     }

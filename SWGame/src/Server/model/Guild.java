@@ -16,7 +16,6 @@ public class Guild extends Card {
 //        iv.setImage(image);
 //        iv.setFitHeight(100);
 //        iv.setFitWidth(65);
-
         victoryPoints = new VictoryPoint(vp);
         if (rStructure != null)
             requiredStructure = new Structure(rStructure);
@@ -30,42 +29,51 @@ public class Guild extends Card {
         }
     }
 
-    /*Constructor for Guilds which require only one resource */
-    public Guild(int vp, String rStructure, String resName, int resNo, String img) {
-
-//        image = new Image(img);
-//        iv = new ImageView();
-//        iv.setImage(image);
-//        iv.setFitHeight(100);
-//        iv.setFitWidth(65);
-
-        victoryPoints = new VictoryPoint(vp);
-        if (rStructure != null)
-            requiredStructure = new Structure(rStructure);
-        if (resName != null) {
-            requiredProduct = new Resource[1];
-            requiredProduct[0] = new Resource(resName, resNo, resName.toLowerCase() + ".png");
-        }
-    }
-
     @Override
     boolean constructCard(Player currentPlayer, Card[] cards, boolean taken) {
-        if (currentPlayer.isFree(this)|| taken) {
+
+        if (currentPlayer.isFree(this) || taken) {
             currentPlayer.updateHand(this);
-            currentPlayer.updateVictoryPoints(victoryPoints);
+            chooseAction(currentPlayer, cards);
             ModelService.getInstance().removeFromRotatingCardList(cards);
             return true;
         } else {
             if (currentPlayer.checkRequirements(requiredStructure, requiredProduct, null)) {
                 currentPlayer.updateHand(this);
-                currentPlayer.updateVictoryPoints(victoryPoints);
+                chooseAction(currentPlayer, cards);
                 ModelService.getInstance().removeFromRotatingCardList(cards);
                 return true;
             } else {
                 System.out.println("Can't afford");
                 return false;
             }
+        }
+    }
 
+    void chooseAction(Player currentPlayer, Card[] cards){
+        if(this.name.equals("StrategistsGuild")){
+            int vp = 0;
+            for(Card card : currentPlayer.getHand()){
+                if(card instanceof RawMaterial || card instanceof Guild || card instanceof ManufacturedGood){
+                    vp++;
+                }
+            }
+            currentPlayer.updateVictoryPoints(new VictoryPoint(currentPlayer.getVictoryPoints().noOfItems + vp));
+        }
+        else if (this.name.equals("BuildersGuild")){
+            int level1 = currentPlayer.wonder.getWonderLevel();
+            int level2= currentPlayer.getLeftNeighbor().wonder.getWonderLevel();
+            int level3 =  currentPlayer.getRightNeighbor().wonder.getWonderLevel();
+            int totalVp = level1 +level2 + level3;
+            currentPlayer.updateVictoryPoints(new VictoryPoint(totalVp));
+        }
+        else if (this.name.equals("ScientistsGuild")){
+            ScientificType cog = new ScientificType("Cog");
+            ScientificType ruler = new ScientificType("Ruler");
+            ScientificType tomb = new ScientificType("Tomb");
+            currentPlayer.updateScientifictType(cog);
+            currentPlayer.updateScientifictType(ruler);
+            currentPlayer.updateScientifictType(tomb);
         }
     }
 

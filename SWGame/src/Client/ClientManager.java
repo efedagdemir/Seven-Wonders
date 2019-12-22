@@ -114,6 +114,7 @@ public class ClientManager {
                 .registerSubtype(CivilianStructure.class, "CivilianStructure")
                 .registerSubtype(MilitaryStructure.class, "MilitaryStructure")
                 .registerSubtype(Guild.class, "Guild")
+                .registerSubtype(Risk.class, "Risk")
                 .registerSubtype(ScientificStructure.class, "ScientificStructure");
 
         RuntimeTypeAdapterFactory<Age> ageAdapterFactory = RuntimeTypeAdapterFactory.of(Age.class, "Age")

@@ -65,12 +65,10 @@ public class AgeIII extends Age {
         cardDeck.add(MagistratesGuild);
 
          */
-
         String [] sgReq = {"Timber", "Ore", "Papyrus"};
         int [] snReq = {2,2,1};
-        Guild scientistGuild = new Guild(1, null,sgReq,snReq, "scientistguild.png", "ScientistGuild");
+        Guild scientistGuild = new Guild(1, null,sgReq,snReq, "scientistsguild.png", "ScientistsGuild");
         cardDeck.add(scientistGuild);
-
         String [] tbReq = {"Glass", "Stone", "Clay"};
         int [] nbReq = {1,2,2};
         Guild BuildersGuild = new Guild(1, null,tbReq,nbReq, "buildersguild.png", "BuildersGuild");

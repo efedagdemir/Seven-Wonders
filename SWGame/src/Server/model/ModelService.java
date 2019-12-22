@@ -198,16 +198,22 @@ public class ModelService {
         }
     }
 
-    public void changeAge(Player p, Age age ){
+    public void changeAge(Player p, Age age){
         if (age instanceof AgeI) {
+            System.out.println("ChangeAge başına geldi");
             p.currentAge = new AgeII();
             currentAge = new AgeII();
             currentAge.createDeck(3);
+            if (currentAge.cardDeck == null)
+                System.out.println("ChangeAge ------ null geldi");
         }
         else if (age instanceof AgeII) {
+            System.out.println("BURAYA GİRDİ Mİ CHANGEAGE 2.");
             p.currentAge = new AgeIII();
             currentAge = new AgeIII();
             currentAge.createDeck(3);
+            if (currentAge.cardDeck == null)
+                System.out.println("ChangeAge ------ for age 3null geldi");
         }
     }
     /*
