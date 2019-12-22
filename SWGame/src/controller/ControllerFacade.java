@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class ControllerFacade {
     private static final ControllerFacade controllerFacade = new ControllerFacade();
-    GameView gameView = GameView.getInstance();
+    //GameView gameView = GameView.getInstance();
     Stage primaryStage;
     ModelService modelService;
 

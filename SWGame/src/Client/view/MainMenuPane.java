@@ -5,6 +5,7 @@ import Client.ClientManager;
 import Server.ServerController.ServerControllerFacade;
 import Server.ServerManager;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,14 +28,14 @@ public class MainMenuPane extends BorderPane {
     public static Button createGameButton;
     public static Button joinGameButton;
     //private static MainMenuPane mainMenu = new MainMenuPane();
-    private static MainMenuPane mainMenuPane;
+    //private static MainMenuPane mainMenuPane;
     //public Button startButton;
     public VBox menuButtons;
     public Label gameName;
     //end of new features
 
 
-    private MainMenuPane() {
+    public MainMenuPane() { //previously private
         // new features
         createGameButton = new Button("Create Game");
         joinGameButton = new Button("Join Game");
@@ -149,12 +150,12 @@ public class MainMenuPane extends BorderPane {
         //end of new features
     }
 
-    public static MainMenuPane getInstance() {
+    /*public static MainMenuPane getInstance() {
         if (mainMenuPane == null) {
             mainMenuPane = new MainMenuPane();
         }
         return mainMenuPane;
-    }
+    }*/
 
     static class ClientThread extends Thread implements Runnable {
         public String ipAddress;

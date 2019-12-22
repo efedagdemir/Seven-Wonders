@@ -26,6 +26,7 @@ public class ClientHandler extends Thread {
     public boolean nextAge = false;
     boolean ready = false;
 
+
     public ClientHandler(DataInputStream input,
                          DataOutputStream output,
 //                         ObjectInputStream inputObject,
@@ -86,24 +87,32 @@ public class ClientHandler extends Thread {
                     else{
                         setReady(true);
                         nextAge = false;
+                    Card selectedCard = request.getCard();
+                    ModelService.getInstance().setSelectedCard(selectedCard);
+                    System.out.println(selectedCard.getName());
+
                     if (boardClass.equals("BuildWonderDropBoard")) {
                         board = new BuildWonderDropBoard();
+                        DropBoard finalBoard = board;
+                        Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
+                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
                     }
 
                     else if (boardClass.equals("ConstructCardDropBoard")) {
                         board = new ConstructCardDropBoard();
+                        DropBoard finalBoard1 = board;
+                        Platform.runLater(() -> finalBoard1.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
+                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
                     }
 
                     else if (boardClass.equals("SellCardDropBoard")) {
                         board = new SellCardDropBoard();
+                        DropBoard finalBoard2 = board;
+                        Platform.runLater(() -> finalBoard2.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
+                                , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
                     }
 
-                    Card selectedCard = request.getCard();
-                    ModelService.getInstance().setSelectedCard(selectedCard);
-                    System.out.println(selectedCard.getName());
-                    DropBoard finalBoard = board;
-                    Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
-                            , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
+
                     System.out.println("***************** Item List **************************    " + playerIndex);
                     for (Resource item : ModelService.getInstance().getPlayerList().get(playerIndex).getCurrentResources()) {
                         System.out.println(item.getName());
@@ -112,8 +121,16 @@ public class ClientHandler extends Thread {
                     System.out.println("!!!!!!For player" + playerIndex);
                     for (Card c :  ModelService.getInstance().getRotatingCardList()[playerIndex] )
                         System.out.println(c.getName());
-                } }
 
+                    ModelService.getInstance().getPlayerList().get(playerIndex).addCoin( -1 * (request.getSpentToLeft() + request.getSpentToRight()));
+                    ModelService.getInstance().getPlayerList().get(playerIndex).getLeftNeighbor().addCoin( request.getSpentToLeft());
+                    System.out.println( "---------------LEFT NEIGHBOR IS: " + ModelService.getInstance().getPlayerList().get(playerIndex).getLeftNeighbor().getName());
+                    System.out.println("Spent to left: " + request.getSpentToLeft());
+                    ModelService.getInstance().getPlayerList().get(playerIndex).getRightNeighbor().addCoin( request.getSpentToRight());
+                    System.out.println( "---------------RIGHT NEIGHBOR IS: " + ModelService.getInstance().getPlayerList().get(playerIndex).getLeftNeighbor().getName());
+                    System.out.println("Spent to right: " + request.getSpentToRight());
+                    //request.getSpentToLeft()
+                }
             }
         } catch (IOException e) {
 
