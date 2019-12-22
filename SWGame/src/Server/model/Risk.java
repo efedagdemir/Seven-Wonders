@@ -6,7 +6,7 @@ public class Risk extends Card {
     RiskEnum riskEnum;
 
     public Risk(String image, RiskEnum riskEnum) {
-        this.name = name;
+        this.name = "risk";
         /*this.image = new Image(image);
         iv = new javafx.scene.image.ImageView();
         iv.setImage(this.image);*/

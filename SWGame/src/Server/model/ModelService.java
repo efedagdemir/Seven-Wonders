@@ -355,7 +355,8 @@ public class ModelService {
     and then will put these into a card array which is called RotatingCardList.
     */
     public Card[][] createRotatingCardList() {
-        Card[][] rotatingCardListt = new Card[3][7];
+        this.rotatingCardList = new Card[3][7];
+        System.out.println(currentAge.name);
         if (numberOfPlayers == 3) {
             System.out.println(currentAge.name);
             int rotNo = 7;
@@ -363,13 +364,12 @@ public class ModelService {
             int cardDeckNo = 0;
             for (int j = 0; j < 3; j++) {
                 for (int i = 0; i < rotNo; i++) {
-                    rotatingCardListt[j][i] = currentAge.getCardDeck().get(cardDeckNo);
+                    rotatingCardList[j][i] = currentAge.getCardDeck().get(cardDeckNo);
                     cardDeckNo++;
                 }
             }
 
         }
-        this.rotatingCardList = rotatingCardListt;
         return rotatingCardList;
     }
 

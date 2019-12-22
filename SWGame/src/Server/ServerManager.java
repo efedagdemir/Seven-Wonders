@@ -79,6 +79,7 @@ public class ServerManager {
                 openGamePage();
                 System.out.println("acceptConnections in ServerManager -- before update");
                 update();
+
                 for(ClientHandler client : clientHandlers){
                     client.setReady(false);
                 }

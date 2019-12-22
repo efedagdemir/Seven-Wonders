@@ -29,6 +29,11 @@ public class ClientManager {
     private List<String> messages;
     Player leftNeighbor;
     Player rightNeighbor;
+    int spentToLeft;
+    int spentToRight;
+
+    //private Player leftNeighbor;
+    //private Player rightNeighbor;
 
 
     public ClientManager(String key) throws IOException {
@@ -50,26 +55,22 @@ public class ClientManager {
                 // If client sends exit,close this connection
                 // and then break from the while loop
                 if (tosend == 1) {
-                    System.out.println("communicateServer in ClientManager1");
+                    System.out.println("communicateServer in ClientManager");
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
                     ServerReply s = getReply();
-                    if( player == null)
-                        this.player = s.getPlayer();
-                    Player player = s.getPlayer();
+                    player = s.getPlayer();
                     leftNeighbor = s.getLeftNeighbor();
                     rightNeighbor = s.getRightNeighbor();
                     cards = s.getRotatingCardList();
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                 }
                 if (tosend == 2) {
-                    System.out.println("communicateServer in ClientManager2");
+                    System.out.println("communicateServer in ClientManager");
                     Thread.sleep(100);
 //                    System.out.println("ClientThread");
                     ServerReply s = getReply();
-                    if( player == null)
-                        this.player = s.getPlayer();
-                    Player player = s.getPlayer();
+                    player = s.getPlayer();
                     leftNeighbor = s.getLeftNeighbor();
                     rightNeighbor = s.getRightNeighbor();
                     ViewCommander.getInstance().showConflictScreen(player, leftNeighbor, rightNeighbor);
@@ -113,7 +114,6 @@ public class ClientManager {
                 .registerSubtype(CivilianStructure.class, "CivilianStructure")
                 .registerSubtype(MilitaryStructure.class, "MilitaryStructure")
                 .registerSubtype(Guild.class, "Guild")
-                .registerSubtype(Risk.class, "Risk")
                 .registerSubtype(ScientificStructure.class, "ScientificStructure");
 
         RuntimeTypeAdapterFactory<Age> ageAdapterFactory = RuntimeTypeAdapterFactory.of(Age.class, "Age")
@@ -151,6 +151,19 @@ public class ClientManager {
         return player;
     }
 
+    public Player getRightNeighbor() { return rightNeighbor; }
+    public Player getLeftNeighbor() { return leftNeighbor; }
+
+    public int getSpentToLeft() { return spentToLeft; }
+
+    public void setSpentToLeft(int spentToLeft) { this.spentToLeft = spentToLeft; }
+
+    public int getSpentToRight() { return spentToRight; }
+
+    public void setSpentToRight(int spentToRight) { this.spentToRight = spentToRight; }
+
+
 }
+
 
 

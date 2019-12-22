@@ -325,7 +325,6 @@ public class Player {
         int lost = -1;
         if ( currentAge instanceof AgeII) {
             agePoint = 3;
-            currentAge = new AgeIII();
         }
         else if (currentAge instanceof AgeIII) {
             agePoint = 5;
