@@ -7,6 +7,7 @@ public class AgeIII extends Age {
 
     public AgeIII() {
         cardDeck = new ArrayList<>();
+        name = "Age 3";
     }
 
     @Override
@@ -33,21 +34,16 @@ public class AgeIII extends Age {
         cardDeck.add(Gardens);
         cardDeck.add(Pantheon);
         //Guild
-        String [] tReq = {"Glass", "Textile", "Papyrus"};
+        /*String [] tReq = {"Glass", "Textile", "Papyrus"};
         int [] nReq = {1,1,1};
         Guild TradersGuild = new Guild(1, null,tReq,nReq, "tradersguild.png", "TradersGuild");
-        String [] tbReq = {"Glass", "Stone", "Clay"};
-        int [] nbReq = {1,2,2};
-        Guild BuildersGuild = new Guild(1, null,tbReq,nbReq, "buildersguild.png", "BuildersGuild");
         String [] twReq = {"Ore", "Clay", "Stone","Timber"};
         int [] nwReq = {2,1,1,1};
         Guild WorkersGuild = new Guild(1, null,twReq,nwReq, "workersguild.png", "WorkersGuild");
         String [] tcReq = {"Ore", "Stone"};
         int [] ncReq = {2,2};
         Guild CraftmensGuild = new Guild(2, null,tcReq,ncReq, "craftmensguild.png", "CraftmensGuild");
-        String [] tsReq = {"Ore", "Stone","Textile"};
-        int [] nsReq = {2,1,1};
-        Guild StrategistsGuild = new Guild(1, null,tsReq,nsReq, "strategistsguild.png", "StrategistsGuild");
+
         String [] tsgReq = {"Clay","Glass"};
         int [] nsgReq = {3,1};
         Guild SpiesGuild = new Guild(1, null,tsgReq,nsgReq, "spiesguild.png", "SpiesGuild");
@@ -61,14 +57,47 @@ public class AgeIII extends Age {
         int [] nmReq = {3,1,1};
         Guild MagistratesGuild = new Guild(1, null,mReq,nmReq, "magistratesguild.png", "MagistratesGuild");
         cardDeck.add(TradersGuild);
-        cardDeck.add(BuildersGuild);
         cardDeck.add(WorkersGuild);
         cardDeck.add(CraftmensGuild);
-        cardDeck.add(StrategistsGuild);
         cardDeck.add(SpiesGuild);
         cardDeck.add(PhilosophersGuild);
         cardDeck.add(ShipownersGuild);
         cardDeck.add(MagistratesGuild);
+
+         */
+
+        String [] sgReq = {"Timber", "Ore", "Papyrus"};
+        int [] snReq = {2,2,1};
+        Guild scientistGuild = new Guild(1, null,sgReq,snReq, "scientistguild.png", "ScientistGuild");
+        cardDeck.add(scientistGuild);
+
+        String [] tbReq = {"Glass", "Stone", "Clay"};
+        int [] nbReq = {1,2,2};
+        Guild BuildersGuild = new Guild(1, null,tbReq,nbReq, "buildersguild.png", "BuildersGuild");
+        cardDeck.add(BuildersGuild);
+        String [] tsReq = {"Ore", "Stone","Textile"};
+        int [] nsReq = {2,1,1};
+        Guild StrategistsGuild = new Guild(1, null,tsReq,nsReq, "strategistsguild.png", "StrategistsGuild");
+        cardDeck.add(StrategistsGuild);
+
+        //Risk
+        //Risk SWAP_VP = new Risk("risk.png", Risk.RiskEnum.SWAP_VP);
+        //cardDeck.add(SWAP_VP);
+       // Risk COIN_DONATION = new Risk("risk.png", Risk.RiskEnum.COIN_DONATION);
+        //Risk COIN_VIRUS = new Risk("risk.png", Risk.RiskEnum.COIN_VIRUS);
+        //cardDeck.add(COIN_DONATION);
+        //cardDeck.add(COIN_VIRUS);
+        //Risk SWAP_VP2 = new Risk("risk.png", Risk.RiskEnum.SWAP_VP);
+        //cardDeck.add(SWAP_VP2);
+        Risk SWAP_VP3 = new Risk("risk.png", Risk.RiskEnum.SWAP_VP);
+        cardDeck.add(SWAP_VP3);
+        //Risk a = new Risk("risk.png", Risk.RiskEnum.WS_BUILDER);
+        Risk b = new Risk("risk.png", Risk.RiskEnum.WS_BUILDER);
+        //Risk c = new Risk("risk.png", Risk.RiskEnum.WS_BUILDER);
+        // cardDeck.add(a);
+        cardDeck.add(b);
+        //cardDeck.add(c);
+
         //Military Structure
         String[] sName2 = {"Clay", "Timber"};
         int[] sNo2 = {3,1};
@@ -102,6 +131,7 @@ public class AgeIII extends Age {
         cardDeck.add(University);
         cardDeck.add(Academy);
         cardDeck.add(Study);
+        cardDeck.add(Lodge);
 
         //CommercialStructure
         //Required resources
@@ -115,6 +145,6 @@ public class AgeIII extends Age {
 
     @Override
     public List<Card> getCardDeck() {
-        return null;
+        return cardDeck;
     }
 }

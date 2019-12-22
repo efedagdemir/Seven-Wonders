@@ -16,6 +16,9 @@ public class Player {
     int leftNeighbor;
     int rightNeighbor;
     MilitaryPower militaryP;
+
+
+
     ArrayList<Card> hand;
     ArrayList<Resource> discountedResources;
     ArrayList<ScientificType> scientificTypes;
@@ -437,6 +440,9 @@ public class Player {
 
     public ArrayList<Item> getItemList() {
         return itemList;
+    }
+    public ArrayList<Card> getHand() {
+        return hand;
     }
 
     public int getFinalPoint() { return finalPoint; }
