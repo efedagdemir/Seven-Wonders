@@ -37,7 +37,7 @@ public class MainMenuPane extends BorderPane {
 
     public MainMenuPane() { //previously private
         // new features
-        Button nextTurnButton = new Button("Next Turn Screen"); //REMOVE THIS!!!!!!!!!!!!!!!
+        //Button nextTurnButton = new Button("Next Turn Screen"); //REMOVE THIS!!!!!!!!!!!!!!!
         createGameButton = new Button("Create Game");
         joinGameButton = new Button("Join Game");
         createGameButton.setPrefSize(100, 50);
@@ -63,7 +63,7 @@ public class MainMenuPane extends BorderPane {
 //        startButton.setPadding(Insets.EMPTY);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("swBackground.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         setBackground(new Background(backgroundImage));
-        menuButtons.getChildren().addAll(gameName, nextTurnButton, createGameButton, joinGameButton, howToPlayButton, creditsButton);
+        menuButtons.getChildren().addAll(gameName, createGameButton, joinGameButton, howToPlayButton, creditsButton);
         menuButtons.setAlignment(Pos.CENTER);
         gameName.setTextAlignment(TextAlignment.CENTER);
         gameName.setFont(new Font(100));
@@ -149,10 +149,10 @@ public class MainMenuPane extends BorderPane {
 
         });
 
-        nextTurnButton.setOnAction(e -> {
+        /*nextTurnButton.setOnAction(e -> {
             NextTurnPane ntp = new NextTurnPane();
             GameView.getInstance().primaryStage.setScene(new Scene(ntp, 1300, 750));
-        });
+        });*/
         //end of new features
     }
 
