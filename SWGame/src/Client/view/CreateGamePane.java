@@ -1,11 +1,8 @@
 package Client.view;
 
-import com.sun.tools.javac.Main;
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -146,10 +143,6 @@ public class CreateGamePane extends BorderPane {
         Platform.runLater(() -> playerConnectedLabels.get(x).setManaged(true));
         if( x == 2) {
             System.out.println("IS THIS EVER 3???: " + x);
-            //Platform.runLater(() -> waitingLabel.setManaged(false));
-            //Platform.runLater(() -> startingLabel.setManaged(true));
-            //Platform.runLater(() -> waitingLabel.setManaged(false));
-            //Platform.runLater(() -> startingLabel.setManaged(true));
             Platform.runLater(() -> waitingLabel.setVisible(false));
             Platform.runLater(() -> startingLabel.setVisible(true));
         }

@@ -107,11 +107,11 @@ public class AgeII extends Age {
         String[] lbrName = {"Textile","Stone"};
         int[] lbrNo = {1, 2};
         String[] plbrName = {"Senate", "University"};
-        ScientificStructure Library = new ScientificStructure("Tomb", null, lbrName, lbrNo, plbrName, "library.png", "Library");
+        ScientificStructure library = new ScientificStructure("Tomb", null, lbrName, lbrNo, plbrName, "library.png", "Library");
 
         cardDeck.add(Laboratory);
         cardDeck.add(School);
-        cardDeck.add(Library);
+        cardDeck.add(library);
         //Manufactured Good
         String[]  prGivenP = {"Papyrus"};
         int[] prGivenNo = {1};

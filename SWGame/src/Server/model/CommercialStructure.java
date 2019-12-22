@@ -42,7 +42,7 @@ public class CommercialStructure extends Card {
 
     @Override
     boolean constructCard(Player currentPlayer, Card[] cards, boolean taken) {
-        if (currentPlayer.isFree(this)|| taken) {
+        if (currentPlayer.isFree(this) || taken) {
             currentPlayer.updateHand(this);
             currentPlayer.updateFreeStructures(providedStructure);
             currentPlayer.updateDiscountedResources(discountedR);

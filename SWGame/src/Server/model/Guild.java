@@ -50,32 +50,6 @@ public class Guild extends Card {
         }
     }
 
-    void chooseAction(Player currentPlayer, Card[] cards){
-        if(this.name.equals("StrategistsGuild")){
-            int vp = 0;
-            for(Card card : currentPlayer.getHand()){
-                if(card instanceof RawMaterial || card instanceof Guild || card instanceof ManufacturedGood){
-                    vp++;
-                }
-            }
-            currentPlayer.updateVictoryPoints(new VictoryPoint(currentPlayer.getVictoryPoints().noOfItems + vp));
-        }
-        else if (this.name.equals("BuildersGuild")){
-            int level1 = currentPlayer.wonder.getWonderLevel();
-            int level2= currentPlayer.getLeftNeighbor().wonder.getWonderLevel();
-            int level3 =  currentPlayer.getRightNeighbor().wonder.getWonderLevel();
-            int totalVp = level1 +level2 + level3;
-            currentPlayer.updateVictoryPoints(new VictoryPoint(totalVp));
-        }
-        else if (this.name.equals("ScientistsGuild")){
-            ScientificType cog = new ScientificType("Cog");
-            ScientificType ruler = new ScientificType("Ruler");
-            ScientificType tomb = new ScientificType("Tomb");
-            currentPlayer.updateScientifictType(cog);
-            currentPlayer.updateScientifictType(ruler);
-            currentPlayer.updateScientifictType(tomb);
-        }
-    }
 
     void chooseAction(Player currentPlayer, Card[] cards){
         if(this.name.equals("StrategistsGuild")){

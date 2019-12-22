@@ -19,7 +19,7 @@ public class ConflictPoint extends Item {
         return noOfItems;
     }
 
-    void setNoOfItems(int warPoint) {
+    public void setNoOfItems(int warPoint) {
         noOfItems = noOfItems + warPoint;
     }
 }

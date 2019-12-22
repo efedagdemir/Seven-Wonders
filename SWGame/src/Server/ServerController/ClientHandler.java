@@ -8,7 +8,6 @@ import Client.view.DropBoard;
 import Client.view.SellCardDropBoard;
 import Server.model.Card;
 import Server.model.ModelService;
-import Server.model.Resource;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 
@@ -60,20 +59,17 @@ public class ClientHandler extends Thread {
 
     public void openConflictPage() throws IOException, InterruptedException {
         Thread.sleep(200);
-        System.out.println("openGamePane in ClientHandler");
         output.writeInt(2);
         //update();
     }
 
     public void openGamePage() throws IOException, InterruptedException {
         Thread.sleep(200);
-        System.out.println("openGamePane in ClientHandler");
         output.writeInt(1);
     }
 
     public void openEndPane() throws InterruptedException, IOException {
         Thread.sleep(200);
-        System.out.println("openEndPane in ClientHandler");
         output.writeInt(3);
     }
 
@@ -83,17 +79,14 @@ public class ClientHandler extends Thread {
             while (true) {
                 ClientRequest request = getRequest();
                 if (request != null) {
-                    System.out.println("-------TAKEN CARD CLIENTHANDLER:  " + request.getCard().getName());
                     String boardClass = request.getOperation();
                     DropBoard board = null;
                     if (boardClass.equals("nextAge")){
                         setNextAge(true);
                         ready = false;
                         endPane = false;
-                        System.out.println("ClientHandlerdaki ilk if'e geldi mi??");
                     }
                     else if(ModelService.getInstance().endGame){
-                        System.out.println("********************************** end client handler*********************************************");
                         setEnd(true);
                         setNextAge(false);
                         setReady(false);
@@ -130,19 +123,11 @@ public class ClientHandler extends Thread {
                     }
 
 
-                    System.out.println("***************** Item List **************************    " + playerIndex);
                     ModelService.getInstance().removeFromRotatingCardList(playerIndex, selectedCard);
-                    System.out.println("!!!!!!For player" + playerIndex);
-                    for (Card c :  ModelService.getInstance().getRotatingCardList()[playerIndex] )
-                        System.out.println(c.getName());
 
                     ModelService.getInstance().getPlayerList().get(playerIndex).addCoin( -1 * (request.getSpentToLeft() + request.getSpentToRight()));
                     ModelService.getInstance().getPlayerList().get(playerIndex).getLeftNeighbor().addCoin( request.getSpentToLeft());
-                    System.out.println( "---------------LEFT NEIGHBOR IS: " + ModelService.getInstance().getPlayerList().get(playerIndex).getLeftNeighbor().getName());
-                    System.out.println("Spent to left: " + request.getSpentToLeft());
                     ModelService.getInstance().getPlayerList().get(playerIndex).getRightNeighbor().addCoin( request.getSpentToRight());
-                    System.out.println( "---------------RIGHT NEIGHBOR IS: " + ModelService.getInstance().getPlayerList().get(playerIndex).getLeftNeighbor().getName());
-                    System.out.println("Spent to right: " + request.getSpentToRight());
                     //request.getSpentToLeft()
                 }
             }

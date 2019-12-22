@@ -3,7 +3,6 @@ package Client;
 import Client.ClientController.ClientRequest;
 import Client.ClientController.ViewCommander;
 import Client.view.GameView;
-import Server.ServerController.GameInitializer;
 import Server.ServerController.ServerReply;
 import Server.model.*;
 import com.google.gson.Gson;
@@ -26,7 +25,7 @@ public class ClientManager {
     private DataOutputStream output;
     private Socket socket;
     private ClientRequest request;
-    private List<String> messages;
+    private List<String> messages; //  :(
     Player leftNeighbor;
     Player rightNeighbor;
     int spentToLeft;
@@ -38,77 +37,13 @@ public class ClientManager {
 
     public ClientManager(String key) throws IOException {
         KEY = decryptKey(key);
-        System.out.println(KEY);
         socket = new Socket(KEY, PORT);
         input = new DataInputStream(socket.getInputStream());
         output = new DataOutputStream(socket.getOutputStream());
-        System.out.println("Bu sout client managerda");
 
     }
 
-    public void communicateServer() {
-        try {
-            int tosend;
-            while (true) {
-                tosend = input.readInt();
-                System.out.println("in communicateServer before loop");
-                // If client sends exit,close this connection
-                // and then break from the while loop
-                if (tosend == 1) {
-                    System.out.println("communicateServer in ClientManager");
-                    Thread.sleep(100);
-//                    System.out.println("ClientThread");
-                    ServerReply s = getReply();
-                    player = s.getPlayer();
-                    leftNeighbor = s.getLeftNeighbor();
-                    rightNeighbor = s.getRightNeighbor();
-                    cards = s.getRotatingCardList();
-                    updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
-                }
-                if (tosend == 2) {
-                    System.out.println("communicateServer in ClientManager");
-                    Thread.sleep(100);
-//                    System.out.println("ClientThread");
-                    ServerReply s = getReply();
-                    player = s.getPlayer();
-                    leftNeighbor = s.getLeftNeighbor();
-                    rightNeighbor = s.getRightNeighbor();
-                    ViewCommander.getInstance().showConflictScreen(player, leftNeighbor, rightNeighbor);
-                }
-                if (tosend == 3){
-
-                    Thread.sleep(100);
-                    System.out.println("********************************** end *********************************************");
-                    //ServerReply s = getReply();
-                    //player = s.getPlayer();
-                    //leftNeighbor = s.getLeftNeighbor();
-                    //rightNeighbor = s.getRightNeighbor();
-                    ViewCommander.getInstance().showGameOverPane(player, leftNeighbor, rightNeighbor);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("exception in communicateServer in ClientManager");
-        }
-    }
-
-    public String decryptKey(String encryptedKey) {
-        /*TODO() change*/
-        return encryptedKey;
-    }
-
-
-    private void updateInfoPane(Player player, Card[] cards, Player left, Player right) {
-        System.out.println("updateInfoPane in ClientManager");
-        GameView.getInstance().showGamePane(player, cards, left, right);
-    }
-
-    public void setPlayer() throws IOException, ClassNotFoundException {
-        player = getReply().getPlayer();
-        //updateInfoPane(player,);
-    }
-
-    public static  Gson setGsonTypes() {
+    public static Gson setGsonTypes() {
         RuntimeTypeAdapterFactory<Item> itemAdapterFactory = RuntimeTypeAdapterFactory.of(Item.class, "Item")
                 .registerSubtype(Coin.class, "Coin")
                 .registerSubtype(MilitaryPower.class, "MilitaryPower")
@@ -125,8 +60,8 @@ public class ClientManager {
                 .registerSubtype(CivilianStructure.class, "CivilianStructure")
                 .registerSubtype(MilitaryStructure.class, "MilitaryStructure")
                 .registerSubtype(Guild.class, "Guild")
-                .registerSubtype(Risk.class, "Risk")
-                .registerSubtype(ScientificStructure.class, "ScientificStructure");
+                .registerSubtype(ScientificStructure.class, "ScientificStructure")
+                .registerSubtype(Risk.class, "Risk");
 
         RuntimeTypeAdapterFactory<Age> ageAdapterFactory = RuntimeTypeAdapterFactory.of(Age.class, "Age")
                 .registerSubtype(AgeI.class, "AgeI")
@@ -138,6 +73,62 @@ public class ClientManager {
                 .registerTypeAdapterFactory(cardAdapterFactory)
                 .registerTypeAdapterFactory(ageAdapterFactory)
                 .create();
+    }
+
+    public String decryptKey(String encryptedKey) {
+        /*TODO() change*/
+        return encryptedKey;
+    }
+
+
+    private void updateInfoPane(Player player, Card[] cards, Player left, Player right) {
+        GameView.getInstance().showGamePane(player, cards, left, right);
+    }
+
+    public void setPlayer() throws IOException, ClassNotFoundException {
+        player = getReply().getPlayer();
+        //updateInfoPane(player,);
+    }
+
+    public void communicateServer() {
+        try {
+            int tosend;
+            while (true) {
+                tosend = input.readInt();
+                // If client sends exit,close this connection
+                // and then break from the while loop
+                if (tosend == 1) {
+                    Thread.sleep(100);
+//                    System.out.println("ClientThread");
+                    ServerReply s = getReply();
+                    player = s.getPlayer();
+                    leftNeighbor = s.getLeftNeighbor();
+                    rightNeighbor = s.getRightNeighbor();
+                    // System.out.println("CARDSIN LENGHTI BEFORE     " + cards.length);
+                    cards = s.getRotatingCardList();
+                    updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
+                }
+                if (tosend == 2) {
+                    Thread.sleep(100);
+//                    System.out.println("ClientThread");
+                    ServerReply s = getReply();
+                    player = s.getPlayer();
+                    leftNeighbor = s.getLeftNeighbor();
+                    rightNeighbor = s.getRightNeighbor();
+                    ViewCommander.getInstance().showConflictScreen(player, leftNeighbor, rightNeighbor);
+                }
+                if (tosend == 3){
+                    Thread.sleep(100);
+                    //ServerReply s = getReply();
+                    //player = s.getPlayer();
+                    //leftNeighbor = s.getLeftNeighbor();
+                    //rightNeighbor = s.getRightNeighbor();
+                    ViewCommander.getInstance().showGameOverPane(player, leftNeighbor, rightNeighbor);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public ServerReply getReply() throws IOException {

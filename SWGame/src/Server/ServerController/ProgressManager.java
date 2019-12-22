@@ -1,9 +1,6 @@
 package Server.ServerController;
 
-import Client.view.GamePane;
-import Server.model.Card;
 import Server.model.ModelService;
-import Server.model.Player;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,11 +26,10 @@ public class ProgressManager {
     public void nextCycle(List<ClientHandler> clientHandlers) throws IOException, InterruptedException {
             int endAge = 0;
             for (ClientHandler c : clientHandlers) {
-                if(ModelService.getInstance().getCardLength() > 1){
+                if (ModelService.getInstance().getCardLength() > 4) {
                     c.openGamePage();
                 }
                 else {
-                    System.out.println("------For player " + c.playerIndex);
                     nextAge(c);
                     ModelService.getInstance().changeAge((ModelService.getInstance().getPlayerList().get(c.playerIndex)), (ModelService.getInstance().getPlayerList().get(c.playerIndex)).currentAge);
                     endAge++;

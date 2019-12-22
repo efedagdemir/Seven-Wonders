@@ -5,12 +5,10 @@ import Client.view.DropBoard;
 import Client.view.EndOfAgePane;
 import Client.view.MainMenuPane;
 import Client.view.PlayerInfoPane;
-import Server.ServerController.ClientHandler;
 import Server.ServerController.ServerControllerFacade;
 import Server.model.Card;
 import Server.model.ModelService;
 import Server.model.Player;
-import com.sun.source.tree.EnhancedForLoopTree;
 import javafx.event.ActionEvent;
 import javafx.scene.input.DragEvent;
 import javafx.stage.Stage;
@@ -52,7 +50,6 @@ public class ClientControllerFacade {
         if (event.getTarget() == PlayerInfoPane.howToPlayButton) {
             ViewCommander.getInstance().showHowToPlay();
         }
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA endGame = " + ModelService.getInstance().endGame);
         if (event.getTarget() == EndOfAgePane.button && (ModelService.getInstance().endGame)){
             ClientRequest request = new ClientRequest(selectedCard, "endGame");
             clientManager.sendRequest(request);

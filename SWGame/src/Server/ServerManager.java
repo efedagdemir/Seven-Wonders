@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ServerManager {
 
-    private final int NUM_OF_PLAYERS = 2;
+    private final int NUM_OF_PLAYERS = 3;
     private final int PORT = 5346;
     private int counter = 0;
     private ServerSocket serverSocket;
@@ -42,13 +42,11 @@ public class ServerManager {
                 socket = serverSocket.accept();
                 CreateGamePane.getInstance().update(clientHandlers.size());
 
-                System.out.println("New Client Is Connected");
 
                 DataInputStream input = new DataInputStream(socket.getInputStream());
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
                 // ObjectInputStream inputObject = new ObjectInputStream(socket.getInputStream());
                 //ObjectOutputStream outputObject = new ObjectOutputStream(socket.getOutputStream());
-                System.out.println("in ServerManager: method: acceptConnections");
                 ClientHandler c = new ClientHandler(input, output, socket, clientHandlers.size(), NUM_OF_PLAYERS);
                 System.out.println(clientHandlers.size());
                 clientHandlers.add(c);
@@ -56,15 +54,12 @@ public class ServerManager {
 
             } catch (Exception e) {
                 assert socket != null;
-                System.out.println("connection failed");
                 socket.close();
                 e.printStackTrace();
             }
         }
         ServerControllerFacade.getInstance().startGame();
-        System.out.println("acceptConnections in ServerManager -- before openGamePane");
         openGamePage();
-        System.out.println("acceptConnections in ServerManager -- before update");
         update();
 
         while(true){
@@ -77,9 +72,7 @@ public class ServerManager {
             if(ready){
                 Thread.sleep(200);
                 ModelService.getInstance().rotateDecks();
-                System.out.println("acceptConnections in ServerManager -- before openGamePane");
                 openGamePage();
-                System.out.println("acceptConnections in ServerManager -- before update");
                 update();
 
                 for(ClientHandler client : clientHandlers){
@@ -125,7 +118,6 @@ public class ServerManager {
     public void update() throws IOException {
         for (ClientHandler c : clientHandlers) {
             c.update();
-            System.out.println("=====================ServerManager update player " + (c.playerIndex) + "==============");
         }
     }
 

@@ -15,32 +15,18 @@ public class Risk extends Card {
         Player swapped = ModelService.getInstance().getSwappedPlayer();
         switch (riskEnum) {
             case BLOCK:
+            case MP_VIRUS:
+            case WS_VIRUS:
+            case VP_VIRUS:
+            case COIN_DONATION:
+            case SEAL_RESOURCE:
+            case WS_BUILDER:
+            case SWAP_MP:
                 riskEnum.constructRisk(chosenPlayer, cards);
                 break;
             case COIN_VIRUS:
                 riskEnum.constructRisk(chosenPlayer, cards);
                 System.out.println("Playerın coini: " + chosenPlayer.getCurrentCoin().noOfItems);
-                break;
-            case MP_VIRUS:
-                riskEnum.constructRisk(chosenPlayer, cards);
-                break;
-            case WS_VIRUS:
-                riskEnum.constructRisk(chosenPlayer, cards);
-                break;
-            case VP_VIRUS:
-                riskEnum.constructRisk(chosenPlayer, cards);
-                break;
-            case COIN_DONATION:
-                riskEnum.constructRisk(chosenPlayer, cards);
-                break;
-            case SEAL_RESOURCE:
-                riskEnum.constructRisk(chosenPlayer, cards);
-                break;
-            case WS_BUILDER:
-                riskEnum.constructRisk(chosenPlayer, cards);
-                break;
-            case SWAP_MP:
-                riskEnum.constructRisk(chosenPlayer, cards);
                 break;
             case SWAP_VP:
                 riskEnum.constructRisk(swapped, chosenPlayer, cards);
@@ -57,7 +43,7 @@ public class Risk extends Card {
         BLOCK{
             @Override
             public void constructRisk(Player p, Card[] cards) {
-
+                ModelService.getInstance().removeFromRotatingCardList(cards);
             }
         },
         MP_VIRUS{
@@ -75,7 +61,7 @@ public class Risk extends Card {
         WS_VIRUS{
             @Override
             public void constructRisk(Player p, Card[] cards) {
-
+                ModelService.getInstance().removeFromRotatingCardList(cards);
             }
         },
         VP_VIRUS{
@@ -84,6 +70,7 @@ public class Risk extends Card {
                 if (p.getVictoryPoints().getNoOfItems() >= 3){
                     VictoryPoint vp = new VictoryPoint(-3);
                     p.updateVictoryPoints(vp);
+                    ModelService.getInstance().removeFromRotatingCardList(cards);
                 }
                 else {
                     int no = (-1) * p.getVictoryPoints().getNoOfItems();

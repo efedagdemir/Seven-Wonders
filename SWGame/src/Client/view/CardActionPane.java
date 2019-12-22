@@ -37,7 +37,6 @@ public class CardActionPane extends BorderPane {
 //        Effect effect = new BoxBlur(10,10,3);
 //        setEffect(effect);
         cardFlowPane = new FlowPane();
-
         setCenter(cardFlowPane);
         imageBox = new HBox();
         imageViews = new ArrayList<>();
@@ -76,9 +75,8 @@ public class CardActionPane extends BorderPane {
         setBottom(wonder);
         if (player != null) {
             for (int i = 0; i < cards.length; i++) {
-                Card currentCard = cards[i];
-                System.out.println("CARDS LENGTH " + cards.length);
-                System.out.println("CARD NAME " + currentCard.getName() );
+                Card currentCard = cardList[i];
+                System.out.println("CARD NAME ________________ " + currentCard.getName());
                 ImageView iv = new ImageView(currentCard.getName().toLowerCase() + ".png");
                 imageViews.add(iv);
                 iv.setFitHeight(180);
@@ -93,8 +91,6 @@ public class CardActionPane extends BorderPane {
                     e.consume();
                 });
                 iv.setOnDragDone(e -> {
-                    //ModelService.getInstance().removeFromRotatingCardList();
-                    //((GamePane) getScene().getRoot()).update();
                     e.consume();
                 });
 

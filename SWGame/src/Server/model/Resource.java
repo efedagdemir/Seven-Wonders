@@ -11,9 +11,6 @@ public class Resource extends Item {
         leftDiscount = false;
         rightDiscount = false;
         name = img;
-//        image = new Image(img);
-//        iv = new ImageView();
-//        iv.setImage(image);
     }
 
     public Resource(String resourceName, int resourceAmount, boolean leftDiscount, boolean rightDiscount, String img) {
@@ -21,9 +18,6 @@ public class Resource extends Item {
         noOfItems = resourceAmount;
         this.leftDiscount = leftDiscount;
         this.rightDiscount = rightDiscount;
-//        image = new Image(img);
-//        iv = new ImageView();
-//        iv.setImage(image);
     }
 
     @Override

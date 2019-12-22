@@ -300,7 +300,7 @@ public class Player {
             affordC = requiredCoin.getNoOfItems() <= currentCoin.getNoOfItems();
         }
 
-        return (affordC && affordR ) || affordS;
+        return (affordC && affordR) && affordS;
     }
 
     /*This method updates the current player's coin amount by three. */
@@ -404,6 +404,9 @@ public class Player {
 
 
     public void updateDiscountedResources(Resource[] resourcesArr) {
+        if (resourcesArr == null) {
+            return;
+        }
         for (int i = 0; i < resourcesArr.length; i++) {
             discountedResources.add(resourcesArr[i]);
         }
@@ -443,9 +446,6 @@ public class Player {
 
     public ArrayList<Item> getItemList() {
         return itemList;
-    }
-    public ArrayList<Card> getHand() {
-        return hand;
     }
 
     public ArrayList<Card> getHand() {

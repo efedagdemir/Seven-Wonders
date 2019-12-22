@@ -1,11 +1,9 @@
 package Client.view;
 
 import Client.ClientController.ClientControllerFacade;
-import Server.model.ModelService;
 import Server.model.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -76,6 +74,9 @@ public class EndOfAgePane extends BorderPane {
 
             VBox pointsColumn = new VBox();
             Label conflictPointsHeader = new Label("Conflict Points");
+//            Label  player1ConflictPointsT  = new Label(Integer.toString(getConflictPoints(current,left,right)));
+//            Label  player3ConflictPointsT  = new Label(Integer.toString(getConflictPoints(right,current,left)));
+//            Label  player2ConflictPointsT  = new Label(Integer.toString(getConflictPoints(left,right,current)));
             Label  points  = new Label("Total Points");
             Label  player1ConflictPoints  = new Label(Integer.toString(player1.getConflictPoints().getNoOfItems()));
             Label  player2ConflictPoints  = new Label(Integer.toString(player2.getConflictPoints().getNoOfItems()));
@@ -86,9 +87,12 @@ public class EndOfAgePane extends BorderPane {
             player1ConflictPoints.setStyle("-fx-text-fill: #ffffff;");
             player2ConflictPoints.setStyle("-fx-text-fill: #ffffff;");
             player3ConflictPoints.setStyle("-fx-text-fill: #ffffff;");
+//            player1ConflictPointsT.setStyle("-fx-text-fill: #ffffff;");
+//            player2ConflictPointsT.setStyle("-fx-text-fill: #ffffff;");
+//            player3ConflictPointsT.setStyle("-fx-text-fill: #ffffff;");
 
             VBox conflictColumn = new VBox();
-            conflictColumn.getChildren().addAll(conflictPointsHeader, player1ConflictPoints, player2ConflictPoints, player3ConflictPoints);
+//            conflictColumn.getChildren().addAll(conflictPointsHeader, player1ConflictPointsT, player2ConflictPointsT, player3ConflictPointsT);
 
             conflictPointsHeader.setFont(new Font(20));
             points.setFont(new Font(20));
@@ -180,5 +184,35 @@ public class EndOfAgePane extends BorderPane {
 
         }
 
+//        private int getConflictPoints(Player current, Player left, Player right){
+//            int player1W = left.getMilitaryPower().getNoOfItems();
+//            int player2W = right.getMilitaryPower().getNoOfItems();
+//            Age currentAge = current.currentAge;
+//
+//            int agePoint = 1;
+//            int lost = -1;
+//            if ( currentAge instanceof AgeII) {
+//                agePoint = 3;
+//            }
+//            else if (currentAge instanceof AgeIII) {
+//                agePoint = 5;
+//            }
+//            ConflictPoint thisAge = new ConflictPoint(0);
+//            //compare with left neighbor
+//            if (player1W > current.getMilitaryPower().getNoOfItems()) {
+//                thisAge.setNoOfItems(lost);
+//            }
+//            else if (player1W < current.getMilitaryPower().getNoOfItems()) {
+//                thisAge.setNoOfItems(agePoint);
+//            }
+//
+//            if (player2W > current.getMilitaryPower().getNoOfItems()) {
+//                thisAge.setNoOfItems(lost);
+//            }
+//            else if (player2W < current.getMilitaryPower().getNoOfItems()) {
+//                thisAge.setNoOfItems(agePoint);
+//            }
+//            return thisAge.getNoOfItems();
+//        }
 
 }
