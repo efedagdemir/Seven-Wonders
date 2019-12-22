@@ -61,6 +61,7 @@ public class ClientHandler extends Thread {
         Thread.sleep(200);
         System.out.println("openGamePane in ClientHandler");
         output.writeInt(2);
+        //update();
     }
 
     public void openGamePage() throws IOException, InterruptedException {

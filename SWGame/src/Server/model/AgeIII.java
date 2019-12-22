@@ -1,8 +1,14 @@
 package Server.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-class AgeIII extends Age {
+public class AgeIII extends Age {
+
+    public AgeIII() {
+        cardDeck = new ArrayList<>();
+    }
+
     @Override
     void createDeck(int numOfPlayers) {
 

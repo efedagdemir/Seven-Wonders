@@ -5,8 +5,6 @@ import java.util.List;
 
 public class AgeI extends Age {
 
-    public List<Card> cardDeck;
-
     public AgeI() {
         cardDeck = new ArrayList<>();
     }

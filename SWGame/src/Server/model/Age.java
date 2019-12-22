@@ -2,11 +2,9 @@ package Server.model;
 
 import java.util.List;
 
-abstract class Age {
-
+public abstract class Age {
+    public Age(){}
     List<Card> cardDeck;
-
     abstract void createDeck(int numOfPlayers);
-
     abstract public List<Card> getCardDeck();
 }
