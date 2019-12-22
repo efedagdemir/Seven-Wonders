@@ -42,7 +42,6 @@ public class Player {
         currentResources = new ArrayList<>();
         updateItemList(currentCoin);
         updateItemList(militaryP);
-
     }
 
     void updateItemList(Resource resource) {

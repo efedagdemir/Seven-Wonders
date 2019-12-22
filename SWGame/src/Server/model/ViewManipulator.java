@@ -35,6 +35,7 @@ public class ViewManipulator {
       //  gameView.showConflictScreen(playerList);
     }
 
+
     void notifyCredits() {
         gameView.showCredits();
     }

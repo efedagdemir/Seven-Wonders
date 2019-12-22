@@ -87,6 +87,7 @@ public class ClientManager {
         return encryptedKey;
     }
 
+
     private void updateInfoPane(Player player, Card[] cards, Player left, Player right) {
         System.out.println("updateInfoPane in ClientManager");
         GameView.getInstance().showGamePane(player, cards, left, right);

@@ -46,6 +46,8 @@ public class ViewCommander {
         gameView.showGameOverPane();
     }
 
+
+
     void showGameScreen(Player player) {
         //gameView.showGamePane(player);
     }

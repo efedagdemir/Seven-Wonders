@@ -94,6 +94,7 @@ public class GameOverPane extends BorderPane {
         thirdPlaceLabel.setStyle("-fx-text-fill: #000000;");
 
 
+
         //firstPlaceLabel.set
 
         Glow glow = new Glow();

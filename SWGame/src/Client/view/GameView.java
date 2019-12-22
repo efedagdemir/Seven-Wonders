@@ -106,6 +106,7 @@ public class GameView {
             System.out.println("exception");
         }
     }
+
     public void showCreateGameScreen() throws IOException, ClassNotFoundException {
         CreateGamePane createGamePane = new CreateGamePane();
         Scene sc = new Scene(createGamePane, 1300, 750);
