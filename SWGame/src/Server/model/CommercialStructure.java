@@ -48,6 +48,7 @@ public class CommercialStructure extends Card {
             currentPlayer.updateDiscountedResources(discountedR);
             currentPlayer.addCoin(givenCoins.getNoOfItems());
             currentPlayer.updateVictoryPoints(victoryPoints);
+            ModelService.getInstance().removeFromRotatingCardList(cards);
             return true;
         } else {
             if (currentPlayer.checkRequirements(requiredStructure, null, givenCoins)) {

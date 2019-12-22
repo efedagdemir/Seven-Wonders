@@ -10,7 +10,7 @@ public class PlayRiskDropBoard extends DropBoard {
 
     }
 
-    public void takeCardAction(Player player, Card[] cards) {
-        ModelService.getInstance().constructCard(player, cards);
+    public void takeCardAction(Player player, Card[] cards, boolean ui, Card selectedCard) {
+        ModelService.getInstance().constructCard(player, cards, selectedCard);
     }
 }

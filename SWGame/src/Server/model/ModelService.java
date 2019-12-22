@@ -1,8 +1,6 @@
 package Server.model;
 
 import Client.ClientController.ClientControllerFacade;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +9,7 @@ import java.util.List;
 public class ModelService {
     private static ModelService modelService;
     public int playerIndex;
-    Age currentAge;
+    public Age currentAge;
     Player currentPlayer;
     int numberOfPlayers;
     ArrayList<Player> playerList;
@@ -51,30 +49,30 @@ public class ModelService {
     }
 
     public int getCardLength() {
-        return cardLength;
+        return rotatingCardList[numberOfPlayers - 1].length;
     }
 
-    public boolean constructCard(Player player, Card[] cards) {
-        Card selectedCard = ClientControllerFacade.getInstance().getSelectedCard();
-        if (selectedCard != null)
+    public boolean constructCard(Player player, Card[] cards, Card selectedCard) {
+        if (selectedCard != null){
+
             return selectedCard.constructCard(player, cards);
+        }
         return false;
     }
 
-    public void updateCurrentAge() {
-        if (currentAge instanceof AgeI) {
-            initiateAndShowConflict();
-            currentAge = new AgeII();
+    public void updateCurrentAge(Player player, Age age) throws InterruptedException {
+        if (age instanceof AgeI) {
+            initiateAndShowConflict(player,age);
         }
-        if (currentAge instanceof AgeII) {
-            initiateAndShowConflict();
-            currentAge = new AgeII();
+        if (age instanceof AgeII) {
+            initiateAndShowConflict(player, age);
         }
-        if (currentAge instanceof AgeIII) {
-            initiateAndShowConflict();
+        if (age instanceof AgeIII) {
+            initiateAndShowConflict(player, age);
             calculateFinalPoints();
         }
     }
+
 
     //Will update the current player as each turn is played.
     public void updateCurrentPlayer() {
@@ -186,10 +184,10 @@ public class ModelService {
     public void rotateDecks() {
         Card[] temp1 = rotatingCardList[0];
         Card[] temp2 = rotatingCardList[1];
-        //Card[] temp3 = rotatingCardList[2];
+        Card[] temp3 = rotatingCardList[2];
         rotatingCardList[1] = temp1;
         rotatingCardList[2] = temp2;
-        //rotatingCardList[0] = temp3;
+        rotatingCardList[0] = temp3;
     }
 
     /*
@@ -203,14 +201,20 @@ public class ModelService {
         }
     }
 
+    public void changeAge(Player p, Age age ){
+        if (age instanceof AgeI) {
+            currentAge = new AgeII();
+        }
+        if (age instanceof AgeII) {
+            currentAge = new AgeIII();
+        }
+    }
     /*
     Will calculate the victory points of the players after a conflict
     and will call the notifyConflictScreen(Player[]) from the ViewManipulator class.
     */
-    public void initiateAndShowConflict() {
-        for (int i = 0; i < playerList.size(); i++) {
-            playerList.get(i).updateConflictPoints(currentAge);
-        }
+    public void initiateAndShowConflict(Player player, Age age) {
+            player.updateConflictPoints(age);
 
     }
 
@@ -255,12 +259,16 @@ public class ModelService {
      Will call the notifyWonderPane() method from the ViewManipulator.
     */
 
-    public void riskBuildWonder(Player p) {
-        p.wonder.riskBuildWonderStage();
+    public void riskBuildWonder(Player player) {
+        player.wonder.riskBuildWonderStage();
     }
-    public void buildWonder(Player player, Card[] cards) {
-        currentPlayer.wonder.buildWonderStage(player);
-        removeFromRotatingCardList(cards);
+
+    public boolean buildWonder(Player player, Card[] cards, Card selectedCard) {
+        if(player.wonder.buildWonderStage(player)){
+            removeFromRotatingCardList(cards);
+            return true;
+        }
+        return false;
     }
 
     /*

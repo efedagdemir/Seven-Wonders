@@ -1,46 +1,89 @@
 package Client.view;
 
-import Server.model.ModelService;
 import Server.model.Player;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.Glow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
-import java.util.List;
+import java.awt.*;
 
 public class EndOfAgePane extends BorderPane {
-    public Label endOfAgeLabel = new Label("END OF AGE");
-    public Label conflictResLabel = new Label("Military Conflict Resolutions");
-
-    public Separator horizontal1 = new Separator(Orientation.HORIZONTAL);
-    public Separator horizontal2 = new Separator(Orientation.HORIZONTAL);
-    public Separator horizontal3 = new Separator(Orientation.HORIZONTAL);
-
-    public TableView table = new TableView();
 
 
-    public TableColumn<String, Player> column1 = new TableColumn<>("Players");
-    public TableColumn<String, Player> column2 = new TableColumn<>("Points Earned");
-    public TableColumn<String, Player> column3 = new TableColumn<>("Total Points");
+        public EndOfAgePane(Player current, Player left, Player right) {
+            setPrefSize(1300, 750);
+            VBox box = new VBox();
+            setTop( box);
+            box.setAlignment(Pos.BOTTOM_CENTER);
+            Label mtLabel = new Label("Military Conflict Resolutions");
+            Label ageLabel = new Label("END OF AGE!");
+            Button button = new Button("Next Age");
 
-    public VBox tableBox = new VBox(table);
 
-    ModelService modelService = ModelService.getInstance();
+            Player player1 = current;
+            Player player2 = left;
+            Player player3 = right;
 
-    public EndOfAgePane(List<Player> pList) {
-        table.getColumns().add(column1);
-        table.getColumns().add(column2);
-        table.getColumns().add(column3);
+            ageLabel.setFont(Font.font(null, FontWeight.EXTRA_BOLD, 50));
+            ageLabel.setTextAlignment(TextAlignment.CENTER);
 
-        column1.setCellValueFactory( new PropertyValueFactory<>("Name"));
-        column3.setCellValueFactory( new PropertyValueFactory<>("conflictPoints"));
+            mtLabel.setFont(new Font(30));
+            mtLabel.setTextAlignment(TextAlignment.CENTER);
 
-        //table.getItems().add( modelService.playerList)
+            box.getChildren().addAll( ageLabel, mtLabel);
 
-    }
+
+
+            Label  playersLabel  = new Label("Players");
+
+            Label  player1Name  = new Label(player1.getName());
+            Label  player2Name  = new Label(player2.getName());
+            Label  player3Name  = new Label(player3.getName());
+            playersLabel.setFont(new Font(20));
+            player1Name.setFont(new Font(15));
+            player2Name.setFont(new Font(15));
+            player3Name.setFont(new Font(15));
+            VBox nameColumn = new VBox();
+            nameColumn.getChildren().add(playersLabel);
+            nameColumn.getChildren().add(player1Name);
+            nameColumn.getChildren().add(player2Name);
+            nameColumn.getChildren().add(player3Name);
+            Label  conflictPointsHeader  = new Label("Conflict Points");
+            //VBox headerRow = new VBox();
+            //headerRow.getChildren().addAll(conflictPointsHeader,nameColumn);
+
+            Label  points  = new Label("Total Points");
+            Label  player1ConflictPoints  = new Label(Integer.toString(player1.getConflictPoints().getNoOfItems()));
+            Label  player2ConflictPoints  = new Label(Integer.toString(player2.getConflictPoints().getNoOfItems()));
+            Label  player3ConflictPoints  = new Label(Integer.toString(player3.getConflictPoints().getNoOfItems()));
+            points.setFont(new Font(20));
+            player1ConflictPoints.setFont(new Font(15));
+            player2ConflictPoints.setFont(new Font(15));
+            player3ConflictPoints.setFont(new Font(15));
+            VBox pointsColumn = new VBox();
+            pointsColumn.getChildren().add(points);
+            pointsColumn.getChildren().add(player1ConflictPoints);
+            pointsColumn.getChildren().add(player2ConflictPoints);
+            pointsColumn.getChildren().add(player3ConflictPoints);
+
+            HBox conflictTable = new HBox();
+            setCenter(conflictTable);
+            conflictTable.setAlignment(Pos.CENTER);
+            conflictTable.getChildren().addAll( nameColumn, conflictPointsHeader, pointsColumn);
+            conflictTable.setSpacing(100);
+            setBottom( button);
+            button.setAlignment(Pos.BOTTOM_CENTER);
+            nameColumn.setAlignment(Pos.CENTER);
+            pointsColumn.setAlignment(Pos.CENTER);
+
+        }
+
+
 }

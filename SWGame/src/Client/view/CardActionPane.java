@@ -101,6 +101,21 @@ public class CardActionPane extends BorderPane {
             imageBox.setSpacing(20);
             cardFlowPane.getChildren().add(imageBox);
             cardFlowPane.setAlignment(Pos.CENTER);
+
+            //wonder color
+            WonderStage[] wonderStages = player.getWonder().getWonderStages();
+            for ( int i = 0; i < wonderStages.length; i++){
+                if (i == 0 && wonderStages[i].isBuilt()){
+                    wonder1.setStyle("-fx-background-color: #" +
+                            "800606");
+                }
+                if (i == 1 && wonderStages[i].isBuilt()){
+                     wonder2.setStyle("-fx-background-color: #800606");
+                }
+                if (i == 2 && wonderStages[i].isBuilt()){
+                    wonder3.setStyle("-fx-background-color: #800606");
+                }
+            }
         }
 
 //        cardFlowPane.setStyle("-fx-background-color: #FFFFFF");

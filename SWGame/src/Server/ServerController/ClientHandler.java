@@ -6,9 +6,9 @@ import Client.view.BuildWonderDropBoard;
 import Client.view.ConstructCardDropBoard;
 import Client.view.DropBoard;
 import Client.view.SellCardDropBoard;
-import Server.ServerManager;
 import Server.model.Card;
 import Server.model.ModelService;
+import Server.model.Resource;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 
@@ -19,7 +19,7 @@ import java.net.Socket;
 
 public class ClientHandler extends Thread {
     Socket socket;
-    int playerIndex;
+    public int playerIndex;
     private DataInputStream input;
     private DataOutputStream output;
     int numOfPlayers;
@@ -55,6 +55,13 @@ public class ClientHandler extends Thread {
         output.writeUTF(ClientManager.setGsonTypes().toJson(serverReply));
     }
 
+    public void openConflictPage() throws IOException, InterruptedException {
+        Thread.sleep(200);
+        System.out.println("openGamePane in ClientHandler");
+        output.writeInt(2);
+        //update();
+    }
+
     public void openGamePage() throws IOException, InterruptedException {
         Thread.sleep(200);
         System.out.println("openGamePane in ClientHandler");
@@ -63,11 +70,11 @@ public class ClientHandler extends Thread {
 
     @Override
     public void run() {
-        int counter = 0;
         try {
             while (true) {
                 ClientRequest request = getRequest();
                 if (request != null) {
+                    System.out.println("-------TAKEN CARD CLIENTHANDLER:  " + request.getCard().getName());
                     setReady(true);
                     String boardClass = request.getOperation();
                     DropBoard board = null;
@@ -88,8 +95,15 @@ public class ClientHandler extends Thread {
                     System.out.println(selectedCard.getName());
                     DropBoard finalBoard = board;
                     Platform.runLater(() -> finalBoard.takeCardAction(ModelService.getInstance().getPlayerList().get(playerIndex)
-                    , ModelService.getInstance().getRotatingCardList()[playerIndex]));
+                            , ModelService.getInstance().getRotatingCardList()[playerIndex], false, selectedCard));
+                    System.out.println("***************** Item List **************************    " + playerIndex);
+                    for (Resource item : ModelService.getInstance().getPlayerList().get(playerIndex).getCurrentResources()) {
+                        System.out.println(item.getName());
+                    }
                     ModelService.getInstance().removeFromRotatingCardList(playerIndex, selectedCard);
+                    System.out.println("!!!!!!For player" + playerIndex);
+                    for (Card c :  ModelService.getInstance().getRotatingCardList()[playerIndex] )
+                        System.out.println(c.getName());
                 }
             }
         } catch (IOException e) {

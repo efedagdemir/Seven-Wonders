@@ -52,7 +52,7 @@ public class ClientControllerFacade {
     }
     public void takeAction(DragEvent e) {
 
-          ServerControllerFacade.getInstance().determineCardAction((DropBoard) e.getGestureTarget());
+         ServerControllerFacade.getInstance().determineCardAction((DropBoard) e.getGestureTarget(), ClientControllerFacade.getInstance().selectedCard);
 //        ModelService.getInstance().removeFromRotatingCardList();
 
     }

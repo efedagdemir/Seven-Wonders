@@ -211,7 +211,4 @@ public class MainMenuPane extends BorderPane {
         }
     }
 
-    /*public static MainMenuPane getInstance() {
-        return mainMenu;
-    }*/
 }

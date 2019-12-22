@@ -1,7 +1,9 @@
 package Client;
 
 import Client.ClientController.ClientRequest;
+import Client.ClientController.ViewCommander;
 import Client.view.GameView;
+import Server.ServerController.GameInitializer;
 import Server.ServerController.ServerReply;
 import Server.model.*;
 import com.google.gson.Gson;
@@ -25,6 +27,8 @@ public class ClientManager {
     private Socket socket;
     private ClientRequest request;
     private List<String> messages;
+    Player leftNeighbor;
+    Player rightNeighbor;
 
     private Player leftNeighbor;
     private Player rightNeighbor;
@@ -61,6 +65,18 @@ public class ClientManager {
                     cards = s.getRotatingCardList();
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                 }
+                if (tosend == 2) {
+                    System.out.println("communicateServer in ClientManager");
+                    Thread.sleep(100);
+//                    System.out.println("ClientThread");
+                    ServerReply s = getReply();
+                    if( player == null)
+                        this.player = s.getPlayer();
+                    Player player = s.getPlayer();
+                    leftNeighbor = s.getLeftNeighbor();
+                    rightNeighbor = s.getRightNeighbor();
+                    ViewCommander.getInstance().showConflictScreen(player, leftNeighbor, rightNeighbor);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,7 +99,7 @@ public class ClientManager {
         //updateInfoPane(player,);
     }
 
-    public static Gson setGsonTypes() {
+    public static  Gson setGsonTypes() {
         RuntimeTypeAdapterFactory<Item> itemAdapterFactory = RuntimeTypeAdapterFactory.of(Item.class, "Item")
                 .registerSubtype(Coin.class, "Coin")
                 .registerSubtype(MilitaryPower.class, "MilitaryPower")
@@ -102,8 +118,15 @@ public class ClientManager {
                 .registerSubtype(Guild.class, "Guild")
                 .registerSubtype(ScientificStructure.class, "ScientificStructure");
 
+        RuntimeTypeAdapterFactory<Age> ageAdapterFactory = RuntimeTypeAdapterFactory.of(Age.class, "Age")
+                .registerSubtype(AgeI.class, "AgeI")
+                .registerSubtype(AgeII.class, "AgeII")
+                .registerSubtype(AgeIII.class, "AgeIII");
+
+
         return new GsonBuilder().registerTypeAdapterFactory(itemAdapterFactory)
                 .registerTypeAdapterFactory(cardAdapterFactory)
+                .registerTypeAdapterFactory(ageAdapterFactory)
                 .create();
     }
 
@@ -118,11 +141,12 @@ public class ClientManager {
 
     }
 
-    public Card[] getCards() {
-        return cards;
-    }
     public void setCards(Card[] cards) {
         this.cards = cards;
+    }
+
+    public Card[] getCards() {
+        return cards;
     }
 
     public Player getPlayer() {

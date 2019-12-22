@@ -36,6 +36,7 @@ public class MilitaryStructure extends Card {
             currentPlayer.updateHand(this);
             currentPlayer.updateMilitaryPower(militaryItem.getNoOfItems());
             currentPlayer.updateFreeStructures(providedStructure);
+            ModelService.getInstance().removeFromRotatingCardList(cards);
             return true;
         } else {
             if (currentPlayer.checkRequirements(requiredStructure, requiredProducts, null)) {

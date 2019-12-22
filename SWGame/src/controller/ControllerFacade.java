@@ -1,5 +1,6 @@
 package controller;
 
+import Client.ClientController.ClientControllerFacade;
 import Client.view.DropBoard;
 import Client.view.GameView;
 import Client.view.MainMenuPane;
@@ -11,8 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.input.DragEvent;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class ControllerFacade {
     private static final ControllerFacade controllerFacade = new ControllerFacade();
@@ -48,7 +47,7 @@ public class ControllerFacade {
 
     public void takeAction(DragEvent e) {
 
-        ActionManager.getInstance().determineCardAction((DropBoard) e.getGestureTarget());
+        ActionManager.getInstance().determineCardAction((DropBoard) e.getGestureTarget(), ClientControllerFacade.getInstance().getSelectedCard());
 //        ModelService.getInstance().removeFromRotatingCardList();
 
     }
