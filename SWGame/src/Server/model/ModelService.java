@@ -200,10 +200,12 @@ public class ModelService {
 
     public void changeAge(Player p, Age age ){
         if (age instanceof AgeI) {
+            p.currentAge = new AgeII();
             currentAge = new AgeII();
             currentAge.createDeck(3);
         }
-        if (age instanceof AgeII) {
+        else if (age instanceof AgeII) {
+            p.currentAge = new AgeIII();
             currentAge = new AgeIII();
             currentAge.createDeck(3);
         }

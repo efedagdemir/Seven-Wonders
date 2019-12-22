@@ -113,10 +113,6 @@ public class ClientHandler extends Thread {
                     }
 
 
-                    System.out.println("***************** Item List **************************    " + playerIndex);
-                    for (Resource item : ModelService.getInstance().getPlayerList().get(playerIndex).getCurrentResources()) {
-                        System.out.println(item.getName());
-                    }
                     ModelService.getInstance().removeFromRotatingCardList(playerIndex, selectedCard);
                     System.out.println("!!!!!!For player" + playerIndex);
                     for (Card c :  ModelService.getInstance().getRotatingCardList()[playerIndex] )
