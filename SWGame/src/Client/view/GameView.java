@@ -3,6 +3,7 @@ package Client.view;
 import Server.model.Card;
 import Server.model.Player;
 import Server.model.WonderBoard;
+import com.sun.tools.javac.Main;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.media.MediaPlayer;
@@ -48,7 +49,7 @@ public class GameView {
 
 
     public void showMainMenu() {
-        MainMenuPane mainMenu = MainMenuPane.getInstance();
+        MainMenuPane mainMenu = new MainMenuPane(); //MainMenuPane.getInstance();
         scene = new Scene(mainMenu, 1300, 750);
         primaryStage.setScene(scene);
         primaryStage.show();

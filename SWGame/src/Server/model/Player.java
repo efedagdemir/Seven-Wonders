@@ -357,18 +357,20 @@ public class Player {
     }
 
 
-    public void buyResource(Resource resource) {
-        int money = -2;
-        for (int i = 0; i < discountedResources.size(); i++) {
-            if (resource.getResourceName().equals(discountedResources.get(i).getResourceName())) {
-                money = -1;
+    public void buyResource(Resource resource, Player neighbor) {
+        if( currentCoin.noOfItems >= 3){
+            int money = -2;
+            for (int i = 0; i < discountedResources.size(); i++) {
+                if (resource.getResourceName().equals(discountedResources.get(i).getResourceName())) {
+                    money = -1;
+                }
             }
+            neighbor.addCoin(-1 * money);
+            addCoin(money);
+            Resource[] r = new Resource[1];
+            r[0] = resource;
+            updateResources(r);
         }
-        addCoin(money);
-        Resource[] r = new Resource[1];
-        r[0] = resource;
-        updateResources(r);
-
     }
 
 

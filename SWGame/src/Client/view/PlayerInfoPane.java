@@ -6,10 +6,13 @@ import Server.model.ModelService;
 import Server.model.Player;
 import Server.model.Resource;
 import Server.model.ScientificType;
+import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -243,6 +246,18 @@ public class PlayerInfoPane extends BorderPane {
         setCenter(dropBoard);
         bottomBorder.setLeft(freeStGrid);
         bottomBorder.setCenter(resourcesGrid);
+
+        ScrollPane chatPane = new ScrollPane();
+        BorderPane chatBorder = new BorderPane();
+        chatPane.setContent(chatBorder);
+        TextField inputField = new TextField();
+        inputField.setMinWidth(230);
+        chatBorder.setBottom(inputField);
+        chatPane.setMinWidth(250);
+        chatPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        chatPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        bottomBorder.setRight(chatPane);
+
         setLeft(attributeGrid);
         //setCenter(bottomBorder);
         //setCenter(resourcesGrid);
@@ -291,6 +306,8 @@ public class PlayerInfoPane extends BorderPane {
         textileImgView.setFitWidth(25);
         timberImgView.setFitHeight(25);
         timberImgView.setFitWidth(25);
+
+        //setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         rightButtons.getChildren().addAll(readyButton, howToPlayButton);
         //rightButtons.setAlignment(Pos.CENTER);

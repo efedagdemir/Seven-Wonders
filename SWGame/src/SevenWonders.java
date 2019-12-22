@@ -1,6 +1,7 @@
 import Client.ClientController.ClientControllerFacade;
 import Client.view.GameView;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -36,6 +37,7 @@ public class SevenWonders extends Application {
 
         primaryStage.setTitle("Seven Wonders");
         gameView.showMainMenu();
+        primaryStage.getIcons().add(new Image("SWicon.jpg"));
         //add new action play button to pass the other page
         //primaryStage.show();
 
@@ -88,10 +90,9 @@ public class SevenWonders extends Application {
 //    }
     public void music(){
         String s = "bensound-instinct.mp3";
-        //Media h = new Media(Paths.get(s).toUri().toString());
-        //Media h = new Media("file:///C:/Users/efeda/IdeaProjects/CS319-1E-SW/out/production/SWGam e/bensound-instinct.mp3");
-        //mediaPlayer = new MediaPlayer(h);
-        //mediaPlayer.play();
+        Media h = new Media(Paths.get(s).toUri().toString());
+        mediaPlayer = new MediaPlayer(h);
+        mediaPlayer.play();
     }
 
 }

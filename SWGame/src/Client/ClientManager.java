@@ -26,6 +26,9 @@ public class ClientManager {
     private ClientRequest request;
     private List<String> messages;
 
+    private Player leftNeighbor;
+    private Player rightNeighbor;
+
 
     public ClientManager(String key) throws IOException {
         KEY = decryptKey(key);
@@ -53,8 +56,8 @@ public class ClientManager {
                     if( player == null)
                         this.player = s.getPlayer();
                     Player player = s.getPlayer();
-                    Player leftNeighbor = s.getLeftNeighbor();
-                    Player rightNeighbor = s.getRightNeighbor();
+                    leftNeighbor = s.getLeftNeighbor();
+                    rightNeighbor = s.getRightNeighbor();
                     cards = s.getRotatingCardList();
                     updateInfoPane(player, cards, leftNeighbor, rightNeighbor);
                 }
@@ -125,6 +128,9 @@ public class ClientManager {
     public Player getPlayer() {
         return player;
     }
+
+    public Player getRightNeighbor() { return rightNeighbor; }
+    public Player getLeftNeighbor() { return leftNeighbor; }
 
 }
 

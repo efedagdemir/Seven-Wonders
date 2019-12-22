@@ -24,9 +24,7 @@ public class ClientHandler extends Thread {
     private DataOutputStream output;
     int numOfPlayers;
 
-
     boolean ready = false;
-
 
     public ClientHandler(DataInputStream input,
                          DataOutputStream output,

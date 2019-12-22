@@ -31,8 +31,8 @@ public class GamePane extends BorderPane {
         playerInfoPane = new PlayerInfoPane(player);
         System.out.println("GAME");
         cardActionPane = new CardActionPane(cards);
-        resourcePaneLeft = new ResourcePane();
-        resourcePaneRight = new ResourcePane();
+        resourcePaneLeft = new ResourcePane(0,playerInfoPane );
+        resourcePaneRight = new ResourcePane(1,playerInfoPane);
         setPrefSize(1300, 750);
         setTop(allOpponentsPane);
         setBottom(playerInfoPane);

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ServerManager {
 
-    private final int NUM_OF_PLAYERS = 2;
+    private final int NUM_OF_PLAYERS = 1;
     private final int PORT = 5346;
     private int counter = 0;
     private ServerSocket serverSocket;
