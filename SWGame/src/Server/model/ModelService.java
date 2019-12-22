@@ -22,7 +22,7 @@ public class ModelService {
     int cardLength;
     private Player chosenPlayer;
     private Player swappedPlayer;
-
+    public boolean endGame = false;
 
     private ModelService() {
         cardLength = 7;
@@ -214,6 +214,9 @@ public class ModelService {
             currentAge.createDeck(3);
             if (currentAge.cardDeck == null)
                 System.out.println("ChangeAge ------ for age 3null geldi");
+        }
+        else{
+            endGame = true;
         }
     }
     /*

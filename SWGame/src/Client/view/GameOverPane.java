@@ -24,24 +24,21 @@ public class GameOverPane extends BorderPane {
     Label firstPlaceLabel;
     Label secondPlaceLabel;
     Label thirdPlaceLabel;
-    String firstPlacePoints;
-    String secondPlacePoints;
-    String thirdPlacePoints;
     Button menuButton;
     VBox box;
     Image bgimage;
     ModelService modelService = ModelService.getInstance();
 
-    public GameOverPane(){
+    public GameOverPane(Player current, Player left, Player right){
         ArrayList<Player> playerList = modelService.getPlayerList();
         /*ArrayList<int> points = new ArrayList<int>();
         points.add(0, playerList.get(0).getFinalPoint());
         points.add( 1, playerList.get(1).getFinalPoint());
         points.add( 2);*/
 
-        int highest = playerList.get(0).getFinalPoint();
-        int lowest = playerList.get(1).getFinalPoint();
-        int middle = playerList.get(2).getFinalPoint();
+        int highest = current.getFinalPoint();
+        int lowest = left.getFinalPoint();
+        int middle = right.getFinalPoint();
         int lowestPl = 0;
         int middlePl = 0;
         int highestPl = 0;
@@ -63,9 +60,9 @@ public class GameOverPane extends BorderPane {
             }
         }
 
-        firstPlaceLabel   = new Label("Player " + highestPl + 1 + " is the WINNER with "    + highest + firstPlacePoints  + " points!");
-        secondPlaceLabel  = new Label("Player " + middlePl  + 1 + " is placed second with " + middle  + secondPlacePoints + " points");
-        thirdPlaceLabel   = new Label("Player " + lowestPl  + 1 + " is placed third with "  + lowest  + thirdPlacePoints  + " points");
+        firstPlaceLabel   = new Label("Player " + (highestPl + 1) + " is the WINNER with "    + highest  + " points!");
+        secondPlaceLabel  = new Label("Player " + (middlePl  + 1) + " is placed second with " + middle   + " points");
+        thirdPlaceLabel   = new Label("Player " + (lowestPl  + 1) + " is placed third with "  + lowest   + " points");
 
         //BackgroundSize bgsize = new BackgroundSize(1280, 770, false, false,  false, false);
 
@@ -92,6 +89,7 @@ public class GameOverPane extends BorderPane {
         thirdPlaceLabel.setFont(Font.font(null, FontWeight.EXTRA_BOLD, 30));
         thirdPlaceLabel.setTextAlignment(TextAlignment.CENTER);
         thirdPlaceLabel.setStyle("-fx-text-fill: #000000;");
+
 
 
         //firstPlaceLabel.set

@@ -35,6 +35,7 @@ public class ViewManipulator {
       //  gameView.showConflictScreen(playerList);
     }
 
+
     void notifyCredits() {
         gameView.showCredits();
     }
@@ -48,7 +49,7 @@ public class ViewManipulator {
     }
 
     void notifyGameOverPane(ArrayList<Player> playerList) {
-        gameView.showGameOverPane();
+        //gameView.showGameOverPane();
     }
 
     void notifyGameBorderPane(Player player) {

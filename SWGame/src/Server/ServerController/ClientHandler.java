@@ -25,6 +25,7 @@ public class ClientHandler extends Thread {
     int numOfPlayers;
     public boolean nextAge = false;
     boolean ready = false;
+    public boolean endPane = false;
 
 
     public ClientHandler(DataInputStream input,
@@ -52,6 +53,7 @@ public class ClientHandler extends Thread {
     }
 
     public void update() throws IOException {
+        if (ModelService.getInstance().getPlayerList().get(playerIndex) == null) System.out.println("................UPDATTE NULL");
         ServerReply serverReply = new ServerReply(playerIndex);
         output.writeUTF(ClientManager.setGsonTypes().toJson(serverReply));
     }
@@ -69,6 +71,12 @@ public class ClientHandler extends Thread {
         output.writeInt(1);
     }
 
+    public void openEndPane() throws InterruptedException, IOException {
+        Thread.sleep(200);
+        System.out.println("openEndPane in ClientHandler");
+        output.writeInt(3);
+    }
+
     @Override
     public void run() {
         try {
@@ -76,17 +84,26 @@ public class ClientHandler extends Thread {
                 ClientRequest request = getRequest();
                 if (request != null) {
                     System.out.println("-------TAKEN CARD CLIENTHANDLER:  " + request.getCard().getName());
-
                     String boardClass = request.getOperation();
                     DropBoard board = null;
                     if (boardClass.equals("nextAge")){
                         setNextAge(true);
                         ready = false;
+                        endPane = false;
                         System.out.println("ClientHandlerdaki ilk if'e geldi mi??");
                     }
+                    else if(ModelService.getInstance().endGame){
+                        System.out.println("********************************** end client handler*********************************************");
+                        setEnd(true);
+                        setNextAge(false);
+                        setReady(false);
+                    }
                     else{
+                        setNextAge(false);
+                        setEnd(false);
                         setReady(true);
                         nextAge = false;
+
                     Card selectedCard = request.getCard();
                     ModelService.getInstance().setSelectedCard(selectedCard);
                     System.out.println(selectedCard.getName());
@@ -129,9 +146,14 @@ public class ClientHandler extends Thread {
                     //request.getSpentToLeft()
                 }
             }
-        } }catch (IOException e) {
+        } }catch (IOException | InterruptedException e) {
 
         }
+    }
+
+    public void setEnd(boolean b) throws IOException, InterruptedException {
+        if(b){openEndPane();}
+        this.endPane = b;
     }
 
     public boolean isReady() {
