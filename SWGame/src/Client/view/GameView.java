@@ -87,7 +87,10 @@ public class GameView {
 
     }
 
-    public void showGameOverPane(ArrayList<Player> playerList) {
+    public void showGameOverPane() {
+        GameOverPane gop = new GameOverPane();
+        Platform.runLater(() -> primaryStage.setScene(new Scene(gop, 1300, 750)));
+        Platform.runLater(() -> primaryStage.show());
     }
 
     public void showGamePane(Player player, Card[] cards, Player left, Player right) throws IllegalStateException {

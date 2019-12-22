@@ -37,6 +37,7 @@ public class MainMenuPane extends BorderPane {
 
     public MainMenuPane() { //previously private
         // new features
+        //Button nextTurnButton = new Button("Next Turn Screen"); //REMOVE THIS!!!!!!!!!!!!!!!
         createGameButton = new Button("Create Game");
         joinGameButton = new Button("Join Game");
         createGameButton.setPrefSize(100, 50);
@@ -80,10 +81,10 @@ public class MainMenuPane extends BorderPane {
         dropShadow.setOffsetX(2.5);
         dropShadow.setOffsetY(2.5);
         dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
-        DropShadow dropShadow2 = new DropShadow();
-        dropShadow2.setRadius(5.0);
-        dropShadow2.setOffsetX(3.0);
-        dropShadow2.setOffsetY(3.0);
+            DropShadow dropShadow2 = new DropShadow();
+            dropShadow2.setRadius(5.0);
+            dropShadow2.setOffsetX(3.0);
+            dropShadow2.setOffsetY(3.0);
        // startButton.setEffect(dropShadow);
         howToPlayButton.setEffect(dropShadow);
         creditsButton.setEffect(dropShadow);
@@ -147,6 +148,11 @@ public class MainMenuPane extends BorderPane {
             GameView.getInstance().primaryStage.setScene(new Scene(cgp, 1300, 750));
 
         });
+
+        /*nextTurnButton.setOnAction(e -> {
+            NextTurnPane ntp = new NextTurnPane();
+            GameView.getInstance().primaryStage.setScene(new Scene(ntp, 1300, 750));
+        });*/
         //end of new features
     }
 
