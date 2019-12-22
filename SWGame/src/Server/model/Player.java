@@ -438,4 +438,7 @@ public class Player {
     public ArrayList<Item> getItemList() {
         return itemList;
     }
+
+    public int getFinalPoint() { return finalPoint; }
+
 }

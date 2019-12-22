@@ -29,7 +29,7 @@ public class ProgressManager {
     public void nextCycle(List<ClientHandler> clientHandlers) throws IOException, InterruptedException {
             int endAge = 0;
             for (ClientHandler c : clientHandlers) {
-                if(ModelService.getInstance().getCardLength() > 1){
+                if(ModelService.getInstance().getCardLength() > 7){
                     c.openGamePage();
                 }
 

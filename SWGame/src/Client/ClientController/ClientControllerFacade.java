@@ -55,6 +55,9 @@ public class ClientControllerFacade {
             ClientRequest request = new ClientRequest(selectedCard, "nextAge");
             clientManager.sendRequest(request);
         }
+        if (event.getTarget() == EndOfAgePane.button && (getClientManager().getPlayer().currentAge.name == "Age 3")){
+            ViewCommander.getInstance().showGameOverPane();
+        }
     }
     public void takeAction(DragEvent e) {
 
