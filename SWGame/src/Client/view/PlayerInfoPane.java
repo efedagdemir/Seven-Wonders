@@ -346,7 +346,7 @@ public class PlayerInfoPane extends BorderPane {
         Platform.runLater(()->victoryPointAmountLabel.setText("x " + player.getVictoryPoints().getNoOfItems()));
         Platform.runLater(()->militaryPowerAmountLabel.setText("x " + player.getMilitaryPower().getNoOfItems()));
         Platform.runLater(()->cogStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Cog", player)));
-        Platform.runLater(()-> rulerStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Ruler", player)));
+        Platform.runLater(()->rulerStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Ruler", player)));
         Platform.runLater(()->tombStructAmountLabel.setText("x " + getNumOfThisTypeOfStructure("Tomb", player)));
         Platform.runLater(()->clayAmountLabel.setText("x " + getNumOfResource("Clay", player)));
         Platform.runLater(()->glassAmountLabel.setText("x " + getNumOfResource("Glass", player)));

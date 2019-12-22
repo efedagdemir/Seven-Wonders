@@ -42,8 +42,8 @@ public class ViewCommander {
         gameView.showUpdatedWonderPane(wonders);
     }
 
-    void showGameOverPane(ArrayList<Player> playerList) {
-        gameView.showGameOverPane(playerList);
+    void showGameOverPane() {
+        gameView.showGameOverPane();
     }
 
     void showGameScreen(Player player) {
