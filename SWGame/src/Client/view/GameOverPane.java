@@ -26,7 +26,7 @@ public class GameOverPane extends BorderPane {
 
         ArrayList<Player> playerList = modelService.getPlayerList();
 
-        int highest = playerList.get(0).getFinalPoint();
+        /*int highest = playerList.get(0).getFinalPoint();
         int lowest = playerList.get(0).getFinalPoint();
         int middle = playerList.get(0).getFinalPoint();
         int lowestPl = 0;
@@ -60,6 +60,6 @@ public class GameOverPane extends BorderPane {
         t3.setTextAlignment(TextAlignment.CENTER);
         box.getChildren().addAll( t1, t2, t3);
         setCenter(box);
-        box.setAlignment(Pos.CENTER);
+        box.setAlignment(Pos.CENTER);*/
     }
 }

@@ -35,6 +35,20 @@ public class GamePane extends BorderPane {
         resourcePaneLeft = new ResourcePane(0,playerInfoPane );
         resourcePaneRight = new ResourcePane(1,playerInfoPane);
         setPrefSize(1300, 750);
+        ClientManager client = ClientControllerFacade.getInstance().getClientManager();
+        WonderStage[] wonderStages = client.getPlayer().getWonder().getWonderStages();
+        for ( int i = 0; i < wonderStages.length; i++){
+            if (i == 0 && wonderStages[i].isBuilt()){
+                cardActionPane.getWonder1().setStyle("-fx-background-color: #" +
+                        "800606");
+            }
+            if (i == 1 && wonderStages[i].isBuilt()){
+                cardActionPane.getWonder2().setStyle("-fx-background-color: #800606");
+            }
+            if (i == 2 && wonderStages[i].isBuilt()){
+                cardActionPane.getWonder3().setStyle("-fx-background-color: #800606");
+            }
+        }
         setTop(allOpponentsPane);
         setBottom(playerInfoPane);
         setLeft(resourcePaneLeft);

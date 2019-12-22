@@ -26,7 +26,7 @@ public class ActionManager {
 
     public void determineCardAction(DropBoard db, Card selectedCard) {
         ClientManager client = ClientControllerFacade.getInstance().getClientManager();
-        Platform.runLater(() -> db.takeCardAction(client.getPlayer(), client.getCards(), true, selectedCard));
+        Platform.runLater(() -> db.takeCardAction(client.getPlayer(), client.getCards(), true, selectedCard,false));
 
     }
 }

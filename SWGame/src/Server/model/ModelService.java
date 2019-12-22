@@ -52,10 +52,10 @@ public class ModelService {
         return rotatingCardList[numberOfPlayers - 1].length;
     }
 
-    public boolean constructCard(Player player, Card[] cards, Card selectedCard) {
+    public boolean constructCard(Player player, Card[] cards, Card selectedCard, boolean taken) {
         if (selectedCard != null){
 
-            return selectedCard.constructCard(player, cards);
+            return selectedCard.constructCard(player, cards,taken);
         }
         return false;
     }
@@ -113,9 +113,6 @@ public class ModelService {
         ClientControllerFacade.getInstance().getClientManager().setCards(rotatingCardList);
         System.out.println(rotatingCardList.length);
         System.out.println("removed");
-//        ImageView iv = new ImageView();
-//        iv.setImage(new Image(selectedCard.getName() + ".png"));
-//        iv.setManaged(false);
         selectedCard = null;
     }
 
@@ -145,7 +142,7 @@ public class ModelService {
 //        ImageView iv = new ImageView();
 //        iv.setImage(new Image(selectedCard.getName() + ".png"));
 //        iv.setManaged(false);
-        selectedCard = null;
+         selectedCard = null;
     }
 
     /*
@@ -265,8 +262,8 @@ public class ModelService {
         player.wonder.riskBuildWonderStage();
     }
 
-    public boolean buildWonder(Player player, Card[] cards, Card selectedCard) {
-        if(player.wonder.buildWonderStage(player)){
+    public boolean buildWonder(Player player, Card[] cards, Card selectedCard, boolean taken) {
+        if(player.wonder.buildWonderStage(player,taken)){
             removeFromRotatingCardList(cards);
             return true;
         }

@@ -52,6 +52,8 @@ public class AgeII extends Age {
         cardDeck.add(Statue);
         Risk COIN_VIRUS1 = new Risk("risk.png", Risk.RiskEnum.COIN_VIRUS);
         cardDeck.add(COIN_VIRUS1);
+        Risk COIN_VIRUS2 = new Risk("risk.png", Risk.RiskEnum.COIN_VIRUS);
+        cardDeck.add(COIN_VIRUS2);
         //Commercial Structure
         CommercialStructure Bazar = new CommercialStructure(4 , 0, null, null, true, true, null, "bazar.png", "Bazar");
         cardDeck.add(Bazar);
@@ -109,6 +111,7 @@ public class AgeII extends Age {
 
         cardDeck.add(Laboratory);
         cardDeck.add(School);
+        cardDeck.add(Library);
         //Manufactured Good
         String[]  prGivenP = {"Papyrus"};
         int[] prGivenNo = {1};
@@ -119,14 +122,14 @@ public class AgeII extends Age {
         int[] gwGivenNo = {1};
         String[] gwReqP = {};
         int[] gwReqNo = {};
-        ManufacturedGood GlassWorks = new ManufacturedGood(gwGivenP, gwGivenNo, gwReqP, gwReqNo, "glassworks.png", "Glassworks");
+        //ManufacturedGood GlassWorks = new ManufacturedGood(gwGivenP, gwGivenNo, gwReqP, gwReqNo, "glassworks.png", "Glassworks");
         String[]  lGivenP = {"Textile"};
         int[] lGivenNo = {1};
         String[] lReqP = {};
         int[] lReqNo = {};
         ManufacturedGood Loom = new ManufacturedGood(lGivenP, lGivenNo, lReqP, lReqNo, "loom.png", "Loom");
         cardDeck.add(Press);
-        cardDeck.add(GlassWorks);
+        //cardDeck.add(GlassWorks);
         cardDeck.add(Loom);
     }
 

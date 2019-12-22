@@ -30,8 +30,8 @@ public class WonderBoard {
 //        iv.setImage(image);
     }
 
-    boolean buildWonderStage(Player player) {
-        if(getWonderStages()[wonderLevel - 1].buildWonderStage(player)){
+    boolean buildWonderStage(Player player, boolean taken) {
+        if(getWonderStages()[wonderLevel - 1].buildWonderStage(player,taken)){
             incrementWonderLevel();
             return true;
         }
