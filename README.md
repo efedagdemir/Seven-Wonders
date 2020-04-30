@@ -1,6 +1,7 @@
 # Seven Wonders
 -
-Digital implementation of the widely known board game 7 Wonders. 
+Digital implementation of the widely known board game 7 Wonders.
+
 Group Members (Group 1E)
 -
 * Tuana Türkmen - 21703851
